@@ -76,12 +76,20 @@ body:not(.dark-theme) {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, 
-        rgba(224, 231, 255, 0.9) 0%, 
-        rgba(219, 234, 254, 0.9) 50%, 
-        rgba(239, 246, 255, 0.9) 100%
+        rgba(16, 20, 36, 0.85) 0%, 
+        rgba(24, 28, 44, 0.85) 50%, 
+        rgba(32, 36, 52, 0.85) 100%
     );
     opacity: 0.8;
     z-index: -1;
+}
+
+body:not(.dark-theme) .hero-background {
+    background: linear-gradient(135deg, 
+        rgba(224, 231, 255, 0.92) 0%, 
+        rgba(219, 234, 254, 0.92) 50%, 
+        rgba(239, 246, 255, 0.92) 100%
+    );
 }
 
 .hero-content {
@@ -141,15 +149,62 @@ body:not(.dark-theme) {
     color: var(--primary-color);
 }
 
+.hero-image {
+    position: relative;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.hero-image-container {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease-out;
+    cursor: pointer;
+}
+
 .hero-image img {
     width: 280px;
     height: 280px;
     object-fit: cover;
     object-position: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     border-radius: 4px;
-    position: relative;
-    z-index: 1;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.2s ease-out;
+}
+
+/* 添加光影效果层 */
+.hero-image-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background: linear-gradient(
+        45deg,
+        rgba(255,255,255,0.1) 0%,
+        rgba(255,255,255,0) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hero-image-container:hover::after {
+    opacity: 1;
+}
+
+/* 添加装饰边框 */
+.hero-image-border {
+    position: absolute;
+    inset: -8px;
+    border: 2px solid var(--primary-color);
+    border-radius: 4px;
+    transform: translateZ(-15px);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.hero-image-container:hover .hero-image-border {
+    transform: translateZ(-20px);
+    opacity: 0.8;
 }
 
 .hero-subtitle {
@@ -355,7 +410,7 @@ body:not(.dark-theme) .skills-section {
     transform: rotate(180deg);
 } 
 
-/* 社交链接样式 */
+/* 社交接样式 */
 .social-links {
     margin-top: 2rem;
     display: flex;
@@ -573,3 +628,249 @@ body.dark-theme .dropdown-content {
 body.dark-theme .dropdown-content a:hover {
     background-color: #374151;
 }
+
+/* 流星容器 */
+.shooting-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* 流星样式 */
+.shooting-star {
+    position: absolute;
+    width: 150px;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.8) 0%, 
+        rgba(255, 255, 255, 0.3) 50%, 
+        transparent 100%
+    );
+    opacity: 0;
+    transform: rotate(-45deg);
+    animation: shootingStar 12s linear infinite;
+    animation-delay: var(--delay);
+}
+
+/* 为每个流星设置不同的起始位置和延迟 */
+.shooting-star:nth-child(1) {
+    top: 10%;
+    left: 50%;
+    --delay: 0s;
+}
+
+.shooting-star:nth-child(2) {
+    top: 30%;
+    left: 70%;
+    --delay: 12s;
+}
+
+.shooting-star:nth-child(3) {
+    top: 20%;
+    left: 40%;
+    --delay: 24s;
+}
+
+.shooting-star:nth-child(4) {
+    top: 15%;
+    left: 60%;
+    --delay: 6s;
+}
+
+.shooting-star:nth-child(5) {
+    top: 25%;
+    left: 30%;
+    --delay: 18s;
+}
+
+.shooting-star:nth-child(6) {
+    top: 35%;
+    left: 55%;
+    --delay: 30s;
+}
+
+/* 暗色模式下的流星效果调整 */
+body.dark-theme .shooting-star {
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.6) 0%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        transparent 100%
+    );
+}
+
+/* 流星动画关键帧 */
+@keyframes shootingStar {
+    0% {
+        transform: translateX(0) translateY(0) rotate(-45deg);
+        opacity: 0;
+    }
+    1% {
+        opacity: 0.3;
+    }
+    5% {
+        opacity: 1;
+    }
+    15% {
+        opacity: 1;
+    }
+    20% {
+        transform: translateX(-500px) translateY(500px) rotate(-45deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(-500px) translateY(500px) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
+/* 添加星河背景 */
+.starry-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 50px 160px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 130px 80px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 160px 120px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 200px 150px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 220px 180px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 240px 200px, #ffffff, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 250px 250px;
+    animation: twinkle 4s ease-in-out infinite alternate;
+    opacity: 0.3;
+}
+
+.stars:nth-child(2) {
+    background-position: 125px 125px;
+    animation-delay: -2s;
+    opacity: 0.4;
+}
+
+.stars:nth-child(3) {
+    background-position: -125px -125px;
+    animation-delay: -4s;
+    opacity: 0.35;
+}
+
+/* 星星闪烁动画 */
+@keyframes twinkle {
+    0% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
+
+/* 调整暗色模式下的星河效果 */
+body.dark-theme .stars {
+    opacity: 0.6;
+}
+
+body.dark-theme .stars:nth-child(2) {
+    opacity: 0.5;
+}
+
+body.dark-theme .stars:nth-child(3) {
+    opacity: 0.45;
+}
+
+/* 调整流星效果 */
+.shooting-star:nth-child(7) {
+    top: 40%;
+    left: 45%;
+    --delay: 9s;
+}
+
+.shooting-star:nth-child(8) {
+    top: 18%;
+    left: 65%;
+    --delay: 21s;
+}
+
+/* 优化流星动画 */
+@keyframes shootingStar {
+    0% {
+        transform: translateX(0) translateY(0) rotate(-45deg);
+        opacity: 0;
+    }
+    1% {
+        opacity: 0.3;
+    }
+    5% {
+        opacity: 0.8;
+    }
+    15% {
+        opacity: 0.8;
+    }
+    20% {
+        transform: translateX(-500px) translateY(500px) rotate(-45deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(-500px) translateY(500px) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
+/* 添加新的流星位置和延迟 */
+.shooting-star:nth-child(9) {
+    top: 28%;
+    left: 35%;
+    --delay: 15s;
+}
+
+.shooting-star:nth-child(10) {
+    top: 22%;
+    left: 75%;
+    --delay: 27s;
+}
+
+.shooting-star:nth-child(11) {
+    top: 45%;
+    left: 25%;
+    --delay: 3s;
+}
+
+.shooting-star:nth-child(12) {
+    top: 12%;
+    left: 85%;
+    --delay: 33s;
+}
+
+/* 调整所有流星的延迟时间分布，使其更均匀 */
+.shooting-star:nth-child(1) { --delay: 0s; }
+.shooting-star:nth-child(2) { --delay: 12s; }
+.shooting-star:nth-child(3) { --delay: 24s; }
+.shooting-star:nth-child(4) { --delay: 6s; }
+.shooting-star:nth-child(5) { --delay: 18s; }
+.shooting-star:nth-child(6) { --delay: 30s; }
+.shooting-star:nth-child(7) { --delay: 9s; }
+.shooting-star:nth-child(8) { --delay: 21s; }
+.shooting-star:nth-child(9) { --delay: 15s; }
+.shooting-star:nth-child(10) { --delay: 27s; }
+.shooting-star:nth-child(11) { --delay: 3s; }
+.shooting-star:nth-child(12) { --delay: 33s; }

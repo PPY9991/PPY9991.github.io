@@ -1,16 +1,16 @@
 // 打字效果初始化
 document.addEventListener('DOMContentLoaded', function() {
-    // 初始化主题
+    // 初始化主题 - 默认使用暗黑模式
     function initTheme() {
-        const savedTheme = localStorage.getItem('theme');
+        const savedTheme = localStorage.getItem('theme') || 'dark'; // 默认为 dark
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = themeToggle.querySelector('i');
         
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-        }
+        // 强制应用暗黑模式
+        document.body.classList.add('dark-theme');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'dark');
         
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-theme');
@@ -39,15 +39,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // 语言切换功能
     function initLanguageSwitch() {
         const langBtns = document.querySelectorAll('.lang-btn');
-        const defaultLang = localStorage.getItem('language') || 'zh';
+        const defaultLang = localStorage.getItem('language') || 'en'; // 默认为 en
         
-        // 初始化语言
-        setLanguage(defaultLang);
+        // 初始化语言为英文
+        setLanguage('en');
+        localStorage.setItem('language', 'en');
         
-        // 设置按钮激活状态
+        // 设置英文按钮为激活状态
         langBtns.forEach(btn => {
-            if (btn.dataset.lang === defaultLang) {
+            if (btn.dataset.lang === 'en') {
                 btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
             }
             
             btn.addEventListener('click', () => {
@@ -95,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const skillDescriptions = document.querySelectorAll('.skill-description');
         skillDescriptions.forEach(desc => {
             const skillType = desc.closest('.skill-item').querySelector('span').textContent.toLowerCase();
-            const key = skillType.split('/')[0]; // 处理 "JavaScript/TypeScript" 的���况
+            const key = skillType.split('/')[0]; // 处理 "JavaScript/TypeScript" 的情况
             if (translations[lang].skills.descriptions[key]) {
                 desc.textContent = translations[lang].skills.descriptions[key];
             }
@@ -154,4 +157,51 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('复制失败:', err);
         }
     });
+
+    // 修改头像 3D 倾斜效果
+    function initImageTilt() {
+        const imageContainer = document.querySelector('.hero-image-container');
+        const image = imageContainer.querySelector('img');
+        
+        let rect = imageContainer.getBoundingClientRect();
+        const height = rect.height;
+        const width = rect.width;
+        
+        imageContainer.addEventListener('mousemove', (e) => {
+            rect = imageContainer.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            const xRotation = 12 * ((mouseY - height / 2) / height);
+            const yRotation = -12 * ((mouseX - width / 2) / width);
+            
+            const transform = `
+                perspective(1000px)
+                rotateX(${xRotation}deg)
+                rotateY(${yRotation}deg)
+                scale3d(1.03, 1.03, 1.03)
+            `;
+            
+            imageContainer.style.transform = transform;
+            
+            const shadowX = (mouseX - width / 2) / 35;
+            const shadowY = (mouseY - height / 2) / 35;
+            image.style.boxShadow = `
+                ${shadowX}px ${shadowY}px 15px rgba(0,0,0,0.15),
+                ${shadowX * 0.5}px ${shadowY * 0.5}px 8px rgba(0,0,0,0.08)
+            `;
+        });
+        
+        imageContainer.addEventListener('mouseleave', () => {
+            imageContainer.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            image.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+        });
+        
+        window.addEventListener('resize', () => {
+            rect = imageContainer.getBoundingClientRect();
+        });
+    }
+
+    // 初始化头像倾斜效果
+    initImageTilt();
 }); 

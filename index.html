@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,13 +16,13 @@
     <nav class="navbar">
         <div class="nav-logo">MyTech</div>
         <div class="lang-switch">
+            <button class="lang-btn active" data-lang="en">EN</button>
             <button class="lang-btn" data-lang="zh">中</button>
-            <button class="lang-btn" data-lang="en">EN</button>
         </div>
         <div class="nav-links">
             <a href="#home" data-i18n="nav.home">首页</a>
             <a href="#skills" data-i18n="nav.skills">技能</a>
-            <a href="#projects" data-i18n="nav.projects">项目</a>
+            <a href="#projects" data-i18n="nav.projects">项��</a>
             <div class="contact-dropdown">
                 <a href="#" class="contact-btn" data-i18n="nav.contact">联系</a>
                 <div class="dropdown-content">
@@ -45,6 +45,25 @@
     <!-- 个人简介部分 -->
     <section id="home" class="hero">
         <div class="hero-background"></div>
+        <div class="starry-background">
+            <div class="stars"></div>
+            <div class="stars"></div>
+            <div class="stars"></div>
+        </div>
+        <div class="shooting-stars">
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+        </div>
         <div class="hero-content">
             <div class="hero-text" style="flex: 2;">
                 <h1><span data-i18n="hero.greeting">你好, 我是</span> 
@@ -76,7 +95,10 @@
                 </div>
             </div>
             <div class="hero-image" style="flex: 1;">
-                <img src="images/buraien.jpg" alt="个人照片">
+                <div class="hero-image-container">
+                    <img src="images/buraien.jpg" alt="个人照片">
+                    <div class="hero-image-border"></div>
+                </div>
             </div>
         </div>
     </section>
