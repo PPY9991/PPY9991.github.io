@@ -18,6 +18,11 @@ const translations = {
             title: '我的技能',
             languages: '编程语言',
             devSkills: '开发技能',
+            categories: {
+                database: '数据库',
+                cloud: '云服务',
+                tools: '开发工具'
+            },
             descriptions: {
                 java: 'Spring Boot, Maven, JUnit, 微服务架构',
                 python: 'Django, Flask, NumPy, Pandas, 数据分析',
@@ -25,7 +30,7 @@ const translations = {
                 go: 'Gin, gRPC, 并发编程',
                 devops: 'Docker, Kubernetes, CI/CD, Jenkins',
                 database: 'MySQL, Redis, MongoDB, PostgreSQL',
-                cloud: 'AWS, 阿里云, 腾讯云',
+                cloud: 'AWS, Alibaba Cloud, Tencent Cloud',
                 tools: 'Git, VS Code, IDEA, Postman'
             }
         }
@@ -40,8 +45,8 @@ const translations = {
         hero: {
             greeting: "Hi, I'm",
             role: 'Full Stack Developer',
-            description1: 'Passionate about programming and creation, focused on building high-quality web applications',
-            description2: '4 years of development experience, specialized in full-stack development and system architecture',
+            description1: 'Passionate about coding and creation, focused on high-quality Web applications',
+            description2: '4 years of development experience, skilled in full-stack development and system architecture',
             viewSkills: 'View Skills',
             contactMe: 'Contact Me'
         },
@@ -51,7 +56,6 @@ const translations = {
             devSkills: 'Development Skills',
             categories: {
                 database: 'Database',
-                devops: 'DevOps',
                 cloud: 'Cloud Services',
                 tools: 'Development Tools'
             },
