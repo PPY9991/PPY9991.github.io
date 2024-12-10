@@ -1,74 +1,184 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>趣味问答</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        .question-container {
-            margin: 20px auto;
-            width: 300px;
-            text-align: left;
-        }
-        .result {
-            font-size: 24px;
-            color: #ff5733;
-            margin-top: 20px;
-        }
-    </style>
+    <title>我的个人博客</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dark-theme.css">
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
-    <h1>趣味问答</h1>
-    <div id="question-container" class="question-container">
-        <p id="question-text"></p>
-        <button onclick="answerQuestion('Yes')">Yes</button>
-        <button onclick="answerQuestion('No')">No</button>
-    </div>
-    <div id="result" class="result" style="display: none;"></div>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-logo">MyTech</div>
+        <div class="lang-switch">
+            <button class="lang-btn" data-lang="zh">中</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <div class="nav-links">
+            <a href="#home" data-i18n="nav.home">首页</a>
+            <a href="#skills" data-i18n="nav.skills">技能</a>
+            <a href="#projects" data-i18n="nav.projects">项目</a>
+            <div class="contact-dropdown">
+                <a href="#" class="contact-btn" data-i18n="nav.contact">联系</a>
+                <div class="dropdown-content">
+                    <a href="https://github.com/PPY9991" target="_blank">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="#" class="copy-email">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email</span>
+                    </a>
+                </div>
+            </div>
+            <button id="theme-toggle" class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
 
-    <script>
-        const questions = [
-            "你喜欢吃水果吗？",
-            "你每天喝水么？",
-            "你喜欢猫么？",
-            "你是男生么？",
-            "你是女生么？",
-            "你更喜欢海边么？",
-            "你吃早餐了吗？",
-            "你喜欢喝咖啡么？",
-            "你最近有没有运动？",
-            "你喜欢夏天么？"
-        ];
+    <!-- 个人简介部分 -->
+    <section id="home" class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="hero-text" style="flex: 2;">
+                <h1><span data-i18n="hero.greeting">你好, 我是</span> 
+                <span class="highlight">PPY</span></h1>
+                <p class="hero-subtitle" data-i18n="hero.role">全栈开发工程师</p>
+                <p class="hero-description">
+                    <span data-i18n="hero.description1">热爱编程与创造，专注于��高质量的 Web 应用</span>
+                    <br><span data-i18n="hero.description2">4年开发经验，擅长全栈开发与系统架构设计</span>
+                </p>
+                <div class="cta-buttons">
+                    <a href="#skills" class="btn primary" data-i18n="hero.viewSkills">查看技能</a>
+                    <a href="#contact" class="btn secondary" data-i18n="hero.contactMe">联系我</a>
+                </div>
+                <div class="social-links">
+                    <div class="social-link github-container" id="githubBtn">
+                        <i class="fab fa-github"></i>
+                        <span class="github-tooltip">
+                            <span class="github-text">GitHub: PPY9991</span>
+                            <span class="tooltip-hint">点击访问</span>
+                        </span>
+                    </div>
+                    <div class="social-link email-container" id="emailBtn">
+                        <i class="fas fa-envelope"></i>
+                        <span class="email-tooltip">
+                            <span class="email-text">2764357258@qq.com</span>
+                            <span class="tooltip-hint">点击复制</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image" style="flex: 1;">
+                <img src="images/buraien.jpg" alt="个人照片">
+            </div>
+        </div>
+    </section>
 
-        let currentQuestion = 0;
-
-        function showQuestion() {
-            if (currentQuestion < questions.length) {
-                document.getElementById("question-text").innerText = questions[currentQuestion];
-            } else {
-                showResult();
-            }
-        }
-
-        function answerQuestion(answer) {
-            // 答案无论如何都忽略，直接进入下一题
-            currentQuestion++;
-            showQuestion();
-        }
-
-        function showResult() {
-            document.getElementById("question-container").style.display = "none";
-            document.getElementById("result").style.display = "block";
-            document.getElementById("result").innerText = "你是一个胖宝宝！";
-        }
-
-        // 初始化
-        showQuestion();
-    </script>
+    <!-- 技能展示部分 -->
+    <section id="skills" class="skills-section">
+        <div class="section-container">
+            <h2 class="section-title" data-i18n="skills.title">我的技能</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 data-i18n="skills.languages">编程语言</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
+                            <div class="skill-info">
+                                <span>Java</span>
+                                <p class="skill-description">Spring Boot, Maven, JUnit, 微服务架构</p>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                            <div class="skill-info">
+                                <span>Python</span>
+                                <p class="skill-description">Django, Flask, NumPy, Pandas, 数据分析</p>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                            <div class="skill-info">
+                                <span>JavaScript/TypeScript</span>
+                                <p class="skill-description">ES6+, Vue.js, React, Node.js, Express</p>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" alt="Go">
+                            <div class="skill-info">
+                                <span>Go</span>
+                                <p class="skill-description">Gin, gRPC, 并发编程</p>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>开发技能</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="DevOps">
+                            <div class="skill-info">
+                                <span>DevOps</span>
+                                <p class="skill-description">Docker, Kubernetes, CI/CD, Jenkins</p>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="数据库">
+                            <div class="skill-info">
+                                <span data-i18n="skills.categories.database">数据库</span>
+                                <p class="skill-description">MySQL, Redis, MongoDB, PostgreSQL</p>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-cloud skill-icon"></i>
+                            <div class="skill-info">
+                                <span data-i18n="skills.categories.cloud">云服务</span>
+                                <p class="skill-description">AWS, 阿里云, 腾讯云</p>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="开发工具">
+                            <div class="skill-info">
+                                <span data-i18n="skills.categories.tools">开发工具</span>
+                                <p class="skill-description">Git, VS Code, IDEA, Postman</p>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
-</html>
+</html> 

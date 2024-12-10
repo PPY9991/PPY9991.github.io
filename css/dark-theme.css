@@ -1,0 +1,79 @@
+body.dark-theme {
+    --primary-color: #60a5fa;
+    --secondary-color: #3b82f6;
+    --text-color: #e5e7eb;
+    --bg-color: #111827;
+}
+
+body.dark-theme .navbar {
+    background-color: #1f2937;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+body.dark-theme .hero-background {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    opacity: 0.9;
+}
+
+body.dark-theme .hero-description {
+    color: #9ca3af;
+}
+
+body.dark-theme .skills-section {
+    background-color: #111827;
+}
+
+body.dark-theme .skill-category {
+    background: #1e293b;
+    border: 1px solid #334155;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.2),
+        0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-theme .skill-category:hover {
+    border-color: var(--primary-color);
+    box-shadow: 
+        0 12px 20px rgba(0, 0, 0, 0.3),
+        0 4px 6px rgba(0, 0, 0, 0.2);
+    background: #1f2937;
+}
+
+body.dark-theme .skill-description {
+    color: #9ca3af;
+}
+
+body.dark-theme .skill-item:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+body.dark-theme .skill-item:hover .skill-description {
+    color: #d1d5db;
+}
+
+body.dark-theme .theme-toggle {
+    color: #e5e7eb;
+}
+
+body.dark-theme .lang-btn {
+    border-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+body.dark-theme .lang-btn:hover,
+body.dark-theme .lang-btn.active {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+body.dark-theme .email-tooltip,
+body.dark-theme .github-tooltip {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+}
+
+body.dark-theme .email-tooltip::before,
+body.dark-theme .github-tooltip::before {
+    border-color: transparent transparent var(--text-color) transparent;
+} 

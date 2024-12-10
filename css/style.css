@@ -1,0 +1,575 @@
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #3b82f6;
+    --text-color: #1f2937;
+    --bg-color: #ffffff;
+    --nav-height: 70px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+    background: var(--bg-color);
+    min-height: 100vh;
+}
+
+/* 日间模式背景 */
+body:not(.dark-theme) {
+    background: linear-gradient(180deg, #e0e7ff 0%, #dbeafe 35%, #eff6ff 70%, #f8fafc 100%);
+}
+
+/* 导航栏样式 */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 1000;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.nav-links a {
+    margin-left: 2rem;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Hero部分样式 */
+.hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    padding-top: var(--nav-height);
+    display: flex;
+    align-items: center;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(224, 231, 255, 0.9) 0%, 
+        rgba(219, 234, 254, 0.9) 50%, 
+        rgba(239, 246, 255, 0.9) 100%
+    );
+    opacity: 0.8;
+    z-index: -1;
+}
+
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero-text {
+    flex: 1.5;
+    padding-right: 4rem;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.highlight {
+    color: var(--primary-color);
+}
+
+.typed-wrapper {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    position: relative;
+    overflow: hidden;
+    padding: 0.8rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn.primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn.secondary {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.hero-image img {
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    object-position: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-subtitle {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4b5563;
+    margin-bottom: 2rem;
+}
+
+.hero-image {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image-decoration {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    top: -8px;
+    right: -8px;
+    left: -8px;
+    bottom: -8px;
+    border-radius: 4px;
+    border: 3px solid var(--primary-color);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* 在现有样式后添加技能部分样式 */
+.skills-section {
+    padding: 4rem 2rem;
+    background: var(--bg-color);
+    position: relative;
+}
+
+/* 日间模式技能部分背景 */
+body:not(.dark-theme) .skills-section {
+    background: linear-gradient(180deg, 
+        rgba(239, 246, 255, 0.8) 0%,
+        rgba(248, 250, 252, 0.9) 100%
+    );
+}
+
+.section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--text-color);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.skill-category {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 
+        0 10px 15px rgba(0, 0, 0, 0.05),
+        0 5px 10px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 25px 30px rgba(0, 0, 0, 0.08),
+        0 10px 15px rgba(0, 0, 0, 0.05);
+    border-color: var(--primary-color);
+    background: #ffffff;
+}
+
+.skill-category h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.skill-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: transparent;
+}
+
+.skill-item:hover {
+    background-color: #f5f7ff;
+    transform: translateX(8px);
+}
+
+.skill-item img,
+.skill-icon {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.9;
+}
+
+.skill-item:hover img,
+.skill-item:hover .skill-icon {
+    transform: scale(1.1);
+    opacity: 1;
+    color: var(--primary-color);
+}
+
+.skill-info {
+    flex: 1;
+    padding: 0.25rem 0;
+}
+
+.skill-info span {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1rem;
+}
+
+.skill-item:hover .skill-info span {
+    color: var(--primary-color);
+}
+
+.skill-description {
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.4;
+    transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-item:hover .skill-description {
+    color: #4b5563;
+}
+
+.skill-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover::after {
+    width: 300%;
+    height: 300%;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: rotate(180deg);
+} 
+
+/* 社交链接样式 */
+.social-links {
+    margin-top: 2rem;
+    display: flex;
+    gap: 2.5rem;
+}
+
+.social-link,
+.email-container,
+.github-container {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.social-link:hover,
+.email-container:hover,
+.github-container:hover {
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.email-tooltip,
+.github-tooltip {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.email-text,
+.github-text {
+    font-weight: 500;
+}
+
+.tooltip-hint {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.email-container:hover .email-tooltip,
+.github-container:hover .github-tooltip {
+    opacity: 1;
+    visibility: visible;
+    bottom: -40px;
+}
+
+/* 添加小箭头 */
+.email-tooltip::before,
+.github-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 5px 5px 5px;
+    border-style: solid;
+    border-color: transparent transparent var(--text-color) transparent;
+}
+
+/* 语言切换按钮样式 */
+.lang-switch {
+    display: flex;
+    gap: 0.5rem;
+    margin-right: auto;
+    margin-left: 2rem;
+}
+
+.lang-btn {
+    background: none;
+    border: 2px solid var(--primary-color);
+    color: var(--text-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.lang-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text {
+        flex: none;
+    }
+
+    .hero-image {
+        flex: none;
+        width: 80%;
+        max-width: 300px;
+    }
+
+    .cta-buttons {
+        justify-content: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}
+
+/* 添加卡片内部装饰 */
+.skill-category::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    border-radius: 1rem 1rem 0 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.skill-category:hover::before {
+    opacity: 1;
+}
+
+/* 联系方式下拉菜单 */
+.contact-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.contact-btn {
+    margin-left: 2rem;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.contact-dropdown:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-content a {
+    color: var(--text-color);
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    margin: 0 !important;
+}
+
+.dropdown-content a:hover {
+    background-color: #f5f7ff;
+    color: var(--primary-color);
+}
+
+.dropdown-content i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+/* 暗黑模式下拉菜单样式 */
+body.dark-theme .dropdown-content {
+    background-color: #1f2937;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+body.dark-theme .dropdown-content a:hover {
+    background-color: #374151;
+}
