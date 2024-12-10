@@ -154,4 +154,50 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('复制失败:', err);
         }
     });
+
+    // 修改移动端菜单控制
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.querySelector('.nav-links');
+    const langSwitch = document.querySelector('.lang-switch');
+
+    menuToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        langSwitch.classList.toggle('active');
+        const icon = menuToggle.querySelector('.fa-bars');
+        if (navLinks.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+
+    // 点击导航链接后自动关闭菜单
+    const navItems = document.querySelectorAll('.nav-links a');
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                navLinks.classList.remove('active');
+                langSwitch.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    });
+
+    // 点击页面其他区域关闭菜单
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 && 
+            !menuToggle.contains(e.target) && 
+            !navLinks.contains(e.target) && 
+            !langSwitch.contains(e.target)) {
+            navLinks.classList.remove('active');
+            langSwitch.classList.remove('active');
+            const icon = menuToggle.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
 }); 

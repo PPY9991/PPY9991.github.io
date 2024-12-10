@@ -1,2 +1,23 @@
-# ppy.github.io
-ppy website
+# 个人技术博客网站
+
+这是一个响应式的个人技术博客网站，支持中英文切换和暗黑模式。
+
+## 功能特点
+
+- 响应式设计，支持移动端和桌面端
+- 中英文语言切换
+- 暗黑模式支持
+- 技能展示
+- 项目展示
+- 社交媒体链接
+- 邮件快速复制
+
+## 技术栈
+
+- HTML5
+- CSS3 (Flexbox & Grid)
+- JavaScript (ES6+)
+- Font Awesome 图标
+- Google Fonts
+
+## 项目结构
