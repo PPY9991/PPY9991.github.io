@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>趣味问答</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .question-container {
+            margin: 20px auto;
+            width: 300px;
+            text-align: left;
+        }
+        .result {
+            font-size: 24px;
+            color: #ff5733;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>趣味问答</h1>
+    <div id="question-container" class="question-container">
+        <p id="question-text"></p>
+        <button onclick="answerQuestion('A')">选项A</button>
+        <button onclick="answerQuestion('B')">选项B</button>
+    </div>
+    <div id="result" class="result" style="display: none;"></div>
+
+    <script>
+        const questions = [
+            "你喜欢吃水果吗？",
+            "你每天喝几杯水？",
+            "你喜欢猫还是狗？",
+            "你的睡眠时间充足吗？",
+            "你今天心情怎么样？",
+            "你更喜欢海边还是山里？",
+            "你吃早餐了吗？",
+            "你喜欢喝咖啡还是茶？",
+            "你最近有没有运动？",
+            "你喜欢夏天还是冬天？"
+        ];
+
+        let currentQuestion = 0;
+
+        function showQuestion() {
+            if (currentQuestion < questions.length) {
+                document.getElementById("question-text").innerText = questions[currentQuestion];
+            } else {
+                showResult();
+            }
+        }
+
+        function answerQuestion(answer) {
+            // 答案无论如何都忽略，直接进入下一题
+            currentQuestion++;
+            showQuestion();
+        }
+
+        function showResult() {
+            document.getElementById("question-container").style.display = "none";
+            document.getElementById("result").style.display = "block";
+            document.getElementById("result").innerText = "你是一个胖宝宝！";
+        }
+
+        // 初始化
+        showQuestion();
+    </script>
+</body>
+</html>
