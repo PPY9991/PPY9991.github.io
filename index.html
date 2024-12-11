@@ -3,30 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PPY's Portfolio</title>
+    <title>PPY's Blog</title>
+    <!-- 外部资源引入 -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dark-theme.css">
-    <script src="js/translations.js"></script>
-    <script src="js/main.js"></script>
 </head>
 <body>
-    <!-- Galaxy Background -->
+    <!-- 星空背景 -->
     <div class="galaxy-background">
         <div class="stars"></div>
         <div class="stars"></div>
         <div class="stars"></div>
-        <div class="shooting-stars">
-            <div class="shooting-star"></div>
-            <div class="shooting-star"></div>
-            <div class="shooting-star"></div>
-            <div class="shooting-star"></div>
-            <div class="shooting-star"></div>
-        </div>
+        <div class="shooting-stars"></div>
     </div>
 
-    <!-- Navigation -->
+    <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-left">
             <div class="nav-logo">PPY</div>
@@ -51,7 +43,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- 主页区域 -->
     <section id="home" class="hero">
         <div class="hero-content">
             <div class="hero-text">
@@ -69,11 +61,11 @@
                     <div class="email-container" title="Copy email">
                         <i class="fas fa-envelope"></i>
                         <div class="email-tooltip">
-                            <span class="email-text">example@email.com</span>
+                            <span class="email-text">ppy@paangbaobao.cn</span>
                         </div>
                     </div>
                     <div class="github-container" title="Visit GitHub">
-                        <a href="https://github.com/PPY9991" target="_blank" rel="noopener noreferrer">
+                        <a href="https://github.com/ppy" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-github"></i>
                             <div class="github-tooltip">
                                 <span data-i18n="contact.github">View GitHub Profile</span>
@@ -83,7 +75,7 @@
                     <div class="wechat-container" title="Copy WeChat ID">
                         <i class="fab fa-weixin"></i>
                         <div class="wechat-tooltip">
-                            <span class="wechat-text">WeChat ID</span>
+                            <span class="wechat-text">ppy</span>
                         </div>
                     </div>
                 </div>
@@ -96,7 +88,7 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- 技能展示区域 -->
     <section id="skills" class="skills-section">
         <div class="section-container">
             <h2 class="section-title" data-i18n="skills.title">Skills</h2>
@@ -105,21 +97,27 @@
                     <h3 data-i18n="skills.languages">Programming Languages</h3>
                     <div class="skill-items">
                         <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
+                            </div>
                             <div class="skill-info">
                                 <span>Java</span>
                                 <p class="skill-description" data-i18n="skills.descriptions.java"></p>
                             </div>
                         </div>
                         <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                            </div>
                             <div class="skill-info">
                                 <span>Python</span>
                                 <p class="skill-description" data-i18n="skills.descriptions.python"></p>
                             </div>
                         </div>
                         <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                            </div>
                             <div class="skill-info">
                                 <span>JavaScript/TypeScript</span>
                                 <p class="skill-description" data-i18n="skills.descriptions.javascript"></p>
@@ -132,36 +130,33 @@
                     <h3 data-i18n="skills.devSkills">Development Skills</h3>
                     <div class="skill-items">
                         <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
+                            </div>
                             <div class="skill-info">
                                 <span>Docker</span>
                                 <p class="skill-description" data-i18n="skills.descriptions.docker"></p>
                             </div>
                         </div>
                         <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="Database">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="Database">
+                            </div>
                             <div class="skill-info">
                                 <span data-i18n="skills.categories.database">Database</span>
                                 <p class="skill-description" data-i18n="skills.descriptions.database"></p>
                             </div>
                         </div>
-                        <div class="skill-item" data-skill="cloud">
-                            <div class="skill-icon">
-                                <img src="images/云服务.png" alt="Cloud Services">
-                            </div>
-                            <div class="skill-info">
-                                <span data-i18n="skills.categories.cloud">Cloud Services</span>
-                                <p class="skill-description" data-i18n="skills.descriptions.cloud"></p>
-                            </div>
-                        </div>
                         <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+                            </div>
                             <div class="skill-info">
                                 <span>Git</span>
                                 <p class="skill-description" data-i18n="skills.descriptions.git"></p>
                             </div>
                         </div>
-                        <div class="skill-item" data-skill="ai">
+                        <div class="skill-item">
                             <div class="skill-icon">
                                 <img src="images/chatgpt.png" alt="AI & ML">
                             </div>
@@ -175,9 +170,14 @@
             </div>
         </div>
     </section>
-    <!-- Back to Top Button -->
+
+    <!-- 返回顶部按钮 -->
     <button class="back-to-top" aria-label="Back to top">
         <i class="fas fa-chevron-up"></i>
     </button>
+
+    <!-- JavaScript文件 -->
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html> 
