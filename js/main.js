@@ -1,207 +1,665 @@
-// 打字效果初始化
-document.addEventListener('DOMContentLoaded', function() {
-    // 初始化主题 - 默认使用暗黑模式
-    function initTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'dark'; // 默认为 dark
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = themeToggle.querySelector('i');
+// 主题管理模块
+const ThemeManager = {
+    init() {
+        this.themeToggle = document.getElementById('theme-toggle');
+        this.body = document.body;
         
-        // 强制应用暗黑模式
-        document.body.classList.add('dark-theme');
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-        localStorage.setItem('theme', 'dark');
+        if (!this.themeToggle) return;
+
+        // 从本地存储加载主题，如果没有则默认使用暗色主题
+        const savedTheme = localStorage.getItem('theme');
+        if (!savedTheme) {
+            localStorage.setItem('theme', 'dark');
+        }
         
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-            if (document.body.classList.contains('dark-theme')) {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                localStorage.setItem('theme', 'light');
-            }
-        });
+        // 应用主题
+        this.body.classList.toggle('dark-theme', savedTheme ? savedTheme === 'dark' : true);
+        
+        // 更新图标
+        this.updateIcon();
+
+        // 绑定事件
+        this.themeToggle.addEventListener('click', () => this.toggleTheme());
+    },
+
+    toggleTheme() {
+        this.body.classList.toggle('dark-theme');
+        const isDark = this.body.classList.contains('dark-theme');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        this.updateIcon();
+    },
+
+    updateIcon() {
+        const isDark = this.body.classList.contains('dark-theme');
+        this.themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
     }
+};
 
-    // 平滑滚动
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
+// 语言管理模块
+const LanguageManager = {
+    init() {
+        this.langToggle = document.getElementById('lang-toggle');
+        if (!this.langToggle) return;
 
-    // 语言切换功能
-    function initLanguageSwitch() {
-        const langBtns = document.querySelectorAll('.lang-btn');
-        const defaultLang = localStorage.getItem('language') || 'en'; // 默认为 en
+        // 从本地存储加载语言设置，如果没有则默认使用英文
+        this.currentLang = localStorage.getItem('language');
+        if (!this.currentLang) {
+            this.currentLang = 'en';
+            localStorage.setItem('language', 'en');
+        }
         
-        // 初始化语言为英文
-        setLanguage('en');
-        localStorage.setItem('language', 'en');
+        // 设置开关状态
+        this.langToggle.checked = this.currentLang === 'zh';
         
-        // 设置英文按钮为激活状态
-        langBtns.forEach(btn => {
-            if (btn.dataset.lang === 'en') {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-            
-            btn.addEventListener('click', () => {
-                const lang = btn.dataset.lang;
-                setLanguage(lang);
-                
-                // 更新按钮状态
-                langBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                // 保存语言偏好
-                localStorage.setItem('language', lang);
-            });
-        });
-    }
+        // 应用语言设置
+        document.documentElement.setAttribute('lang', this.currentLang);
+        this.updateContent();
 
-    function setLanguage(lang) {
+        // 绑定事件
+        this.langToggle.addEventListener('change', () => this.toggleLanguage());
+    },
+
+    toggleLanguage() {
+        this.currentLang = this.langToggle.checked ? 'zh' : 'en';
+        localStorage.setItem('language', this.currentLang);
+        document.documentElement.setAttribute('lang', this.currentLang);
+        this.updateContent();
+    },
+
+    updateContent() {
         const elements = document.querySelectorAll('[data-i18n]');
         elements.forEach(element => {
-            const key = element.dataset.i18n;
-            const translation = getNestedTranslation(translations[lang], key);
+            const key = element.getAttribute('data-i18n');
+            const translation = this.getNestedTranslation(translations[this.currentLang], key);
             if (translation) {
-                element.textContent = translation;
+                if (element.tagName.toLowerCase() === 'meta') {
+                    element.setAttribute('content', translation);
+                } else {
+                    element.textContent = translation;
+                }
             }
         });
-        
-        // 更新按钮文本
-        document.querySelector('.btn.primary').textContent = translations[lang].hero.viewSkills;
-        document.querySelector('.btn.secondary').textContent = translations[lang].hero.contactMe;
-        
+
         // 更新技能描述
-        updateSkillDescriptions(lang);
-        
-        // 更新技能类别标题
-        const skillCategories = document.querySelectorAll('.skill-category h3');
-        skillCategories.forEach(category => {
-            const key = category.textContent.toLowerCase();
-            if (translations[lang].skills.categories && translations[lang].skills.categories[key]) {
-                category.textContent = translations[lang].skills.categories[key];
-            }
-        });
-    }
+        this.updateSkillDescriptions();
+    },
 
-    function updateSkillDescriptions(lang) {
-        const skillDescriptions = document.querySelectorAll('.skill-description');
-        skillDescriptions.forEach(desc => {
-            const skillType = desc.closest('.skill-item').querySelector('span').textContent.toLowerCase();
-            const key = skillType.split('/')[0]; // 处理 "JavaScript/TypeScript" 的情况
-            if (translations[lang].skills.descriptions[key]) {
-                desc.textContent = translations[lang].skills.descriptions[key];
-            }
-        });
-    }
-
-    function getNestedTranslation(obj, path) {
+    getNestedTranslation(obj, path) {
         return path.split('.').reduce((prev, curr) => {
             return prev ? prev[curr] : null;
         }, obj);
-    }
+    },
 
-    // 初始化主题
-    initTheme();
-    // 初始化语言切换
-    initLanguageSwitch();
-
-    // 初始化邮箱复制功能
-    const emailBtn = document.getElementById('emailBtn');
-    const emailText = emailBtn.querySelector('.email-text');
-    const tooltipHint = emailBtn.querySelector('.tooltip-hint');
-
-    // 初始化 GitHub 跳转功能
-    const githubBtn = document.getElementById('githubBtn');
-    githubBtn.addEventListener('click', () => {
-        if (confirm('是否跳转到 GitHub 页面？')) {
-            window.open('https://github.com/PPY9991', '_blank');
-        }
-    });
-
-    emailBtn.addEventListener('click', async () => {
-        try {
-            await navigator.clipboard.writeText(emailText.textContent);
-            const originalText = tooltipHint.textContent;
-            tooltipHint.textContent = '已复制!';
-            setTimeout(() => {
-                tooltipHint.textContent = originalText;
-            }, 2000);
-        } catch (err) {
-            console.error('复制失败:', err);
-        }
-    });
-
-    // 初始化邮箱复制功能（导航栏）
-    const copyEmailBtn = document.querySelector('.copy-email');
-    copyEmailBtn.addEventListener('click', async (e) => {
-        e.preventDefault();
-        try {
-            await navigator.clipboard.writeText('2764357258@qq.com');
-            const originalText = copyEmailBtn.querySelector('span').textContent;
-            copyEmailBtn.querySelector('span').textContent = '已复制!';
-            setTimeout(() => {
-                copyEmailBtn.querySelector('span').textContent = originalText;
-            }, 2000);
-        } catch (err) {
-            console.error('复制失败:', err);
-        }
-    });
-
-    // 修改头像 3D 倾斜效果
-    function initImageTilt() {
-        const imageContainer = document.querySelector('.hero-image-container');
-        const image = imageContainer.querySelector('img');
-        
-        let rect = imageContainer.getBoundingClientRect();
-        const height = rect.height;
-        const width = rect.width;
-        
-        imageContainer.addEventListener('mousemove', (e) => {
-            rect = imageContainer.getBoundingClientRect();
-            const mouseX = e.clientX - rect.left;
-            const mouseY = e.clientY - rect.top;
-            
-            const xRotation = 12 * ((mouseY - height / 2) / height);
-            const yRotation = -12 * ((mouseX - width / 2) / width);
-            
-            const transform = `
-                perspective(1000px)
-                rotateX(${xRotation}deg)
-                rotateY(${yRotation}deg)
-                scale3d(1.03, 1.03, 1.03)
-            `;
-            
-            imageContainer.style.transform = transform;
-            
-            const shadowX = (mouseX - width / 2) / 35;
-            const shadowY = (mouseY - height / 2) / 35;
-            image.style.boxShadow = `
-                ${shadowX}px ${shadowY}px 15px rgba(0,0,0,0.15),
-                ${shadowX * 0.5}px ${shadowY * 0.5}px 8px rgba(0,0,0,0.08)
-            `;
-        });
-        
-        imageContainer.addEventListener('mouseleave', () => {
-            imageContainer.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-            image.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
-        });
-        
-        window.addEventListener('resize', () => {
-            rect = imageContainer.getBoundingClientRect();
+    updateSkillDescriptions() {
+        const skills = document.querySelectorAll('.skill-item');
+        skills.forEach(skill => {
+            const key = skill.getAttribute('data-skill');
+            if (key && translations.skills && translations.skills[key]) {
+                const description = translations.skills[key][this.currentLang];
+                const descElement = skill.querySelector('.skill-description');
+                if (descElement) {
+                    descElement.textContent = description;
+                }
+            }
         });
     }
+};
 
-    // 初始化头像倾斜效果
-    initImageTilt();
+// 头像交互模块
+const AvatarManager = {
+    config: {
+        perspective: 1000,
+        maxTilt: 15,
+        scale: 1.05,
+        transitionDuration: 400,
+        easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
+        throttleInterval: 16,
+        edgeThreshold: 0.15,
+        glareOpacity: 0.15
+    },
+
+    init() {
+        this.avatar = document.querySelector('.hero-image-container');
+        if (!this.avatar) return;
+
+        this.image = this.avatar.querySelector('img');
+        if (!this.image) return;
+
+        this.rect = this.avatar.getBoundingClientRect();
+        this.isHovering = false;
+        this.lastUpdate = 0;
+        this.requestId = null;
+
+        this.bindEvents();
+        this.resetTransform();
+    },
+
+    bindEvents() {
+        this.avatar.addEventListener('mouseenter', (e) => this.handleMouseEnter(e));
+        this.avatar.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+        this.avatar.addEventListener('mouseleave', () => this.handleMouseLeave());
+        window.addEventListener('resize', () => this.updateRect());
+    },
+
+    handleMouseEnter(e) {
+        this.isHovering = true;
+        this.avatar.style.animation = 'none';
+        this.updateRect();
+        const { tiltX, tiltY, distance } = this.calculateTilt(e);
+        this.applyTransform(tiltX, tiltY, distance);
+    },
+
+    handleMouseMove(e) {
+        if (!this.isHovering) return;
+        this.throttledUpdate(e);
+    },
+
+    handleMouseLeave() {
+        this.isHovering = false;
+        this.cancelAnimation();
+        this.resetTransform();
+        setTimeout(() => {
+            this.avatar.style.animation = 'float 4s ease-in-out infinite';
+        }, 300);
+    },
+
+    calculateTilt(e) {
+        const centerX = this.rect.left + this.rect.width / 2;
+        const centerY = this.rect.top + this.rect.height / 2;
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        const relativeX = (mouseX - centerX) / (this.rect.width / 2);
+        const relativeY = (mouseY - centerY) / (this.rect.height / 2);
+        
+        const distance = Math.sqrt(relativeX * relativeX + relativeY * relativeY);
+        const tiltX = -relativeY * this.config.maxTilt;
+        const tiltY = relativeX * this.config.maxTilt;
+
+        return { tiltX, tiltY, distance };
+    },
+
+    applyTransform(tiltX, tiltY, distance) {
+        const scale = 1 - Math.min(distance * 0.05, 0.1);
+        const translateZ = 50 - distance * 20;
+        
+        const transform = `
+            perspective(${this.config.perspective}px)
+            rotateX(${tiltX}deg)
+            rotateY(${tiltY}deg)
+            translateZ(${translateZ}px)
+            scale3d(${scale}, ${scale}, ${scale})
+        `;
+        
+        this.avatar.style.transform = transform;
+        
+        // 更新阴影效果
+        const shadowBlur = 20 + distance * 10;
+        const shadowOffset = 5 + distance * 5;
+        this.image.style.boxShadow = `
+            ${tiltY * 2}px 
+            ${tiltX * 2}px 
+            ${shadowBlur}px rgba(0, 0, 0, 0.2),
+            ${tiltY}px 
+            ${tiltX}px 
+            ${shadowOffset}px rgba(0, 0, 0, 0.1)
+        `;
+    },
+
+    resetTransform() {
+        this.avatar.style.transform = 'perspective(2000px) rotateX(0) rotateY(0) translateZ(0) scale3d(1, 1, 1)';
+        this.image.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.15), 0 6px 10px rgba(0, 0, 0, 0.1)';
+    },
+
+    throttledUpdate(e) {
+        const now = Date.now();
+        if (now - this.lastUpdate >= this.config.throttleInterval) {
+            this.lastUpdate = now;
+            this.updateTilt(e);
+        } else if (!this.requestId) {
+            this.requestId = requestAnimationFrame(() => {
+                this.updateTilt(e);
+                this.requestId = null;
+            });
+        }
+    },
+
+    updateTilt(e) {
+        if (!this.isHovering) return;
+        this.updateRect();
+        const { tiltX, tiltY, distance } = this.calculateTilt(e);
+        this.applyTransform(tiltX, tiltY, distance);
+    },
+
+    updateRect() {
+        this.rect = this.avatar.getBoundingClientRect();
+    },
+
+    cancelAnimation() {
+        if (this.requestId) {
+            cancelAnimationFrame(this.requestId);
+            this.requestId = null;
+        }
+    }
+};
+
+// 流星效果模块
+const ShootingStarManager = {
+    config: {
+        minStars: 2,
+        maxStars: 5,
+        genProbability: 0.4,
+        checkInterval: {
+            min: 1500,
+            max: 3000
+        },
+        position: {
+            top: { min: 0, max: 60 },
+            right: { min: 0, max: 40 }
+        },
+        animation: {
+            duration: { min: 5, max: 8 },
+            delay: { min: 0, max: 2 },
+            scale: { min: 0.7, max: 1.2 },
+            angle: { base: -35, variance: 3 }
+        }
+    },
+
+    init() {
+        this.container = document.querySelector('.shooting-stars');
+        if (!this.container) return;
+
+        this.activeStars = 0;
+        this.isEnabled = document.body.classList.contains('dark-theme');
+        
+        this.observeThemeChanges();
+        if (this.isEnabled) {
+            this.scheduleNextGeneration();
+        }
+    },
+
+    observeThemeChanges() {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    const isDarkTheme = document.body.classList.contains('dark-theme');
+                    this.isEnabled = isDarkTheme;
+                    
+                    if (isDarkTheme) {
+                        this.scheduleNextGeneration();
+                    } else {
+                        this.container.innerHTML = '';
+                        this.activeStars = 0;
+                    }
+                }
+            });
+        });
+
+        observer.observe(document.body, { attributes: true });
+    },
+
+    createShootingStar() {
+        if (this.activeStars >= this.config.maxStars) return;
+        
+        const star = document.createElement('div');
+        star.className = 'shooting-star';
+        this.activeStars++;
+        
+        const startY = this.getRandomRange(this.config.position.top.min, this.config.position.top.max);
+        const startX = this.getRandomRange(this.config.position.right.min, this.config.position.right.max);
+        const duration = this.getRandomRange(this.config.animation.duration.min, this.config.animation.duration.max);
+        const delay = this.getRandomRange(this.config.animation.delay.min, this.config.animation.delay.max);
+        const scale = this.getRandomRange(this.config.animation.scale.min, this.config.animation.scale.max);
+        const angleVar = this.getRandomRange(-this.config.animation.angle.variance, this.config.animation.angle.variance);
+        
+        Object.assign(star.style, {
+            top: `${startY}%`,
+            right: `${startX}%`,
+            animationDuration: `${duration}s`,
+            animationDelay: `${delay}s`,
+            transform: `scale(${scale})`,
+            '--star-angle': `${this.config.animation.angle.base + angleVar}deg`
+        });
+        
+        this.container.appendChild(star);
+        
+        star.addEventListener('animationend', () => {
+            star.remove();
+            this.activeStars--;
+            if (this.isEnabled) {
+                this.scheduleNextGeneration();
+            }
+        });
+    },
+
+    scheduleNextGeneration() {
+        if (!this.isEnabled) return;
+        
+        if (this.activeStars < this.config.minStars) {
+            this.createShootingStar();
+        } else if (this.activeStars < this.config.maxStars && Math.random() < this.config.genProbability) {
+            this.createShootingStar();
+        }
+        
+        const nextCheck = this.getRandomRange(this.config.checkInterval.min, this.config.checkInterval.max);
+        setTimeout(() => this.scheduleNextGeneration(), nextCheck);
+    },
+
+    getRandomRange(min, max) {
+        return min + Math.random() * (max - min);
+    }
+};
+
+// 社交功能模块
+const SocialManager = {
+    init() {
+        this.initContactCopy();
+        this.initBackToTop();
+    },
+
+    initContactCopy() {
+        // 邮箱复制
+        const emailBtn = document.querySelector('.email-container');
+        if (emailBtn) {
+            const email = '2764357258@qq.com';
+            
+            // 设置邮箱文本
+            const emailText = emailBtn.querySelector('.email-text');
+            if (emailText) {
+                emailText.textContent = email;
+            }
+            
+            // 设置初始 tooltip 文本
+            const emailTooltip = emailBtn.querySelector('.tooltip-hint');
+            if (emailTooltip) {
+                emailTooltip.textContent = email;
+            }
+
+            emailBtn.addEventListener('click', () => {
+                this.copyToClipboard(email, '邮箱已复制！');
+                
+                // 更新提示文本
+                if (emailTooltip) {
+                    emailTooltip.textContent = '已复制！';
+                    setTimeout(() => {
+                        emailTooltip.textContent = email;
+                    }, 2000);
+                }
+            });
+        }
+
+        // 微信复制
+        const wechatBtn = document.querySelector('.wechat-container');
+        if (wechatBtn) {
+            const wechat = 'wechatId';
+            
+            // 设置微信文本
+            const wechatText = wechatBtn.querySelector('.wechat-text');
+            if (wechatText) {
+                wechatText.textContent = wechat;
+            }
+            
+            // 设置初始 tooltip 文本
+            const wechatTooltip = wechatBtn.querySelector('.tooltip-hint');
+            if (wechatTooltip) {
+                wechatTooltip.textContent = '点击复制微信号';
+            }
+
+            wechatBtn.addEventListener('click', () => {
+                this.copyToClipboard(wechat, '微信号已复制！');
+                
+                // 更新提示文本
+                if (wechatTooltip) {
+                    wechatTooltip.textContent = '已复制！';
+                    setTimeout(() => {
+                        wechatTooltip.textContent = '点击复制微信号';
+                    }, 2000);
+                }
+            });
+        }
+    },
+
+    copyToClipboard(text, successMessage) {
+        // 使用临时输入框确保在所有浏览器中都能正常工作
+        const tempInput = document.createElement('textarea');
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        
+        try {
+            document.execCommand('copy');
+            this.showToast(successMessage);
+        } catch (err) {
+            console.error('复制失败:', err);
+            this.showToast('复制失败，请手动复制');
+        } finally {
+            document.body.removeChild(tempInput);
+        }
+
+        // 同时尝试使用现代 API
+        navigator.clipboard?.writeText(text).catch(() => {
+            // 如果现代 API 失败，我们已经使用了传统方法作为备份
+            console.log('现代复制 API 不可用，已使用备用方法');
+        });
+    },
+
+    showToast(message) {
+        // 移除现有的 toast
+        const existingToast = document.querySelector('.toast');
+        if (existingToast) {
+            existingToast.remove();
+        }
+
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        
+        // 设置 toast 样式
+        Object.assign(toast.style, {
+            position: 'fixed',
+            bottom: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            color: 'white',
+            padding: '12px 24px',
+            borderRadius: '4px',
+            zIndex: '10000',
+            opacity: '0',
+            transition: 'opacity 0.3s ease'
+        });
+
+        document.body.appendChild(toast);
+
+        // 强制重排以触发动画
+        toast.getBoundingClientRect();
+
+        // 显示 toast
+        requestAnimationFrame(() => {
+            toast.style.opacity = '1';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 2000);
+        });
+    },
+
+    initBackToTop() {
+        const backToTopBtn = document.querySelector('.back-to-top');
+        if (!backToTopBtn) return;
+
+        // 监听滚动事件，控制按钮显示/隐藏
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        // 点击返回顶部
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+};
+
+// 技能卡片管理模块
+const SkillManager = {
+    // 技能图标背景色配置
+    iconColors: {
+        'html': { bg: 'rgba(255, 99, 71, 0.15)', glow: 'rgba(255, 99, 71, 0.3)' },
+        'css': { bg: 'rgba(41, 98, 255, 0.15)', glow: 'rgba(41, 98, 255, 0.3)' },
+        'javascript': { bg: 'rgba(255, 215, 0, 0.15)', glow: 'rgba(255, 215, 0, 0.3)' },
+        'typescript': { bg: 'rgba(0, 122, 204, 0.15)', glow: 'rgba(0, 122, 204, 0.3)' },
+        'react': { bg: 'rgba(97, 219, 251, 0.15)', glow: 'rgba(97, 219, 251, 0.3)' },
+        'vue': { bg: 'rgba(65, 184, 131, 0.15)', glow: 'rgba(65, 184, 131, 0.3)' },
+        'node': { bg: 'rgba(104, 160, 99, 0.15)', glow: 'rgba(104, 160, 99, 0.3)' },
+        'python': { bg: 'rgba(55, 118, 171, 0.15)', glow: 'rgba(55, 118, 171, 0.3)' },
+        'cloud': { bg: 'rgba(128, 0, 128, 0.15)', glow: 'rgba(128, 0, 128, 0.3)', icon: 'fas fa-cloud' },
+        'ai': { bg: 'rgba(0, 255, 255, 0.15)', glow: 'rgba(0, 255, 255, 0.3)', icon: 'fas fa-robot' },
+        'database': { bg: 'rgba(255, 140, 0, 0.15)', glow: 'rgba(255, 140, 0, 0.3)' }
+    },
+
+    init() {
+        this.skillsContainer = document.querySelector('.skills-container');
+        if (!this.skillsContainer) return;
+
+        this.initSkillIcons();
+        this.observeThemeChanges();
+    },
+
+    initSkillIcons() {
+        const skillItems = document.querySelectorAll('.skill-item');
+        skillItems.forEach(item => {
+            const skillType = item.getAttribute('data-skill');
+            const iconContainer = item.querySelector('.skill-icon');
+            if (!iconContainer || !skillType) return;
+
+            // 更新图标
+            const icon = this.iconColors[skillType]?.icon;
+            if (icon) {
+                iconContainer.innerHTML = `<i class="${icon}"></i>`;
+            }
+
+            // 应用颜色和效果
+            this.applyIconStyle(item, skillType);
+
+            // 添加悬停效果
+            item.addEventListener('mouseenter', () => this.enhanceIconEffect(item, skillType));
+            item.addEventListener('mouseleave', () => this.resetIconEffect(item, skillType));
+        });
+    },
+
+    applyIconStyle(item, skillType) {
+        const isDark = document.body.classList.contains('dark-theme');
+        const iconContainer = item.querySelector('.skill-icon');
+        const icon = iconContainer.querySelector('i');
+        const colors = this.iconColors[skillType] || { bg: 'rgba(150, 150, 150, 0.15)', glow: 'rgba(150, 150, 150, 0.3)' };
+
+        // 设置图标容器样式
+        iconContainer.style.backgroundColor = colors.bg;
+        iconContainer.style.borderRadius = '12px';
+        iconContainer.style.padding = '15px';
+        iconContainer.style.transition = 'all 0.3s ease';
+        iconContainer.style.position = 'relative';
+
+        if (isDark) {
+            // 暗色模式下的样式
+            iconContainer.style.boxShadow = `
+                0 4px 8px rgba(0, 0, 0, 0.2),
+                0 0 15px ${colors.glow},
+                inset 0 0 20px ${colors.glow}
+            `;
+            
+            if (icon) {
+                icon.style.color = 'rgba(255, 255, 255, 0.9)';
+                icon.style.textShadow = `0 0 10px ${colors.glow}`;
+                icon.style.filter = `drop-shadow(0 0 3px ${colors.glow})`;
+            }
+        }
+    },
+
+    enhanceIconEffect(item, skillType) {
+        const isDark = document.body.classList.contains('dark-theme');
+        if (!isDark) return;
+
+        const iconContainer = item.querySelector('.skill-icon');
+        const icon = iconContainer.querySelector('i');
+        const colors = this.iconColors[skillType] || { bg: 'rgba(150, 150, 150, 0.15)', glow: 'rgba(150, 150, 150, 0.3)' };
+
+        // 增强容器效果
+        iconContainer.style.transform = 'translateY(-3px)';
+        iconContainer.style.backgroundColor = colors.bg.replace('0.15', '0.25');
+        iconContainer.style.boxShadow = `
+            0 6px 12px rgba(0, 0, 0, 0.3),
+            0 0 20px ${colors.glow},
+            inset 0 0 25px ${colors.glow}
+        `;
+
+        // 增强图标效果
+        if (icon) {
+            icon.style.transform = 'scale(1.1)';
+            icon.style.textShadow = `0 0 15px ${colors.glow}`;
+            icon.style.filter = `drop-shadow(0 0 5px ${colors.glow})`;
+        }
+    },
+
+    resetIconEffect(item, skillType) {
+        const isDark = document.body.classList.contains('dark-theme');
+        if (!isDark) return;
+
+        const iconContainer = item.querySelector('.skill-icon');
+        const icon = iconContainer.querySelector('i');
+        const colors = this.iconColors[skillType] || { bg: 'rgba(150, 150, 150, 0.15)', glow: 'rgba(150, 150, 150, 0.3)' };
+
+        // 重置容器效果
+        iconContainer.style.transform = 'translateY(0)';
+        iconContainer.style.backgroundColor = colors.bg;
+        iconContainer.style.boxShadow = `
+            0 4px 8px rgba(0, 0, 0, 0.2),
+            0 0 15px ${colors.glow},
+            inset 0 0 20px ${colors.glow}
+        `;
+
+        // 重置图标效果
+        if (icon) {
+            icon.style.transform = 'scale(1)';
+            icon.style.textShadow = `0 0 10px ${colors.glow}`;
+            icon.style.filter = `drop-shadow(0 0 3px ${colors.glow})`;
+        }
+    },
+
+    observeThemeChanges() {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    const skillItems = document.querySelectorAll('.skill-item');
+                    skillItems.forEach(item => {
+                        const skillType = item.getAttribute('data-skill');
+                        if (skillType) {
+                            this.applyIconStyle(item, skillType);
+                        }
+                    });
+                }
+            });
+        });
+
+        observer.observe(document.body, { attributes: true });
+    }
+};
+
+// 初始化所有功能
+document.addEventListener('DOMContentLoaded', () => {
+    ThemeManager.init();
+    LanguageManager.init();
+    AvatarManager.init();
+    ShootingStarManager.init();
+    SocialManager.init();
+    SkillManager.init();
 }); 

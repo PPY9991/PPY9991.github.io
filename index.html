@@ -3,207 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人博客</title>
+    <title>PPY's Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dark-theme.css">
-    <script src="js/i18n.js"></script>
+    <script src="js/translations.js"></script>
     <script src="js/main.js"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/favicon/site.webmanifest">
-    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#2563eb">
-    <link rel="shortcut icon" href="/favicon/favicon.ico">
-    <meta name="msapplication-TileColor" content="#2563eb">
-    <meta name="msapplication-config" content="/favicon/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="nav-logo">MyTech</div>
-        <div class="lang-switch">
-            <button class="lang-btn active" data-lang="en">EN</button>
-            <button class="lang-btn" data-lang="zh">中</button>
-        </div>
-        <div class="nav-links">
-            <a href="#home" data-i18n="nav.home">首页</a>
-            <a href="#skills" data-i18n="nav.skills">技能</a>
-            <a href="#projects" data-i18n="nav.projects">项目</a>
-            <div class="contact-dropdown">
-                <a href="#" class="contact-btn" data-i18n="nav.contact">联系</a>
-                <div class="dropdown-content">
-                    <a href="https://github.com/PPY9991" target="_blank">
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="#" class="copy-email">
-                        <i class="fas fa-envelope"></i>
-                        <span>Email</span>
-                    </a>
-                </div>
-            </div>
-            <button id="theme-toggle" class="theme-toggle">
-                <i class="fas fa-moon"></i>
-            </button>
-        </div>
-    </nav>
-
-    <!-- 个人简介部分 -->
-    <section id="home" class="hero">
-        <div class="hero-background"></div>
-        <div class="starry-background">
-            <div class="stars"></div>
-            <div class="stars"></div>
-            <div class="stars"></div>
-        </div>
+    <!-- Galaxy Background -->
+    <div class="galaxy-background">
+        <div class="stars"></div>
+        <div class="stars"></div>
+        <div class="stars"></div>
         <div class="shooting-stars">
             <div class="shooting-star"></div>
             <div class="shooting-star"></div>
             <div class="shooting-star"></div>
             <div class="shooting-star"></div>
             <div class="shooting-star"></div>
-            <div class="shooting-star"></div>
-            <div class="shooting-star"></div>
-            <div class="shooting-star"></div>
-            <div class="shooting-star"></div>
-            <div class="shooting-star"></div>
-            <div class="shooting-star"></div>
-            <div class="shooting-star"></div>
         </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="nav-logo">PPY</div>
+            <div class="lang-switch">
+                <div class="switch-container">
+                    <input type="checkbox" id="lang-toggle" class="lang-toggle">
+                    <label for="lang-toggle" class="switch-label">
+                        <span class="switch-en">EN</span>
+                        <span class="switch-zh">中</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="#home" data-i18n="nav.home">Home</a>
+            <a href="#about" data-i18n="nav.about">About</a>
+            <a href="#skills" data-i18n="nav.skills">Skills</a>
+            <a href="#projects" data-i18n="nav.projects">Projects</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
         <div class="hero-content">
-            <div class="hero-text" style="flex: 2;">
-                <h1><span data-i18n="hero.greeting">你好, 我是</span> 
-                <span class="highlight">PPY</span></h1>
-                <p class="hero-subtitle" data-i18n="hero.role">全栈开发工程师</p>
-                <p class="hero-description">
-                    <span data-i18n="hero.description1">热爱编程与创造，专注于高质量的 Web 应用</span>
-                    <br><span data-i18n="hero.description2">4年开发经验，擅长全栈开发与系统架构设计</span>
-                </p>
+            <div class="hero-text">
+                <h1 data-i18n="hero.greeting">Hi, I'm PPY</h1>
+                <p class="hero-role" data-i18n="hero.role">Backend Developer</p>
+                <div class="hero-description">
+                    <p data-i18n="hero.description1">Passionate about programming and creation</p>
+                    <p data-i18n="hero.description2">4 years of development experience</p>
+                </div>
                 <div class="cta-buttons">
-                    <a href="#skills" class="btn primary" data-i18n="hero.viewSkills">查看技能</a>
-                    <a href="#contact" class="btn secondary" data-i18n="hero.contactMe">联系我</a>
+                    <a href="#skills" class="btn primary" data-i18n="hero.viewSkills">View Skills</a>
+                    <a href="#contact" class="btn secondary" data-i18n="hero.contactMe">Contact Me</a>
                 </div>
                 <div class="social-links">
-                    <div class="social-link github-container" id="githubBtn">
-                        <i class="fab fa-github"></i>
-                        <span class="github-tooltip">
-                            <span class="github-text">GitHub: PPY9991</span>
-                            <span class="tooltip-hint">点击访问</span>
-                        </span>
-                    </div>
-                    <div class="social-link email-container" id="emailBtn">
+                    <div class="email-container" title="Copy email">
                         <i class="fas fa-envelope"></i>
-                        <span class="email-tooltip">
-                            <span class="email-text">2764357258@qq.com</span>
-                            <span class="tooltip-hint">点击复制</span>
-                        </span>
+                        <div class="email-tooltip">
+                            <span class="email-text">example@email.com</span>
+                        </div>
+                    </div>
+                    <div class="github-container" title="Visit GitHub">
+                        <a href="https://github.com/PPY9991" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-github"></i>
+                            <div class="github-tooltip">
+                                <span data-i18n="contact.github">View GitHub Profile</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="wechat-container" title="Copy WeChat ID">
+                        <i class="fab fa-weixin"></i>
+                        <div class="wechat-tooltip">
+                            <span class="wechat-text">WeChat ID</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="hero-image" style="flex: 1;">
+            <div class="hero-image">
                 <div class="hero-image-container">
-                    <img src="images/buraien.jpg" alt="个人照片">
-                    <div class="hero-image-border"></div>
+                    <img src="images/buraien.jpg" alt="Profile Photo">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 技能展示部分 -->
+    <!-- Skills Section -->
     <section id="skills" class="skills-section">
         <div class="section-container">
-            <h2 class="section-title" data-i18n="skills.title">我的技能</h2>
+            <h2 class="section-title" data-i18n="skills.title">Skills</h2>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3 data-i18n="skills.languages">编程语言</h3>
+                    <h3 data-i18n="skills.languages">Programming Languages</h3>
                     <div class="skill-items">
                         <div class="skill-item">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
                             <div class="skill-info">
                                 <span>Java</span>
-                                <p class="skill-description">Spring Boot, Maven, JUnit, 微服务架构</p>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 90%"></div>
-                                </div>
+                                <p class="skill-description" data-i18n="skills.descriptions.java"></p>
                             </div>
                         </div>
                         <div class="skill-item">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
                             <div class="skill-info">
                                 <span>Python</span>
-                                <p class="skill-description">Django, Flask, NumPy, Pandas, 数据分析</p>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 85%"></div>
-                                </div>
+                                <p class="skill-description" data-i18n="skills.descriptions.python"></p>
                             </div>
                         </div>
                         <div class="skill-item">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
                             <div class="skill-info">
                                 <span>JavaScript/TypeScript</span>
-                                <p class="skill-description">ES6+, Vue.js, React, Node.js, Express</p>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 80%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" alt="Go">
-                            <div class="skill-info">
-                                <span>Go</span>
-                                <p class="skill-description">Gin, gRPC, 并发编程</p>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 75%"></div>
-                                </div>
+                                <p class="skill-description" data-i18n="skills.descriptions.javascript"></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="skill-category">
-                    <h3 data-i18n="skills.devSkills">开发技能</h3>
+                    <h3 data-i18n="skills.devSkills">Development Skills</h3>
                     <div class="skill-items">
                         <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="DevOps">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
                             <div class="skill-info">
-                                <span>DevOps</span>
-                                <p class="skill-description">Docker, Kubernetes, CI/CD, Jenkins</p>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 85%"></div>
-                                </div>
+                                <span>Docker</span>
+                                <p class="skill-description" data-i18n="skills.descriptions.docker"></p>
                             </div>
                         </div>
                         <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="数据库">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="Database">
                             <div class="skill-info">
-                                <span data-i18n="skills.categories.database">数据库</span>
-                                <p class="skill-description">MySQL, Redis, MongoDB, PostgreSQL</p>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 80%"></div>
-                                </div>
+                                <span data-i18n="skills.categories.database">Database</span>
+                                <p class="skill-description" data-i18n="skills.descriptions.database"></p>
                             </div>
                         </div>
                         <div class="skill-item">
                             <i class="fas fa-cloud skill-icon"></i>
                             <div class="skill-info">
-                                <span data-i18n="skills.categories.cloud">云服务</span>
-                                <p class="skill-description" data-i18n="skills.descriptions.cloud">AWS, Alibaba Cloud, Tencent Cloud</p>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 75%"></div>
-                                </div>
+                                <span data-i18n="skills.categories.cloud">Cloud Services</span>
+                                <p class="skill-description" data-i18n="skills.descriptions.cloud"></p>
                             </div>
                         </div>
                         <div class="skill-item">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="开发工具">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
                             <div class="skill-info">
-                                <span data-i18n="skills.categories.tools">开发工具</span>
-                                <p class="skill-description">Git, VS Code, IDEA, Postman</p>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 90%"></div>
-                                </div>
+                                <span>Git</span>
+                                <p class="skill-description" data-i18n="skills.descriptions.git"></p>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="AI" class="ai-icon">
+                            <div class="skill-info">
+                                <span data-i18n="skills.categories.ai">AI & ML</span>
+                                <p class="skill-description" data-i18n="skills.descriptions.ai"></p>
                             </div>
                         </div>
                     </div>
@@ -211,5 +171,9 @@
             </div>
         </div>
     </section>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 </body>
 </html> 
