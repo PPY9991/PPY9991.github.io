@@ -32,9 +32,8 @@ const translations = {
             descriptions: {
                 java: "Enterprise development with Spring Boot, microservices architecture",
                 javascript: "Modern JavaScript/TypeScript development with Node.js",
-                python: "Backend development and AI implementation",
-                react: "Building responsive and interactive user interfaces",
-                node: "Server-side development and API design",
+                python: "Data analysis with NumPy, Pandas, and visualization",
+                go: "High-performance backend services with Go",
                 git: "Version control and collaborative development",
                 docker: "Containerization and deployment automation",
                 ai: "LLM applications and AI integration",
@@ -67,7 +66,7 @@ const translations = {
         },
         about: {
             title: "关于我",
-            description: "作为一名全栈开发工程师，我热衷于用技术解决复杂问题。拥有4年系统研发经验，专注于构建高性能、可扩展的应用服务。对AI技术充满热情，善于将其融入实际开发中。"
+            description: "作为一名全栈开发工程师，我热衷于用技术解决复杂问题。拥有4年系统研发经验，专注于构建高性能��可扩展的应用服务。对AI技术充满热情，善于将其融入实际开发中。"
         },
         skills: {
             title: "技能",
@@ -82,9 +81,8 @@ const translations = {
             descriptions: {
                 java: "Spring Boot企业级开发，微服务架构",
                 javascript: "现代 JavaScript/TypeScript 与 Node.js 开发",
-                python: "后端开发与AI实现",
-                react: "构建响应式和交互式用户界面",
-                node: "服务器端开发和API设计",
+                python: "数据分析，使用 NumPy、Pandas 和可视化工具",
+                go: "Go语言高性能后端服务开发",
                 git: "版本控制和协作开发",
                 docker: "容器化和部署自动化",
                 ai: "大语言模型应用与AI集成",
