@@ -521,7 +521,12 @@ const SkillManager = {
         'vue': { bg: 'rgba(65, 184, 131, 0.15)', glow: 'rgba(65, 184, 131, 0.3)' },
         'node': { bg: 'rgba(104, 160, 99, 0.15)', glow: 'rgba(104, 160, 99, 0.3)' },
         'python': { bg: 'rgba(55, 118, 171, 0.15)', glow: 'rgba(55, 118, 171, 0.3)' },
-        'cloud': { bg: 'rgba(128, 0, 128, 0.15)', glow: 'rgba(128, 0, 128, 0.3)', icon: 'fas fa-cloud' },
+        'cloud': { 
+            bg: 'rgba(128, 0, 128, 0.15)', 
+            glow: 'rgba(128, 0, 128, 0.3)',
+            useImage: true,
+            imagePath: 'images/云服务.png'
+        },
         'ai': { bg: 'rgba(0, 255, 255, 0.15)', glow: 'rgba(0, 255, 255, 0.3)', icon: 'fas fa-robot' },
         'database': { bg: 'rgba(255, 140, 0, 0.15)', glow: 'rgba(255, 140, 0, 0.3)' }
     },
@@ -541,10 +546,15 @@ const SkillManager = {
             const iconContainer = item.querySelector('.skill-icon');
             if (!iconContainer || !skillType) return;
 
+            const skillConfig = this.iconColors[skillType];
+            
             // 更新图标
-            const icon = this.iconColors[skillType]?.icon;
-            if (icon) {
-                iconContainer.innerHTML = `<i class="${icon}"></i>`;
+            if (skillConfig?.useImage) {
+                // 使用图片图标
+                iconContainer.innerHTML = `<img src="${skillConfig.imagePath}" alt="${skillType}" style="width: 24px; height: 24px;">`;
+            } else if (skillConfig?.icon) {
+                // 使用 Font Awesome 图标
+                iconContainer.innerHTML = `<i class="${skillConfig.icon}"></i>`;
             }
 
             // 应用颜色和效果
@@ -559,7 +569,7 @@ const SkillManager = {
     applyIconStyle(item, skillType) {
         const isDark = document.body.classList.contains('dark-theme');
         const iconContainer = item.querySelector('.skill-icon');
-        const icon = iconContainer.querySelector('i');
+        const iconElement = iconContainer.querySelector('i, img');
         const colors = this.iconColors[skillType] || { bg: 'rgba(150, 150, 150, 0.15)', glow: 'rgba(150, 150, 150, 0.3)' };
 
         // 设置图标容器样式
@@ -577,10 +587,16 @@ const SkillManager = {
                 inset 0 0 20px ${colors.glow}
             `;
             
-            if (icon) {
-                icon.style.color = 'rgba(255, 255, 255, 0.9)';
-                icon.style.textShadow = `0 0 10px ${colors.glow}`;
-                icon.style.filter = `drop-shadow(0 0 3px ${colors.glow})`;
+            if (iconElement) {
+                if (colors.useImage) {
+                    // 图片特殊处理
+                    iconElement.style.filter = `drop-shadow(0 0 3px ${colors.glow})`;
+                } else {
+                    // Font Awesome 图标处理
+                    iconElement.style.color = 'rgba(255, 255, 255, 0.9)';
+                    iconElement.style.textShadow = `0 0 10px ${colors.glow}`;
+                    iconElement.style.filter = `drop-shadow(0 0 3px ${colors.glow})`;
+                }
             }
         }
     },
@@ -590,7 +606,7 @@ const SkillManager = {
         if (!isDark) return;
 
         const iconContainer = item.querySelector('.skill-icon');
-        const icon = iconContainer.querySelector('i');
+        const iconElement = iconContainer.querySelector('i, img');
         const colors = this.iconColors[skillType] || { bg: 'rgba(150, 150, 150, 0.15)', glow: 'rgba(150, 150, 150, 0.3)' };
 
         // 增强容器效果
@@ -603,10 +619,16 @@ const SkillManager = {
         `;
 
         // 增强图标效果
-        if (icon) {
-            icon.style.transform = 'scale(1.1)';
-            icon.style.textShadow = `0 0 15px ${colors.glow}`;
-            icon.style.filter = `drop-shadow(0 0 5px ${colors.glow})`;
+        if (iconElement) {
+            iconElement.style.transform = 'scale(1.1)';
+            if (colors.useImage) {
+                // 图片特殊处理
+                iconElement.style.filter = `drop-shadow(0 0 5px ${colors.glow})`;
+            } else {
+                // Font Awesome 图标处理
+                iconElement.style.textShadow = `0 0 15px ${colors.glow}`;
+                iconElement.style.filter = `drop-shadow(0 0 5px ${colors.glow})`;
+            }
         }
     },
 
@@ -615,7 +637,7 @@ const SkillManager = {
         if (!isDark) return;
 
         const iconContainer = item.querySelector('.skill-icon');
-        const icon = iconContainer.querySelector('i');
+        const iconElement = iconContainer.querySelector('i, img');
         const colors = this.iconColors[skillType] || { bg: 'rgba(150, 150, 150, 0.15)', glow: 'rgba(150, 150, 150, 0.3)' };
 
         // 重置容器效果
@@ -628,10 +650,16 @@ const SkillManager = {
         `;
 
         // 重置图标效果
-        if (icon) {
-            icon.style.transform = 'scale(1)';
-            icon.style.textShadow = `0 0 10px ${colors.glow}`;
-            icon.style.filter = `drop-shadow(0 0 3px ${colors.glow})`;
+        if (iconElement) {
+            iconElement.style.transform = 'scale(1)';
+            if (colors.useImage) {
+                // 图片特殊处理
+                iconElement.style.filter = `drop-shadow(0 0 3px ${colors.glow})`;
+            } else {
+                // Font Awesome 图标处理
+                iconElement.style.textShadow = `0 0 10px ${colors.glow}`;
+                iconElement.style.filter = `drop-shadow(0 0 3px ${colors.glow})`;
+            }
         }
     },
 
