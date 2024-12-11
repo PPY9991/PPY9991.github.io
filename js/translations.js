@@ -27,7 +27,7 @@ const translations = {
                 database: "Database",
                 cloud: "Cloud Services",
                 tools: "Development Tools",
-                ai: "AI & ML"
+                ai: "AI"
             },
             descriptions: {
                 java: "Enterprise development with Spring Boot, microservices architecture",
@@ -67,7 +67,7 @@ const translations = {
         },
         about: {
             title: "关于我",
-            description: "我是一名后端开发工程师，热衷于为复杂问题创造优雅的解决方案。拥有4年系统架构和开发经验，专注于构建高性能、可扩展的后端服务。同时我也对AI技术及其在软件开发中的应用充满热情。"
+            description: "我是一名后端开发工程师，热衷于为复杂问题创造优雅的解决方案。拥有4年后端开发经验，专注于构建高性能、可扩展的后端服务。同时我也对AI技术及其在软件开发中的应用充满热情。"
         },
         skills: {
             title: "技能",
@@ -77,7 +77,7 @@ const translations = {
                 database: "数据库",
                 cloud: "云服务",
                 tools: "开发工具",
-                ai: "AI 与机器学习"
+                ai: "AI"
             },
             descriptions: {
                 java: "Spring Boot企业级开发，微服务架构",
