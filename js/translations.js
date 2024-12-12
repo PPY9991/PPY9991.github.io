@@ -10,13 +10,13 @@ const translations = {
             greeting: "Hi, I'm PPY",
             role: "Backend Developer",
             description1: "Passionate about programming and creation",
-            description2: "4 years of development experience, specializing in backend development and system architecture",
+            description2: "3 years of development experience, specializing in backend development and system architecture",
             viewSkills: "View Skills",
             contactMe: "Contact Me"
         },
         about: {
             title: "About Me",
-            description: "I'm a backend developer with a passion for creating elegant solutions to complex problems. With 4 years of experience in system architecture and development, I specialize in building high-performance, scalable backend services. I'm also enthusiastic about AI technology and its applications in software development."
+            description: "I'm a backend developer with a passion for creating elegant solutions to complex problems. With 3 years of experience in system architecture and development, I specialize in building high-performance, scalable backend services. I'm also enthusiastic about AI technology and its applications in software development."
         },
         skills: {
             title: "Skills",
@@ -39,7 +39,7 @@ const translations = {
                 ai: "LLM applications and AI integration",
                 database: "MySQL, Redis, MongoDB optimization",
                 cloud: "AWS, Alibaba Cloud, Tencent Cloud",
-                os: "Proficient in Linux, Mac, and Windows development environments"
+                os: "Proficient in Linux, Mac, and Win development environments"
             }
         },
         contact: {
@@ -69,15 +69,15 @@ const translations = {
         },
         hero: {
             greeting: "你好，我是 PPY",
-            role: "全栈开发工程师",
+            role: "后端开发工程师",
             description1: "专注于构建高质量的系统与应用",
-            description2: "4年研发经验，擅长全栈开发与架构设计",
+            description2: "3年研发经验，擅长全栈开发与架构设计",
             viewSkills: "查看技能",
             contactMe: "联系我"
         },
         about: {
             title: "关于我",
-            description: "作为一名全栈开发工程师，我热衷于用技术解决复杂问题。拥有4年系统研发经验，专注于构建高性能可扩展的应用服务。对AI技术充满热情，善于将其融入实际开发中。"
+            description: "作为一名后端开发工程师，我热衷于用技术解决复杂问题。拥有3年系统研发经验，专注于构建高性能可扩展的应用服务。对AI技术充满热情，善于将其融入实际开发中。"
         },
         skills: {
             title: "技能",

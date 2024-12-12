@@ -6,26 +6,28 @@ const ThemeManager = {
         
         if (!this.themeToggle) return;
 
-        // 从本地存储加载主题，如果没有则默认使用暗色主题
-        const savedTheme = localStorage.getItem('theme');
-        if (!savedTheme) {
-            localStorage.setItem('theme', 'dark');
-        }
-        
-        // 应用主题
-        this.body.classList.toggle('dark-theme', savedTheme ? savedTheme === 'dark' : true);
+        // 每次访问时根据时间设置主题
+        this.setThemeByTime();
         
         // 更新图标
         this.updateIcon();
 
-        // 绑定事件
+        // 绑定点击事件
         this.themeToggle.addEventListener('click', () => this.toggleTheme());
+    },
+
+    setThemeByTime() {
+        const hour = new Date().getHours();
+        // 早上6点到晚上6点使用日间模式
+        const isDayTime = hour >= 6 && hour < 18;
+        this.body.classList.toggle('dark-theme', !isDayTime);
+        // 不保存到 localStorage，每次访问都重新检测
     },
 
     toggleTheme() {
         this.body.classList.toggle('dark-theme');
         const isDark = this.body.classList.contains('dark-theme');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        // 手动切换时也不保存设置
         this.updateIcon();
     },
 

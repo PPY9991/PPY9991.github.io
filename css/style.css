@@ -1343,35 +1343,44 @@ body.dark-theme .skills-section {
     border-radius: var(--card-border-radius);
     padding: 2.5rem;
     box-shadow: var(--card-shadow);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
-    z-index: 3;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center center;
 }
 
 .project-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg,
+    inset: 0;
+    border-radius: var(--card-border-radius);
+    padding: 1px;
+    background: linear-gradient(
+        135deg,
         var(--primary-color),
+        transparent 50%,
         var(--accent-color)
     );
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
     opacity: 0;
-    transition: var(--transition-fast);
-}
-
-.project-card:hover::before {
-    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 .project-card:hover {
     transform: translateY(-8px);
-    box-shadow: var(--card-hover-shadow);
+    box-shadow: 
+        0 20px 40px -15px rgba(0, 0, 0, 0.2),
+        0 0 20px rgba(var(--primary-color-rgb), 0.1);
+}
+
+.project-card:hover::before {
+    opacity: 1;
 }
 
 .project-header {
@@ -1382,42 +1391,49 @@ body.dark-theme .skills-section {
 }
 
 .project-title {
+    margin: 0;
     font-size: 1.6rem;
     font-weight: 600;
-    background: linear-gradient(90deg,
-        var(--text-primary),
-        var(--primary-color)
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: var(--transition-fast);
 }
 
-.project-title:hover {
-    transform: translateX(5px);
+.project-title-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-primary);
+    text-decoration: none !important;
+    transition: all 0.3s ease;
 }
 
-.project-title i {
+.project-title-link:hover {
     color: var(--primary-color);
+    transform: translateX(8px);
+}
+
+.project-title-link i {
+    color: var(--primary-color);
+    font-size: 1.4rem;
 }
 
 .project-link {
     color: var(--text-primary);
     font-size: 1.8rem;
-    transition: all 0.3s ease;
+    text-decoration: none !important;
     width: 45px;
     height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: var(--bg-secondary);
+    background: var(--hover-gradient);
+    transition: all 0.3s ease;
 }
 
 .project-link:hover {
     color: var(--primary-color);
     transform: scale(1.1);
-    background: var(--bg-card-hover);
+    background: var(--card-gradient);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .project-description {
@@ -1453,19 +1469,20 @@ body.dark-theme .skills-section {
 }
 
 .tech-tag {
-    background: var(--card-gradient);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--hover-gradient);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 0.5rem 1rem;
-    border-radius: 25px;
+    border-radius: 20px;
+    font-size: 0.9rem;
     font-weight: 500;
-    transition: var(--transition-fast);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
 }
 
 .tech-tag:hover {
-    transform: translateY(-2px) scale(1.05);
-    background: var(--hover-gradient);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    background: var(--card-gradient);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .feature-item {
@@ -1494,7 +1511,13 @@ body.dark-theme .skills-section {
 /* Dark Theme Specific */
 body.dark-theme .project-card {
     background: var(--card-gradient);
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .project-card:hover {
+    box-shadow: 
+        0 20px 40px -15px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(var(--accent-color-rgb), 0.1);
 }
 
 /* Responsive Design */
@@ -1512,62 +1535,163 @@ body.dark-theme .project-card {
 .project-title-link {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 1rem;
     color: var(--text-primary);
     text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 0.5rem 0;
+}
+
+.project-title-link:hover {
+    transform: translateX(8px);
+}
+
+.project-title-link i {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.project-title-link:hover i {
+    transform: scale(1.1) rotate(-10deg);
+}
+
+/* 技术标签优化 */
+.tech-tag {
+    background: var(--hover-gradient);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+    transform: translateY(-2px);
+    background: var(--card-gradient);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .project-card {
+        padding: 1.8rem;
+    }
+
+    .project-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .tech-tag {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* 项目标题和链接样式修复 */
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.project-title {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+/* 修复项目标题链接 */
+.project-title-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-primary);
+    text-decoration: none !important;
     transition: all 0.3s ease;
 }
 
 .project-title-link:hover {
     color: var(--primary-color);
+    transform: translateX(8px);
 }
 
 .project-title-link i {
     color: var(--primary-color);
+    font-size: 1.4rem;
 }
 
-/* 删除原有的项目标题样式中的一��属性 */
-.project-title {
-    font-size: 1.5rem;
-    margin: 0;
+/* 修复 GitHub 图标链接 */
+.project-link {
+    color: var(--text-primary);
+    font-size: 1.8rem;
+    text-decoration: none !important;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--hover-gradient);
+    transition: all 0.3s ease;
 }
 
-.project-title i {
+.project-link:hover {
     color: var(--primary-color);
+    transform: scale(1.1);
+    background: var(--card-gradient);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* 项目卡片夜间模式优化 */
-body.dark-theme .project-card {
-    background: var(--project-card-bg);
-    box-shadow: var(--project-shadow);
+/* 移除重复的样式定义 */
+.project-title-link,
+.project-link {
+    pointer-events: auto;
+    cursor: pointer;
 }
 
-body.dark-theme .project-card:hover {
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+/* 确保项目卡片内的链接可点击 */
+.project-card {
+    position: relative;
+    z-index: 1;
 }
 
-body.dark-theme .tech-tag {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
+.project-header {
+    position: relative;
+    z-index: 2;
+    pointer-events: all;
 }
 
-body.dark-theme .feature-item {
-    color: var(--text-secondary);
+/* 修复项目标题链接 */
+.project-title {
+    position: relative;
+    z-index: 3;
 }
 
-/* 响应式调整 */
-@media (max-width: 1024px) {
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
+.project-title-link {
+    position: relative;
+    z-index: 3;
+    pointer-events: all;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-primary);
+    text-decoration: none !important;
 }
 
-@media (max-width: 768px) {
-    .skill-category {
-        padding: 1.5rem;
-    }
-    
-    .skill-items {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
+/* 修复 GitHub 图标链接 */
+.project-link {
+    position: relative;
+    z-index: 3;
+    pointer-events: all;
+    color: var(--text-primary);
+    text-decoration: none !important;
+}
+
+/* 确保装饰元素不会干扰点击 */
+.project-card::before {
+    pointer-events: none;
 }
