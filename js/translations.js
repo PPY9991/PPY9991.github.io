@@ -2,7 +2,6 @@ const translations = {
     en: {
         nav: {
             home: "Home",
-            about: "About",
             skills: "Skills",
             projects: "Projects",
             contact: "Contact"
@@ -47,12 +46,21 @@ const translations = {
             github: "View GitHub Profile",
             wechat: "WeChat ID copied!",
             gitee: "View Gitee Profile"
+        },
+        projects: {
+            title: "Projects",
+            stockAnalysis: {
+                title: "Stock Sector Data Analysis",
+                description: "A Python-based stock market data analysis tool with features including data collection, correlation analysis, and clustering analysis.",
+                feature1: "Data Collection & Preprocessing",
+                feature2: "Correlation Analysis",
+                feature3: "Clustering Analysis"
+            }
         }
     },
     zh: {
         nav: {
             home: "首页",
-            about: "关于",
             skills: "技能",
             projects: "项目",
             contact: "联系"
@@ -97,6 +105,16 @@ const translations = {
             github: "查看 GitHub 主页",
             wechat: "微信号已复制！",
             gitee: "访问 Gitee 主页"
+        },
+        projects: {
+            title: "项目展示",
+            stockAnalysis: {
+                title: "股票板块数据分析",
+                description: "基于Python的股票市场数据分析工具，实现了数据采集、相关性分析和聚类分析等功能。采用模块化设计，具有高扩展性和可维护性。",
+                feature1: "数据采集与预处理",
+                feature2: "相关性分析",
+                feature3: "聚类分析"
+            }
         }
     }
 }; 

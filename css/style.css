@@ -274,8 +274,8 @@ body.dark-theme .theme-toggle:hover::before {
 /* Buttons */
 .cta-buttons {
     display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
 }
 
 .btn {
@@ -358,31 +358,34 @@ body.dark-theme .theme-toggle:hover::before {
 }
 
 .hero-text h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     background: linear-gradient(45deg, var(--text-primary), var(--primary-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    letter-spacing: 0.02em;
 }
 
 .hero-role {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: var(--primary-color);
-    margin: 1rem 0;
+    margin: 1.5rem 0;
     font-weight: 500;
+    letter-spacing: 0.01em;
 }
 
 .hero-description {
-    margin: 1.5rem 0;
+    margin: 2rem 0;
 }
 
 .hero-description p {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
+    margin: 1rem 0;
+    font-size: 1.2rem;
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.8;
+    letter-spacing: 0.02em;
 }
 
 /* Hero Image */
@@ -644,7 +647,7 @@ body.dark-theme .skill-category {
     }
 
     .hero-text h1 {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
     }
 
     .hero-image-container {
@@ -676,15 +679,16 @@ body.dark-theme .skill-category {
     }
 
     .hero-text h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
 
     .hero-role {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 
     .hero-description p {
         font-size: 1rem;
+        line-height: 1.5;
     }
 
     .hero-image-container {
@@ -700,8 +704,8 @@ body.dark-theme .skill-category {
 /* Social Links */
 .social-links {
     display: flex;
-    gap: 2rem;
-    margin-top: 2rem;
+    gap: 2.5rem;
+    margin-top: 3rem;
 }
 
 .email-container, .github-container, .wechat-container, .gitee-container {
@@ -1007,3 +1011,168 @@ body.dark-theme .skills-section {
 }
 
 /* Rest of your existing CSS... */
+
+/* 为中文内容特别优化 */
+[lang="zh"] .hero-text h1 {
+    letter-spacing: 0.1em;
+}
+
+[lang="zh"] .hero-description p {
+    letter-spacing: 0.05em;
+}
+
+[lang="zh"] .hero-role {
+    letter-spacing: 0.08em;
+}
+
+/* Projects Section */
+.projects-section {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+    position: relative;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.project-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.project-title {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.project-title i {
+    color: var(--primary-color);
+}
+
+.project-link {
+    color: var(--text-primary);
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+}
+
+.project-link:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+    background: var(--bg-card-hover);
+}
+
+.project-description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.project-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.feature-item i {
+    color: var(--primary-color);
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.tech-tag {
+    background: var(--bg-secondary);
+    color: var(--primary-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Dark Theme Specific */
+body.dark-theme .project-card {
+    background: var(--bg-card);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .projects-section {
+        padding: 4rem 1rem;
+    }
+    
+    .project-card {
+        padding: 1.5rem;
+    }
+}
+
+/* 修改项目标题链接样式 */
+.project-title-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.project-title-link:hover {
+    color: var(--primary-color);
+}
+
+.project-title-link i {
+    color: var(--primary-color);
+}
+
+/* 删除原有的项目标题样式中的一些属性 */
+.project-title {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.project-title i {
+    color: var(--primary-color);
+}
