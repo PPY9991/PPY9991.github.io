@@ -30,7 +30,7 @@ const translations = {
             },
             descriptions: {
                 java: "Enterprise development with Spring Boot, microservices architecture",
-                javascript: "Modern JavaScript/TypeScript development with Node.js",
+                javascript: "Modern JavaScript development with Node.js",
                 python: "Data analysis with NumPy, Pandas, and visualization",
                 go: "High-performance backend services with Go",
                 git: "Version control and collaborative development",
@@ -89,7 +89,7 @@ const translations = {
             },
             descriptions: {
                 java: "Spring Boot企业级开发，微服务架构",
-                javascript: "现代 JavaScript/TypeScript 与 Node.js 开发",
+                javascript: "现代 JavaScript 与 Node.js 开发",
                 python: "数据分析，使用 NumPy、Pandas 和可视化工具",
                 go: "Go语言高性能后端服务开发",
                 git: "版本控制和协作开发",
