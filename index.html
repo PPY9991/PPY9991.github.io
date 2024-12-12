@@ -101,6 +101,17 @@
     <section id="skills" class="skills-section">
         <h2 class="section-title" data-i18n="skills.title">Skills</h2>
         <div class="skills-grid">
+            <!-- Python 技能 -->
+            <div class="skill-item" data-project="stock-analysis" data-skill="python">
+                <div class="skill-icon">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                </div>
+                <div class="skill-info">
+                    <span>Python</span>
+                    <p class="skill-description" data-i18n="skills.descriptions.python"></p>
+                </div>
+            </div>
+            
             <!-- Java -->
             <div class="skill-item">
                 <div class="skill-icon">
@@ -109,17 +120,6 @@
                 <div class="skill-info">
                     <span>Java</span>
                     <p class="skill-description" data-i18n="skills.descriptions.java"></p>
-                </div>
-            </div>
-            
-            <!-- Python -->
-            <div class="skill-item">
-                <div class="skill-icon">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
-                </div>
-                <div class="skill-info">
-                    <span>Python</span>
-                    <p class="skill-description" data-i18n="skills.descriptions.python"></p>
                 </div>
             </div>
             
@@ -188,7 +188,21 @@
                     <p class="skill-description" data-i18n="skills.descriptions.ai"></p>
                 </div>
             </div>
+            
+            <!-- 在 Database 技能后添加操作系统技能 -->
+            <div class="skill-item">
+                <div class="skill-icon">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="OS">
+                </div>
+                <div class="skill-info">
+                    <span data-i18n="skills.categories.os">Operating Systems</span>
+                    <p class="skill-description" data-i18n="skills.descriptions.os"></p>
+                </div>
+            </div>
         </div>
+        
+        <!-- Python 指向股票分析项目的箭头 -->
+        <div class="skill-arrow" style="width: 150px; transform: rotate(30deg);"></div>
     </section>
 
     <!-- 项目展示区域 -->
@@ -208,7 +222,7 @@
                             <i class="fab fa-github"></i>
                         </a>
                     </div>
-                    <p class="project-description" data-i18n="projects.stockAnalysis.description">基于Python的股票市场数据分析工具，实现了数据采集、相关性分析和聚类分析等功能。</p>
+                    <p class="project-description" data-i18n="projects.stockAnalysis.description">基于Python的股票场数据分析工具，实现了数据采集、相关性分析和聚类分析等功能。</p>
                     <div class="project-features">
                         <div class="feature-item" data-i18n="projects.stockAnalysis.feature1">
                             <i class="fas fa-database"></i>

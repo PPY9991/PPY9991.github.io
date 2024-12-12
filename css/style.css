@@ -252,8 +252,8 @@ body.dark-theme .theme-toggle:hover::before {
 /* Language Switch */
 .switch-container {
     position: relative;
-    width: 70px;
-    height: 34px;
+    width: 80px;
+    height: 38px;
 }
 
 .lang-toggle {
@@ -269,37 +269,87 @@ body.dark-theme .theme-toggle:hover::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--bg-secondary);
-    border-radius: 34px;
-    transition: .4s;
+    background: var(--card-gradient);
+    border-radius: 38px;
+    transition: all 0.4s ease;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 0 12px;
     border: 2px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    backdrop-filter: blur(10px);
 }
 
 .switch-label:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 2px;
+    height: 30px;
+    width: 30px;
+    left: 4px;
     bottom: 2px;
-    background-color: var(--primary-color);
+    background: linear-gradient(145deg, var(--primary-color), var(--accent-color));
     border-radius: 50%;
-    transition: .4s;
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.switch-en,
+.switch-zh {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.lang-toggle:not(:checked) ~ .switch-label .switch-en,
+.lang-toggle:checked ~ .switch-label .switch-zh {
+    color: var(--text-primary);
+    font-weight: 600;
+    text-shadow: 0 0 10px var(--primary-color);
 }
 
 .lang-toggle:checked + .switch-label:before {
-    transform: translateX(36px);
+    transform: translateX(42px);
 }
 
-.switch-en, .switch-zh {
-    color: var(--text-primary);
-    font-size: 0.8rem;
-    font-weight: 600;
-    z-index: 1;
+.switch-label:hover {
+    box-shadow: var(--card-hover-shadow);
+    border-color: var(--primary-color);
+}
+
+body.dark-theme .switch-label {
+    background: var(--card-gradient);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .switch-label:before {
+    background: linear-gradient(145deg, var(--accent-color), var(--primary-color));
+}
+
+body.dark-theme .switch-en,
+body.dark-theme .switch-zh {
+    color: var(--text-secondary);
+}
+
+body.dark-theme .lang-toggle:not(:checked) ~ .switch-label .switch-en,
+body.dark-theme .lang-toggle:checked ~ .switch-label .switch-zh {
+    color: #ffffff;
+    text-shadow: 0 0 10px var(--accent-color);
+}
+
+@keyframes glow {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.2);
+    }
+}
+
+.switch-label:before {
+    animation: glow 2s infinite;
 }
 
 /* Buttons */
@@ -588,33 +638,73 @@ body.dark-theme .hero-image-container:hover::before {
     animation: fadeInUp 0.8s ease-out;
 }
 
+/* 优化标题样式 */
 .section-title {
-    font-size: 3rem;
-    font-weight: 700;
     text-align: center;
-    margin-bottom: 4rem;
-    background: linear-gradient(90deg,
-        var(--primary-color),
-        var(--accent-color)
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
     position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 1rem;
 }
 
+/* 移除原有的模糊下划线 */
 .section-title::after {
+    display: none;
+}
+
+/* 添加新的装饰效果 */
+.section-title::before {
     content: '';
     position: absolute;
     bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
+    left: 0;
+    width: 100%;
     height: 3px;
     background: linear-gradient(90deg,
-        var(--primary-color),
-        var(--accent-color)
+        transparent 0%,
+        var(--primary-color) 50%,
+        transparent 100%
     );
-    border-radius: 3px;
+}
+
+/* 暗色主题适配 */
+body.dark-theme .section-title {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .section-title::before {
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--accent-color) 50%,
+        transparent 100%
+    );
+}
+
+/* 添加悬停效果 */
+.section-title:hover::before {
+    animation: gradientShift 2s linear infinite;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
 }
 
 .skills-grid {
@@ -663,6 +753,8 @@ body.dark-theme .hero-image-container:hover::before {
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     transition: var(--transition-fast);
+    position: relative;
+    z-index: 3;
 }
 
 .skill-icon {
@@ -1255,6 +1347,7 @@ body.dark-theme .skills-section {
     backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
+    z-index: 3;
 }
 
 .project-card::before {
@@ -1433,7 +1526,7 @@ body.dark-theme .project-card {
     color: var(--primary-color);
 }
 
-/* 删除原有的项目标题样式中的一些属性 */
+/* 删除原有的项目标题样式中的一��属性 */
 .project-title {
     font-size: 1.5rem;
     margin: 0;

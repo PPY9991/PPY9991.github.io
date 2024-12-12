@@ -438,7 +438,7 @@ const SocialManager = {
 
         // 同时尝试使用现代 API
         navigator.clipboard?.writeText(text).catch(() => {
-            // 如果现代 API 失败，我们已经使用了传统方法作为备份
+            // 如果现代 API 失败，我们已经使用了传统方法作为备用
             console.log('现代复制 API 不可用，已使用备用方法');
         });
     },
@@ -682,7 +682,7 @@ const SkillManager = {
     }
 };
 
-// 初始化所有功能
+// 初始化
 document.addEventListener('DOMContentLoaded', () => {
     ThemeManager.init();
     LanguageManager.init();

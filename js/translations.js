@@ -26,7 +26,8 @@ const translations = {
                 database: "Database",
                 cloud: "Cloud Services",
                 tools: "Development Tools",
-                ai: "AI"
+                ai: "AI",
+                os: "Operating Systems"
             },
             descriptions: {
                 java: "Enterprise development with Spring Boot, microservices architecture",
@@ -37,7 +38,8 @@ const translations = {
                 docker: "Containerization and deployment automation",
                 ai: "LLM applications and AI integration",
                 database: "MySQL, Redis, MongoDB optimization",
-                cloud: "AWS, Alibaba Cloud, Tencent Cloud"
+                cloud: "AWS, Alibaba Cloud, Tencent Cloud",
+                os: "Proficient in Linux, Mac, and Windows development environments"
             }
         },
         contact: {
@@ -85,7 +87,8 @@ const translations = {
                 database: "数据库",
                 cloud: "云服务",
                 tools: "开发工具",
-                ai: "AI"
+                ai: "AI",
+                os: "操作系统"
             },
             descriptions: {
                 java: "Spring Boot企业级开发，微服务架构",
@@ -96,7 +99,8 @@ const translations = {
                 docker: "容器化和部署自动化",
                 ai: "大语言模型应用与AI集成",
                 database: "MySQL、Redis、MongoDB优化",
-                cloud: "AWS、阿里云、腾讯云"
+                cloud: "AWS、阿里云、腾讯云",
+                os: "熟悉 Linux、Mac、Windows 操作系统开发环境"
             }
         },
         contact: {
