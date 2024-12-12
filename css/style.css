@@ -1760,3 +1760,65 @@ body.dark-theme .project-card:hover {
     color: var(--primary-color);
     transform: translateY(-2px);
 }
+
+/* 优化项目卡片的渲染性能 */
+.project-card {
+    /* 添加硬件加速 */
+    transform: translateZ(0);
+    will-change: transform;
+    /* 使用更高性能的属性 */
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 优化项目部分的渲染 */
+.projects-section {
+    /* 添加硬件加速 */
+    transform: translateZ(0);
+    will-change: transform;
+    /* 减少重绘区域 */
+    contain: content;
+}
+
+/* 优化背景渐变的性能 */
+.projects-grid {
+    /* 使用更高性能的合成属性 */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* 添加渐入动画 */
+.projects-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.projects-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 优化项目卡片的初始状态 */
+.project-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease-out,
+                transform 0.4s ease-out,
+                box-shadow 0.4s ease-out;
+}
+
+.projects-section.visible .project-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 添加延迟加载动画 */
+.projects-section.visible .project-card:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.projects-section.visible .project-card:nth-child(2) {
+    transition-delay: 0.2s;
+}

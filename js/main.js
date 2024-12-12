@@ -404,7 +404,7 @@ const SocialManager = {
             // 设置初始 tooltip 文本
             const wechatTooltip = wechatBtn.querySelector('.tooltip-hint');
             if (wechatTooltip) {
-                wechatTooltip.textContent = '点击复制微信号';
+                wechatTooltip.textContent = '点击复���微信号';
             }
 
             wechatBtn.addEventListener('click', () => {
@@ -441,7 +441,7 @@ const SocialManager = {
         // 同时尝试使用现代 API
         navigator.clipboard?.writeText(text).catch(() => {
             // 如果现代 API 失败，我们已经使用了传统方法作为备用
-            console.log('现代复制 API 不可用，已使用备用方法');
+            console.log('现��复制 API 不可用，已使用备用方法');
         });
     },
 
@@ -555,7 +555,7 @@ const SkillManager = {
                 // 使用图片图标
                 iconContainer.innerHTML = `<img src="${skillConfig.imagePath}" alt="${skillType}" style="width: 24px; height: 24px;">`;
             } else if (skillConfig?.icon) {
-                // 使用 Font Awesome 图标
+                // ���用 Font Awesome 图标
                 iconContainer.innerHTML = `<i class="${skillConfig.icon}"></i>`;
             }
 
@@ -683,6 +683,48 @@ const SkillManager = {
         observer.observe(document.body, { attributes: true });
     }
 };
+
+// 添加延迟加载功能
+document.addEventListener('DOMContentLoaded', function() {
+    // 使用 Intersection Observer 延迟加载项目部分
+    const projectsSection = document.querySelector('.projects-section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    if (projectsSection) {
+        observer.observe(projectsSection);
+    }
+});
+
+// 优化滚动性能
+let scrollTimeout;
+window.addEventListener('scroll', function() {
+    if (!scrollTimeout) {
+        scrollTimeout = setTimeout(function() {
+            scrollTimeout = null;
+            // 执行滚动相关的操作
+        }, 66); // 约15fps的频率
+    }
+}, { passive: true });
+
+// 优化调整窗口大小的性能
+let resizeTimeout;
+window.addEventListener('resize', function() {
+    if (!resizeTimeout) {
+        resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            // 执行调整窗口大小相关的操作
+        }, 66);
+    }
+}, { passive: true });
 
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
