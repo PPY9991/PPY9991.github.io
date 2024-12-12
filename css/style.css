@@ -652,7 +652,7 @@ body.dark-theme .hero-image-container:hover::before {
     padding: 0 1rem;
 }
 
-/* 移除原有的模糊下划线 */
+/* 移除原有的模糊下��线 */
 .section-title::after {
     display: none;
 }
@@ -798,6 +798,7 @@ body.dark-theme .section-title::before {
     margin-bottom: 0.5rem;
     background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -1370,6 +1371,9 @@ body.dark-theme .skills-section {
         var(--accent-color)
     );
     -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    mask: 
         linear-gradient(#fff 0 0) content-box, 
         linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
