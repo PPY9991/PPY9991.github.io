@@ -45,7 +45,8 @@ const translations = {
             title: "Contact",
             email: "Email copied!",
             github: "View GitHub Profile",
-            wechat: "WeChat ID copied!"
+            wechat: "WeChat ID copied!",
+            gitee: "View Gitee Profile"
         }
     },
     zh: {
@@ -66,7 +67,7 @@ const translations = {
         },
         about: {
             title: "关于我",
-            description: "作为一名全栈开发工程师，我热衷于用技术解决复杂问题。拥有4年系统研发经验，专注于构建高性能��可扩展的应用服务。对AI技术充满热情，善于将其融入实际开发中。"
+            description: "作为一名全栈开发工程师，我热衷于用技术解决复杂问题。拥有4年系统研发经验，专注于构建高性能可扩展的应用服务。对AI技术充满热情，善于将其融入实际开发中。"
         },
         skills: {
             title: "技能",
@@ -94,7 +95,8 @@ const translations = {
             title: "联系方式",
             email: "邮箱已复制！",
             github: "查看 GitHub 主页",
-            wechat: "微信号已复制！"
+            wechat: "微信号已复制！",
+            gitee: "访问 Gitee 主页"
         }
     }
 }; 
