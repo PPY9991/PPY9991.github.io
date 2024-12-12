@@ -619,93 +619,64 @@ body.dark-theme .hero-image-container:hover::before {
 
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .skill-category {
     background: var(--card-gradient);
     border-radius: var(--card-border-radius);
-    padding: 2rem;
+    padding: 2.5rem;
     box-shadow: var(--card-shadow);
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     transition: var(--transition-slow);
-    transform-style: preserve-3d;
-    perspective: 1000px;
-}
-
-.skill-category:hover {
-    transform: translateY(-5px) rotateX(2deg) rotateY(2deg);
-    box-shadow: var(--card-hover-shadow);
 }
 
 .skill-category h3 {
     color: var(--text-primary);
-    margin-bottom: 1.8rem;
-    font-size: 1.6rem;
-    padding-bottom: 0.8rem;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
     border-bottom: 2px solid var(--primary-color);
-    position: relative;
-}
-
-.skill-category h3::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 50px;
-    height: 2px;
-    background: var(--accent-color);
-    animation: borderGlow 2s ease-in-out infinite;
-}
-
-@keyframes borderGlow {
-    0%, 100% { box-shadow: 0 0 5px var(--accent-color); }
-    50% { box-shadow: 0 0 15px var(--accent-color); }
+    text-align: center;
 }
 
 .skill-items {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
 }
 
 .skill-item {
     display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.2rem;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.5rem;
     background: var(--card-gradient);
-    border-radius: 12px;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     transition: var(--transition-fast);
-    transform-style: preserve-3d;
 }
 
-.skill-item:hover {
-    transform: translateY(-3px) scale(1.02) translateZ(10px);
-    background: var(--hover-gradient);
-}
-
-.skill-item:hover .skill-icon {
-    transform: scale(1.1) rotate(5deg);
-    background: var(--card-gradient);
-}
-
-/* 技能图标容器 */
 .skill-icon {
     flex-shrink: 0;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--hover-gradient);
-    border-radius: 10px;
-    padding: 8px;
+    border-radius: 12px;
+    padding: 10px;
     transition: var(--transition-fast);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .skill-icon img {
@@ -714,25 +685,103 @@ body.dark-theme .hero-image-container:hover::before {
     object-fit: contain;
 }
 
-/* 技能信息容器 */
 .skill-info {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
 }
 
 .skill-info span {
-    font-size: 1.1rem;
-    font-weight: 500;
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 600;
     color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, var(--text-primary), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .skill-description {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
-    line-height: 1.4;
+    line-height: 1.5;
     margin: 0;
+}
+
+/* 悬停效果 */
+.skill-item:hover {
+    transform: translateY(-5px);
+    background: var(--hover-gradient);
+    box-shadow: var(--card-hover-shadow);
+}
+
+.skill-item:hover .skill-icon {
+    transform: scale(1.1) rotate(5deg);
+    background: var(--card-gradient);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 分类标题 */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    margin: 1rem auto;
+    border-radius: 3px;
+}
+
+/* 暗色主题适配 */
+body.dark-theme .skill-item {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .skill-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .skills-section {
+        padding: 6rem 1rem;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .skill-item {
+        padding: 1.2rem;
+    }
+
+    .skill-icon {
+        width: 45px;
+        height: 45px;
+        padding: 8px;
+    }
+
+    .skill-info span {
+        font-size: 1.2rem;
+    }
+
+    .skill-description {
+        font-size: 0.9rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
 }
 
 /* Dark Theme Specific Styles */
