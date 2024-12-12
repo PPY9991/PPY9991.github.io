@@ -1332,13 +1332,17 @@ body.dark-theme .skills-section {
 }
 
 .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
-    margin-top: 3rem;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .project-card {
+    width: 100%;
+    margin-bottom: 1rem;
     background: var(--card-gradient);
     border-radius: var(--card-border-radius);
     padding: 2.5rem;
@@ -1694,4 +1698,54 @@ body.dark-theme .project-card:hover {
 /* 确保装饰元素不会干扰点击 */
 .project-card::before {
     pointer-events: none;
+}
+
+/* 修改社交链接容器样式 */
+.social-links {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+/* 为每个社交项添加容器样式 */
+.social-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* 社交标签文字样式 */
+.social-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+    transition: var(--transition-fast);
+}
+
+/* 社交图标容器样式更新 */
+.email-container, .github-container, .wechat-container, .gitee-container {
+    /* 保持现有样式 */
+    position: relative;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--card-gradient);
+    transition: var(--transition-fast);
+    box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* 悬停效果 */
+.social-item:hover .social-label {
+    color: var(--primary-color);
+    transform: translateY(-2px);
 }
