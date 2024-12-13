@@ -404,7 +404,7 @@ const SocialManager = {
             // 设置初始 tooltip 文本
             const wechatTooltip = wechatBtn.querySelector('.tooltip-hint');
             if (wechatTooltip) {
-                wechatTooltip.textContent = '点击复���微信号';
+                wechatTooltip.textContent = '点击复制微信号';
             }
 
             wechatBtn.addEventListener('click', () => {
@@ -440,8 +440,7 @@ const SocialManager = {
 
         // 同时尝试使用现代 API
         navigator.clipboard?.writeText(text).catch(() => {
-            // 如果现代 API 失败，我们已经使用了传统方法作为备用
-            console.log('现��复制 API 不可用，已使用备用方法');
+            console.log('现代复制 API 不可用，已使用备用方法');
         });
     },
 
@@ -555,7 +554,7 @@ const SkillManager = {
                 // 使用图片图标
                 iconContainer.innerHTML = `<img src="${skillConfig.imagePath}" alt="${skillType}" style="width: 24px; height: 24px;">`;
             } else if (skillConfig?.icon) {
-                // ���用 Font Awesome 图标
+                // 使用 Font Awesome 图标
                 iconContainer.innerHTML = `<i class="${skillConfig.icon}"></i>`;
             }
 

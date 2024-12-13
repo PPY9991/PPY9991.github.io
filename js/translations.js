@@ -60,7 +60,7 @@ const translations = {
             },
             ecommerce: {
                 title: "Distributed E-commerce Order Management System",
-                description: "Developed and optimized a highly available distributed order management system supporting complete order lifecycle. Processing 5M+ daily orders with 12K+ QPS peak.",
+                description: "Developed and optimized a highly available distributed order management system supporting complete order lifecycle. Processing 50k+ daily orders .",
                 feature1: "Distributed Architecture",
                 feature2: "Distributed Transaction",
                 feature3: "High Performance"
@@ -128,7 +128,7 @@ const translations = {
             },
             ecommerce: {
                 title: "分布式电商订单管理系统",
-                description: "开发并优化高可用分布式订单管理系统，支持订单创建、支付、库存管理等完整流程。系统日订单处理量500万+，QPS峰值12K+。",
+                description: "开发并优化高可用分布式订单管理系统，支持订单创建、支付、库存管理等完整流程。系统日订单处理量5万+。",
                 feature1: "分布式架构设计",
                 feature2: "分布式事务处理",
                 feature3: "高性能优化"
