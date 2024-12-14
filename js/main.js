@@ -610,7 +610,7 @@ const SkillManager = {
         const iconElement = iconContainer.querySelector('i, img');
         const colors = this.iconColors[skillType] || { bg: 'rgba(150, 150, 150, 0.15)', glow: 'rgba(150, 150, 150, 0.3)' };
 
-        // 增强容器效果
+        // 增强容器���果
         iconContainer.style.transform = 'translateY(-3px)';
         iconContainer.style.backgroundColor = colors.bg.replace('0.15', '0.25');
         iconContainer.style.boxShadow = `
@@ -709,10 +709,10 @@ window.addEventListener('scroll', function() {
     if (!scrollTimeout) {
         scrollTimeout = setTimeout(function() {
             scrollTimeout = null;
-            // 执行滚动相关的操作
+            // 处理滚动相关的操作
         }, 66); // 约15fps的频率
     }
-}, { passive: true });
+});
 
 // 优化调整窗口大小的性能
 let resizeTimeout;
@@ -828,6 +828,60 @@ const WelcomeManager = {
         }
     }
 };
+
+// 添加移动端菜单切换功能
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    menuToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+    });
+    
+    // 点击导航链接后自动关闭菜单
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+        });
+    });
+    
+    // 点击页面其他区域关闭菜单
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navbar')) {
+            navLinks.classList.remove('active');
+        }
+    });
+});
+
+// 添加移动端性能优化
+document.addEventListener('DOMContentLoaded', function() {
+    // 延迟加载图片
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    lazyImages.forEach(img => imageObserver.observe(img));
+
+    // 优化滚动性能
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                // 处理滚动相关的操作
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+});
 
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
