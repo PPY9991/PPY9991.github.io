@@ -737,8 +737,14 @@ const WelcomeManager = {
 
     async showWelcomeMessage() {
         try {
-            // 获取访问者IP信息
-            const response = await fetch('https://ipapi.co/json/');
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
+            
+            const response = await fetch('https://ipapi.co/json/', {
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+            
             const data = await response.json();
             
             // 获取问候语
@@ -767,6 +773,25 @@ const WelcomeManager = {
             }, 8000);
         } catch (error) {
             console.error('Failed to fetch location:', error);
+            // 在获取位置失败时仍然显示基本欢迎信息
+            const greeting = this.getGreeting();
+            const welcomeMessage = this.getCurrentLang() === 'zh' 
+                ? `${greeting}，欢迎访问`
+                : `${greeting}, welcome`;
+            
+            this.welcomeText.textContent = welcomeMessage;
+            
+            // 显示欢迎框
+            setTimeout(() => {
+                this.welcomeBox.classList.remove('hide');
+                this.welcomeBox.classList.add('show');
+            }, 1000);
+            
+            // 7秒后隐藏
+            setTimeout(() => {
+                this.welcomeBox.classList.remove('show');
+                this.welcomeBox.classList.add('hide');
+            }, 8000);
         }
     },
 
@@ -794,14 +819,15 @@ const WelcomeManager = {
 
     getCurrentLang() {
         return document.documentElement.getAttribute('lang') || 'en';
+    },
+
+    cleanup() {
+        if (this.welcomeBox) {
+            this.welcomeBox.classList.remove('show');
+            this.welcomeBox.classList.add('hide');
+        }
     }
 };
-
-// 在初始化列表中添加欢迎框初始化
-document.addEventListener('DOMContentLoaded', () => {
-    // ... 其他初始化
-    WelcomeManager.init();
-});
 
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
@@ -811,4 +837,5 @@ document.addEventListener('DOMContentLoaded', () => {
     ShootingStarManager.init();
     SocialManager.init();
     SkillManager.init();
+    WelcomeManager.init();
 }); 

@@ -415,10 +415,10 @@ body.dark-theme .lang-toggle:checked ~ .switch-label .switch-zh {
 /* Hero Section */
 .hero {
     position: relative;
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
-    padding-top: var(--nav-height);
+    padding-top: calc(var(--nav-height) - 20px);
     background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 50%, var(--bg-secondary) 100%);
     overflow: hidden;
 }
@@ -448,12 +448,13 @@ body.dark-theme .lang-toggle:checked ~ .switch-label .switch-zh {
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 1rem 2rem;
     gap: 4rem;
 }
 
 .hero-text {
     flex: 1;
+    margin-top: -40px;
 }
 
 .hero-text h1 {
@@ -652,7 +653,7 @@ body.dark-theme .hero-image-container:hover::before {
     padding: 0 1rem;
 }
 
-/* 移除原有的模划线 */
+/* 移除原有的模线 */
 .section-title::after {
     display: none;
 }
@@ -1800,7 +1801,7 @@ body.dark-theme .project-card:hover {
     transform: translateY(0);
 }
 
-/* 优化项目卡片的初始状态 */
+/* 优化项目卡片的始状态 */
 .project-card {
     opacity: 0;
     transform: translateY(20px);
@@ -1965,4 +1966,33 @@ body.dark-theme .welcome-content {
     .welcome-box.hide {
         transform: translateY(120%);
     }
+    
+    .welcome-content {
+        font-size: 0.95rem;
+        justify-content: center;
+    }
+}
+
+/* 欢迎框内容样式更新 */
+.welcome-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* 替换图标样式 */
+.welcome-icon {
+    width: 24px;  /* 调整图片大小 */
+    height: 24px;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 2px rgba(var(--primary-color-rgb), 0.3));
+}
+
+/* 暗色模式适配 */
+body.dark-theme .welcome-icon {
+    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.2));
 }
