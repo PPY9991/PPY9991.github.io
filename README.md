@@ -1,199 +1,165 @@
 # PPY 的个人技术博客
 
-一个现代化的个人技术博客网站，采用响应式设计，支持中英文切换和暗黑模式。
+一个现代化的个人技术博客网站，采用响应式设计，支持中英文切换和暗黑模式。使用纯HTML、CSS和JavaScript构建，无需任何框架依赖。
 
 ## 在线预览
 
 访问地址：[https://paangbaobao.cn](https://paangbaobao.cn)
 
-## 主要特点
+## 技术栈详解
 
-### 1. 视觉设计
-- 现代简约的界面设计
-- 流畅的动画效果
-- 日间模式渐变底色
-- 夜间模式星空背景
-- 随机生成流星效果
-- 3D 交互式头像
-- 霓虹灯光效果
-- 自适应的暗黑模式
+### 1. 前端基础
+- **HTML5**
+  - 语义化标签结构
+  - 响应式meta标签
+  - 预加载和预连接优化
+  - SVG图标支持
 
-### 2. 交互功能
-- 优雅的语言切换开关
-- 明暗主题切换
-- 平滑滚动
-- 返回顶部按钮
-- 技能卡片悬停效果
-- 社交媒体快速链接
-- 邮箱和微信一键复制
+- **CSS3**
+  - Flexbox和Grid布局
+  - CSS变量实现主题切换
+  - CSS自定义属性
+  - 渐变和阴影效果
+  - 动画和过渡效果
+  - 媒体查询响应式设计
+  - Backdrop Filter毛玻璃效果
 
-### 3. 技术特性
-- 响应式布局设计
-- CSS Grid 和 Flexbox 布局
-- CSS 自定义属性
-- 原生 JavaScript 实现
-- 本地化存储偏好设置
-- 性能优化的动画效果
-- 防抖动的 3D 交互
+- **JavaScript (ES6+)**
+  - 模块化设计
+  - Promise异步处理
+  - Async/Await语法
+  - 事件委托
+  - 防抖和节流
+  - IntersectionObserver懒加载
+  - LocalStorage数据持久化
 
-## 技术栈
+### 2. 性能优化
+- **资源加载优化**
+  - 预加载关键资源
+  - 预连接第三方域名
+  - 图片懒加载
+  - 按需加载
+  - 资源压缩
 
-### 前端技术
-- HTML5
-- CSS3 (Flexbox & Grid)
-- JavaScript (ES6+)
-- CSS 动画和过渡效果
-- CSS 变量
-- LocalStorage API
-- RequestAnimationFrame 优化
+- **渲染性能**
+  - CSS硬件加速
+  - 动画性能优化
+  - 防抖和节流控制
+  - 减少重排重绘
+  - requestAnimationFrame优化动画
+  - will-change提示
 
-### 第三方资源
-- Font Awesome (图标)
-- Google Fonts (Roboto)
-- DevIcon (技能图标)
+- **用户体验**
+  - 平滑滚动
+  - 渐进式加载
+  - 骨架屏加载
+  - 优雅降级处理
 
-## 项目结构
+### 3. 特色功能实现
 
+#### 3.1 多语言支持
+- 语言切换动画效果
+- 语言偏好本地存储
+- i18n国际化实现
+- 动态文本替换
+
+#### 3.2 主题切换
+- 日/夜间模式切换
+- CSS变量动态更新
+- 主题偏好本地存储
+- 平滑过渡动画
+
+#### 3.3 3D交互
+- 头像悬停效果
+- 视差滚动效果
+- 3D转换动画
+- 性能优化处理
+
+#### 3.4 动画效果
+- 星空背景动画
+- 流星动画效果
+- 页面切换动画
+- 滚动动画
+- 悬停动画
+
+### 4. 项目结构
 ```
-/
+ppy.github.io/
 ├── index.html              # 主页面
 ├── css/
 │   ├── style.css          # 主样式文件
 │   └── dark-theme.css     # 暗黑主题样式
 ├── js/
-│   ├── main.js           # 主要脚本文件
-│   ├── translations.js   # 多语言翻译配置
-│   └── i18n.js          # 国际化功能
-└── images/               # 图片资源
+│   ├── main.js            # 主要逻辑
+│   ├── translations.js    # 多语言配置
+│   └── i18n.js           # 国际化实现
+├── images/                # 图片资源
+└── README.md             # 项目文档
 ```
 
-## 功能详解
+### 5. 核心功能模块
 
-### 暗黑模式
-- 自动检测系统主题偏好
-- 手动切换主题
-- 主题状态本地存储
-- 平滑的过渡动画
-- 星空背景效果
-- 随机生成流星
+#### 5.1 主题管理 (ThemeManager)
+- 自动检测系统主题
+- 主题切换动画
+- 主题状态持久化
+- 星空背景控制
 
-### 多语言支持
-- 中英文切换
-- 语言偏好本地存储
-- 平滑的切换动画
-- 开关式切换按钮
+#### 5.2 语言管理 (LanguageManager)
+- 语言切换逻辑
+- 文本动态替换
+- 语言偏好存储
+- 过渡动画处理
 
-### 3D 交互
-- 头像悬停效果
-- 性能优化的变换
-- 防抖动处理
-- 霓虹灯光效果
-- 平滑的动画过渡
+#### 5.3 头像交互 (AvatarManager)
+- 3D悬停效果
+- 性能优化
+- 动画防抖
+- 光影效果
 
-### 响应式设计
-- 移动端优化
-- 自适应布局
-- 触摸友好的交互
-- 优化的性能表现
+#### 5.4 特效管理 (ShootingStarManager)
+- 流星生成控制
+- 动画性能优化
+- 随机参数生成
+- 主题联动
 
-## 性能优化
+#### 5.5 社交功能 (SocialManager)
+- 邮箱复制
+- 社交链接
+- 提示框效果
+- 返回顶部
 
-- 使用 `will-change` 提示
-- RequestAnimationFrame 优化动画
-- 防抖动处理
-- 条件性动画加载
-- 资源按需加载
-- CSS 变量复用
-
-## 浏览器支持
-
+### 6. 浏览器支持
 - Chrome (最新版)
 - Firefox (最新版)
 - Safari (最新版)
 - Edge (最新版)
 
-## 开发计划
+### 7. 性能指标
+- 首屏加载时间 < 2s
+- 交互响应时间 < 100ms
+- 动画帧率 > 60fps
+- Google Lighthouse评分 > 90
 
-- [ ] 添加更多交互动画
+### 8. 后续规划
+- [ ] 添加博客文章功能
+- [ ] 实现评论系统
+- [ ] 添加搜索功能
 - [ ] 优化移动端体验
-- [ ] 添加更多主题选项
-- [ ] 优化加载性能
-- [ ] 添加 PWA 支持
+- [ ] 添加更多交互动画
+- [ ] 实现PWA支持
+- [ ] 添加数据统计分析
+- [ ] 优化SEO表现
 
-## 特效实现细节
+## 贡献指南
 
-### 流星效果 (Shooting Stars)
+1. Fork 本仓库
+2. 创建特性分支
+3. 提交更改
+4. 推送到分支
+5. 提交Pull Request
 
-流星效果在暗色主题下自动启用，使用纯 CSS 动画实现运动轨迹，通过 JavaScript 控制生成逻辑。主要特点：
+## 许可证
 
-1. **生成控制**
-   - 同屏流星数量：2-5颗
-   - 生成频率：约每1.5-3秒检查一次
-   - 生成概率：当流星数量在最小值以上时，每次检查有40%概率生成新流星
-   - 位置随机：在屏幕右上方区域随机生成（top: 0-60%, right: 0-40%）
-
-2. **动画参数**
-   - 运动时长：5-8秒随机
-   - 延迟时间：0-2秒随机
-   - 大小缩放：0.7-1.2倍随机
-   - 运动角度：基准-35度，±3度随机偏移
-
-3. **性能优化**
-   - 自动跟踪和限制活跃流星数量
-   - 主题切换时自动清理
-   - 动画结束后自动移除 DOM 元素
-   - 使用 CSS transform 和 opacity 实现流畅动画
-
-4. **实现代码**
-
-```css
-.shooting-star {
-    position: absolute;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
-    animation: shooting-star-animation var(--duration, 6s) linear;
-    transform-origin: right;
-}
-
-@keyframes shooting-star-animation {
-    0% {
-        width: 0;
-        opacity: 0;
-        transform: translateX(0) rotate(var(--star-angle));
-    }
-    10% {
-        width: 100px;
-        opacity: 1;
-    }
-    100% {
-        width: 0;
-        opacity: 0;
-        transform: translateX(-1000px) rotate(var(--star-angle));
-    }
-}
-```
-
-主要配置参数：
-
-```javascript
-const config = {
-    minStars: 2,           // 最小同屏流星数
-    maxStars: 5,           // 最大同屏流星数
-    genProbability: 0.4,   // 生成新流星的概率
-    checkInterval: {        // 检查间隔（毫秒）
-        min: 1500,
-        max: 3000
-    },
-    position: {            // 生成位置范围
-        top: { min: 0, max: 60 },
-        right: { min: 0, max: 40 }
-    },
-    animation: {           // 动画参数
-        duration: { min: 5, max: 8 },
-        delay: { min: 0, max: 2 },
-        scale: { min: 0.7, max: 1.2 },
-        angle: { base: -35, variance: 3 }
-    }
-};
-```
+MIT License - 详见 [LICENSE](LICENSE) 文件
 

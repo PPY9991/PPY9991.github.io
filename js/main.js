@@ -641,7 +641,7 @@ const SkillManager = {
         const iconElement = iconContainer.querySelector('i, img');
         const colors = this.iconColors[skillType] || { bg: 'rgba(150, 150, 150, 0.15)', glow: 'rgba(150, 150, 150, 0.3)' };
 
-        // 重��容器效果
+        // 重置容器效果
         iconContainer.style.transform = 'translateY(0)';
         iconContainer.style.backgroundColor = colors.bg;
         iconContainer.style.boxShadow = `

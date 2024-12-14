@@ -31,28 +31,30 @@
 
     <!-- 导航栏 -->
     <nav class="navbar">
-        <div class="nav-left">
-            <div class="nav-logo">PPY9991</div>
+        <div class="container">
+            <div class="nav-left">
+                <div class="nav-logo">PPY9991</div>
+                <div class="lang-switch">
+                    <div class="switch-container">
+                        <input type="checkbox" id="lang-toggle" class="lang-toggle">
+                        <label for="lang-toggle" class="switch-label">
+                            <span class="switch-en">EN</span>
+                            <span class="switch-zh">中</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
             <button class="mobile-menu-toggle" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
-            <div class="lang-switch">
-                <div class="switch-container">
-                    <input type="checkbox" id="lang-toggle" class="lang-toggle">
-                    <label for="lang-toggle" class="switch-label">
-                        <span class="switch-en">EN</span>
-                        <span class="switch-zh">中</span>
-                    </label>
-                </div>
+            <div class="nav-links">
+                <a href="#home" data-i18n="nav.home">Home</a>
+                <a href="#skills" data-i18n="nav.skills">Skills</a>
+                <a href="#projects" data-i18n="nav.projects">Projects</a>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
-        </div>
-        <div class="nav-links">
-            <a href="#home" data-i18n="nav.home">Home</a>
-            <a href="#skills" data-i18n="nav.skills">Skills</a>
-            <a href="#projects" data-i18n="nav.projects">Projects</a>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-                <i class="fas fa-moon"></i>
-            </button>
         </div>
     </nav>
 
@@ -247,7 +249,7 @@
                         <h3 class="project-title">
                             <a href="https://github.com/PPY9991/Stock_Stecor_Data_Analysis" target="_blank" class="project-title-link">
                                 <i class="fas fa-chart-line"></i>
-                                <span data-i18n="projects.stockAnalysis.title">股票板块数据分析</span>
+                                <span data-i18n="projects.stockAnalysis.title">股票板块数据���析</span>
                             </a>
                         </h3>
                         <a href="https://github.com/PPY9991/Stock_Stecor_Data_Analysis" target="_blank" class="project-link">
@@ -291,7 +293,7 @@
                         </a>
                     </div>
                     <p class="project-description" data-i18n="projects.ecommerce.description">
-                        开发并优化高可用分布式订单管理系统，支持订单创建、支付、库存管理等完整流程。系统日订单处理量500万+，QPS峰值12K+。
+                        开发并优化高可用分布式订单管理系统，���持订单创建、支付、库存管理等完整流程。系统日订单处理量500万+，QPS峰值12K+。
                     </p>
                     <div class="project-features">
                         <div class="feature-item" data-i18n="projects.ecommerce.feature1">

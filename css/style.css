@@ -36,6 +36,8 @@
     --card-hover-shadow: 0 20px 40px -5px rgba(79,70,229,0.2);
     --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --container-width: 1200px;
+    --container-padding: 1rem;
 }
 
 body.dark-theme {
@@ -1641,7 +1643,7 @@ body.dark-theme .project-card:hover {
     font-weight: 600;
 }
 
-/* 修复项目标题链接 */
+/* 修复��目标题链接 */
 .project-title-link {
     display: flex;
     align-items: center;
@@ -1788,7 +1790,7 @@ body.dark-theme .project-card:hover {
     /* 添加硬件加速 */
     transform: translateZ(0);
     will-change: transform;
-    /* 使用更高性能的属性 */
+    /* 使用更高性能的合成属性 */
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1804,7 +1806,7 @@ body.dark-theme .project-card:hover {
 
 /* 优化背景渐变的性能 */
 .projects-grid {
-    /* 使用更高性能的���成属性 */
+    /* 使用更高性能的属性 */
     transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000px;
@@ -2118,5 +2120,35 @@ body.menu-open {
     .nav-links a {
         padding: 12px;
         font-size: 1rem;
+    }
+}
+
+/* 修复导航栏容器结构 */
+.navbar > .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 var(--container-padding);
+    box-sizing: border-box;
+}
+
+/* 修复语言切换按钮结构 */
+.lang-switch {
+    display: flex;
+    align-items: center;
+}
+
+/* 修复移动端导航菜单 */
+@media screen and (max-width: 768px) {
+    .nav-links {
+        transform: translateX(100%);
+        right: 0;
+        left: auto;
+        width: 100%;
+    }
+
+    .nav-links.active {
+        transform: translateX(0);
     }
 }
