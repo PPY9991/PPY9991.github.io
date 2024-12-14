@@ -652,7 +652,7 @@ body.dark-theme .hero-image-container:hover::before {
     padding: 0 1rem;
 }
 
-/* 移除原有的模糊下��线 */
+/* 移除原有的模划线 */
 .section-title::after {
     display: none;
 }
@@ -1821,4 +1821,148 @@ body.dark-theme .project-card:hover {
 
 .projects-section.visible .project-card:nth-child(2) {
     transition-delay: 0.2s;
+}
+
+/* 欢迎框样式更新 */
+.welcome-box {
+    position: fixed;
+    top: calc(var(--nav-height) + 20px);
+    right: 20px;
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.92), 
+        rgba(255, 255, 255, 0.85)
+    );
+    padding: 18px 25px 22px;
+    border-radius: 16px;
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: translateX(-200%);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    position: relative;
+    overflow: hidden;
+    width: max-content;
+    max-width: calc(100vw - 40px);
+    background-image: 
+        linear-gradient(135deg, 
+            rgba(var(--primary-color-rgb), 0.08),
+            rgba(var(--accent-color-rgb), 0.05)
+        );
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* 欢迎框内容样式 */
+.welcome-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.welcome-content i {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    filter: drop-shadow(0 1px 2px rgba(var(--primary-color-rgb), 0.3));
+}
+
+/* 进度条背景 */
+.welcome-box::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(var(--primary-color-rgb), 0.1);
+    border-radius: 0 0 16px 16px;
+}
+
+/* 进度条动画 */
+.welcome-box::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg,
+        var(--primary-color),
+        var(--accent-color)
+    );
+    border-radius: 0 0 16px 16px;
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+/* 显示状态 */
+.welcome-box.show {
+    transform: translateX(0);
+    visibility: visible;
+    opacity: 1;
+}
+
+/* 显示时添加进度条动画 */
+.welcome-box.show::before {
+    animation: countdown 7s linear forwards;
+}
+
+@keyframes countdown {
+    0% {
+        transform: scaleX(1);
+    }
+    100% {
+        transform: scaleX(0);
+    }
+}
+
+/* 隐藏状态 */
+.welcome-box.hide {
+    transform: translateX(120%);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0s linear 0.5s;
+}
+
+/* 暗色模式适配 */
+body.dark-theme .welcome-box {
+    background: linear-gradient(145deg,
+        rgba(30, 30, 30, 0.92),
+        rgba(20, 20, 20, 0.85)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.2),
+        0 2px 8px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .welcome-content {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .welcome-box {
+        top: auto;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        padding: 15px 20px 19px;
+        width: auto;
+        margin: 0 auto;
+        transform: translateY(120%);
+    }
+    
+    .welcome-box.hide {
+        transform: translateY(120%);
+    }
 }

@@ -725,6 +725,84 @@ window.addEventListener('resize', function() {
     }
 }, { passive: true });
 
+// 添加欢迎框管理模块
+const WelcomeManager = {
+    init() {
+        this.welcomeBox = document.querySelector('.welcome-box');
+        this.welcomeText = document.querySelector('.welcome-text');
+        if (!this.welcomeBox || !this.welcomeText) return;
+
+        this.showWelcomeMessage();
+    },
+
+    async showWelcomeMessage() {
+        try {
+            // 获取访问者IP信息
+            const response = await fetch('https://ipapi.co/json/');
+            const data = await response.json();
+            
+            // 获取问候语
+            const greeting = this.getGreeting();
+            
+            // 获取地理位置
+            const location = this.formatLocation(data);
+            
+            // 设置欢迎文本
+            const welcomeMessage = this.getCurrentLang() === 'zh' 
+                ? `${greeting}，欢迎来自${location}的朋友`
+                : `${greeting}, welcome friend from ${location}`;
+            
+            this.welcomeText.textContent = welcomeMessage;
+            
+            // 显示欢迎框
+            setTimeout(() => {
+                this.welcomeBox.classList.remove('hide');
+                this.welcomeBox.classList.add('show');
+            }, 1000);
+            
+            // 7秒后隐藏
+            setTimeout(() => {
+                this.welcomeBox.classList.remove('show');
+                this.welcomeBox.classList.add('hide');
+            }, 8000);
+        } catch (error) {
+            console.error('Failed to fetch location:', error);
+        }
+    },
+
+    getGreeting() {
+        const hour = new Date().getHours();
+        const isZh = this.getCurrentLang() === 'zh';
+        
+        if (hour >= 5 && hour < 12) {
+            return isZh ? '早上好' : 'Good morning';
+        } else if (hour >= 12 && hour < 18) {
+            return isZh ? '下午好' : 'Good afternoon';
+        } else {
+            return isZh ? '晚上好' : 'Good evening';
+        }
+    },
+
+    formatLocation(data) {
+        const isZh = this.getCurrentLang() === 'zh';
+        if (isZh) {
+            return `${data.country_name}${data.region}${data.city}`;
+        } else {
+            return `${data.city}, ${data.region}, ${data.country_name}`;
+        }
+    },
+
+    getCurrentLang() {
+        return document.documentElement.getAttribute('lang') || 'en';
+    }
+};
+
+// 在初始化列表中添加欢迎框初始化
+document.addEventListener('DOMContentLoaded', () => {
+    // ... 其他初始化
+    WelcomeManager.init();
+});
+
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
     ThemeManager.init();
