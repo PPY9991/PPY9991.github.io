@@ -1716,7 +1716,7 @@ body.dark-theme .project-card:hover {
     text-decoration: none !important;
 }
 
-/* 修复 GitHub 图标链接 */
+/* 修复 GitHub 图标链��� */
 .project-link {
     position: relative;
     z-index: 3;
@@ -1774,7 +1774,7 @@ body.dark-theme .project-card:hover {
     border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* 悬停效果 */
+/* 悬��效果 */
 .social-item:hover .social-label {
     color: var(--primary-color);
     transform: translateY(-2px);
@@ -2020,36 +2020,45 @@ body.dark-theme .welcome-icon {
 @media screen and (max-width: 768px) {
     .navbar {
         padding: 10px 15px;
+        justify-content: space-between; /* 确保两端对齐 */
+    }
+    
+    .nav-left {
+        flex: 1; /* 让左侧占据剩余空间 */
     }
     
     .mobile-menu-toggle {
-        display: block;  /* 移动端显示 */
+        display: block;  /* 仅在移动端显示 */
         background: none;
         border: none;
         color: var(--text-primary);
         font-size: 1.5rem;
         cursor: pointer;
         padding: 5px;
-        margin-left: 10px;
+        margin-left: auto; /* 将按钮推到右侧 */
         z-index: 1001;
+        order: 3; /* 确保按钮在最右侧 */
     }
     
     .nav-links {
         position: fixed;
         top: var(--nav-height);
-        left: -100%;
+        right: -100%; /* 改为从右侧滑入 */
+        left: auto; /* 取消左侧定位 */
         width: 100%;
         height: calc(100vh - var(--nav-height));
         background: var(--bg-primary);
         backdrop-filter: blur(10px);
         flex-direction: column;
         padding: 20px;
-        transition: left 0.3s ease;
+        transition: right 0.3s ease; /* 改为右侧过渡 */
         z-index: 1000;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1); /* 添加左侧阴影 */
     }
     
     .nav-links.active {
-        left: 0;
+        right: 0; /* 激活时从右侧滑入 */
+        left: auto;
     }
     
     .nav-links a {
@@ -2058,6 +2067,11 @@ body.dark-theme .welcome-icon {
         text-align: center;
         font-size: 1.2rem;
         border-bottom: 1px solid var(--border-color);
+    }
+
+    /* 确保语言切换按钮在正确位置 */
+    .lang-switch {
+        margin-right: 15px; /* 与汉堡菜单保持一定距离 */
     }
 }
 
