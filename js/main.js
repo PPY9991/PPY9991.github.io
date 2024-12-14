@@ -610,7 +610,7 @@ const SkillManager = {
         const iconElement = iconContainer.querySelector('i, img');
         const colors = this.iconColors[skillType] || { bg: 'rgba(150, 150, 150, 0.15)', glow: 'rgba(150, 150, 150, 0.3)' };
 
-        // 增强容器���果
+        // 增强容器效果
         iconContainer.style.transform = 'translateY(-3px)';
         iconContainer.style.backgroundColor = colors.bg.replace('0.15', '0.25');
         iconContainer.style.boxShadow = `
@@ -641,7 +641,7 @@ const SkillManager = {
         const iconElement = iconContainer.querySelector('i, img');
         const colors = this.iconColors[skillType] || { bg: 'rgba(150, 150, 150, 0.15)', glow: 'rgba(150, 150, 150, 0.3)' };
 
-        // 重置容器效果
+        // 重��容器效果
         iconContainer.style.transform = 'translateY(0)';
         iconContainer.style.backgroundColor = colors.bg;
         iconContainer.style.boxShadow = `
@@ -829,19 +829,22 @@ const WelcomeManager = {
     }
 };
 
-// 添加移动端菜单切换功能
+// 移动端菜单处理
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.mobile-menu-toggle');
     const navLinks = document.querySelector('.nav-links');
+    const body = document.body;
     
     menuToggle.addEventListener('click', function() {
         navLinks.classList.toggle('active');
+        body.classList.toggle('menu-open');
     });
     
     // 点击导航链接后自动关闭菜单
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('active');
+            body.classList.remove('menu-open');
         });
     });
     
@@ -849,6 +852,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.navbar')) {
             navLinks.classList.remove('active');
+            body.classList.remove('menu-open');
         }
     });
 });
