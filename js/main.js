@@ -361,87 +361,70 @@ const SocialManager = {
 
     initContactCopy() {
         // 邮箱复制
-        const emailBtn = document.querySelector('.email-container');
-        if (emailBtn) {
-            const email = '2764357258@qq.com';
-            
-            // 设置邮箱文本
-            const emailText = emailBtn.querySelector('.email-text');
-            if (emailText) {
-                emailText.textContent = email;
-            }
-            
-            // 设置初始 tooltip 文本
-            const emailTooltip = emailBtn.querySelector('.tooltip-hint');
-            if (emailTooltip) {
-                emailTooltip.textContent = email;
-            }
-
-            emailBtn.addEventListener('click', () => {
+        const emailContainer = document.querySelector('.email-container');
+        if (emailContainer) {
+            const email = 'ppy@paangbaobao.cn';
+            emailContainer.addEventListener('click', () => {
                 this.copyToClipboard(email, '邮箱已复制！');
-                
-                // 更新提示文本
-                if (emailTooltip) {
-                    emailTooltip.textContent = '已复制！';
-                    setTimeout(() => {
-                        emailTooltip.textContent = email;
-                    }, 2000);
-                }
             });
         }
 
         // 微信复制
-        const wechatBtn = document.querySelector('.wechat-container');
-        if (wechatBtn) {
-            const wechat = 'wechatId';
-            
-            // 设置微信文本
-            const wechatText = wechatBtn.querySelector('.wechat-text');
-            if (wechatText) {
-                wechatText.textContent = wechat;
-            }
-            
-            // 设置初始 tooltip 文本
-            const wechatTooltip = wechatBtn.querySelector('.tooltip-hint');
-            if (wechatTooltip) {
-                wechatTooltip.textContent = '点击复制微信号';
-            }
-
-            wechatBtn.addEventListener('click', () => {
+        const wechatContainer = document.querySelector('.wechat-container');
+        if (wechatContainer) {
+            const wechat = 'ppy';
+            wechatContainer.addEventListener('click', () => {
                 this.copyToClipboard(wechat, '微信号已复制！');
-                
-                // 更新提示文本
-                if (wechatTooltip) {
-                    wechatTooltip.textContent = '已复制！';
-                    setTimeout(() => {
-                        wechatTooltip.textContent = '点击复制微信号';
-                    }, 2000);
-                }
             });
+        }
+
+        // GitHub 链接
+        const githubContainer = document.querySelector('.github-container a');
+        if (githubContainer) {
+            githubContainer.href = 'https://github.com/ppy';
+            githubContainer.target = '_blank';
+            githubContainer.rel = 'noopener noreferrer';
+        }
+
+        // Gitee 链接
+        const giteeContainer = document.querySelector('.gitee-container a');
+        if (giteeContainer) {
+            giteeContainer.href = 'https://gitee.com/ppy9991';
+            giteeContainer.target = '_blank';
+            giteeContainer.rel = 'noopener noreferrer';
         }
     },
 
     copyToClipboard(text, successMessage) {
-        // 使用临时输入框确保在所有浏览器中都能正常工作
-        const tempInput = document.createElement('textarea');
-        tempInput.value = text;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        
-        try {
-            document.execCommand('copy');
-            this.showToast(successMessage);
-        } catch (err) {
-            console.error('复制失败:', err);
-            this.showToast('复制失败，请手动复制');
-        } finally {
-            document.body.removeChild(tempInput);
-        }
+        // 使用现代 Clipboard API
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text)
+                .then(() => this.showToast(successMessage))
+                .catch(err => {
+                    console.error('复制失败:', err);
+                    this.showToast('复制失败，请手动复制');
+                });
+        } else {
+            // 回退方案
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
 
-        // 同时尝试使用现代 API
-        navigator.clipboard?.writeText(text).catch(() => {
-            console.log('现代复制 API 不可用，已使用备用方法');
-        });
+            try {
+                document.execCommand('copy');
+                this.showToast(successMessage);
+            } catch (err) {
+                console.error('复制失败:', err);
+                this.showToast('复制失败，请手动复制');
+            } finally {
+                textArea.remove();
+            }
+        }
     },
 
     showToast(message) {
@@ -455,7 +438,6 @@ const SocialManager = {
         toast.className = 'toast';
         toast.textContent = message;
         
-        // 设置 toast 样式
         Object.assign(toast.style, {
             position: 'fixed',
             bottom: '20px',
@@ -464,25 +446,22 @@ const SocialManager = {
             backgroundColor: 'rgba(0, 0, 0, 0.8)',
             color: 'white',
             padding: '12px 24px',
-            borderRadius: '4px',
+            borderRadius: '8px',
             zIndex: '10000',
             opacity: '0',
             transition: 'opacity 0.3s ease'
         });
 
         document.body.appendChild(toast);
-
+        
         // 强制重排以触发动画
         toast.getBoundingClientRect();
-
-        // 显示 toast
+        
         requestAnimationFrame(() => {
             toast.style.opacity = '1';
             setTimeout(() => {
                 toast.style.opacity = '0';
-                setTimeout(() => {
-                    toast.remove();
-                }, 300);
+                setTimeout(() => toast.remove(), 300);
             }, 2000);
         });
     },

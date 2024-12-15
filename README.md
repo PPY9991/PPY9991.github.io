@@ -158,8 +158,3 @@ ppy.github.io/
 3. 提交更改
 4. 推送到分支
 5. 提交Pull Request
-
-## 许可证
-
-MIT License - 详见 [LICENSE](LICENSE) 文件
-
