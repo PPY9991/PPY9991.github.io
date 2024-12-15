@@ -19,7 +19,7 @@ const ThemeManager = {
     setThemeByTime() {
         const hour = new Date().getHours();
         // 早上6点到晚上6点使用日间模式
-        const isDayTime = hour >= 6 && hour < 18;
+        const isDayTime = hour >= 8 && hour < 17;
         this.body.classList.toggle('dark-theme', !isDayTime);
         // 不保存到 localStorage，每次访问都重新检测
     },
@@ -372,7 +372,7 @@ const SocialManager = {
         // 微信复制
         const wechatContainer = document.querySelector('.wechat-container');
         if (wechatContainer) {
-            const wechat = 'ppy';
+            const wechat = 'x.xPPY9991';
             wechatContainer.addEventListener('click', () => {
                 this.copyToClipboard(wechat, '微信号已复制！');
             });
@@ -381,7 +381,7 @@ const SocialManager = {
         // GitHub 链接
         const githubContainer = document.querySelector('.github-container a');
         if (githubContainer) {
-            githubContainer.href = 'https://github.com/ppy';
+            githubContainer.href = 'https://github.com/PPY9991';
             githubContainer.target = '_blank';
             githubContainer.rel = 'noopener noreferrer';
         }
@@ -389,41 +389,18 @@ const SocialManager = {
         // Gitee 链接
         const giteeContainer = document.querySelector('.gitee-container a');
         if (giteeContainer) {
-            giteeContainer.href = 'https://gitee.com/ppy9991';
+            giteeContainer.href = 'https://gitee.com/PPY9991';
             giteeContainer.target = '_blank';
             giteeContainer.rel = 'noopener noreferrer';
         }
     },
 
-    copyToClipboard(text, successMessage) {
-        // 使用现代 Clipboard API
-        if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(text)
-                .then(() => this.showToast(successMessage))
-                .catch(err => {
-                    console.error('复制失败:', err);
-                    this.showToast('复制失败，请手动复制');
-                });
-        } else {
-            // 回退方案
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            textArea.style.position = 'fixed';
-            textArea.style.left = '-999999px';
-            textArea.style.top = '-999999px';
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-
-            try {
-                document.execCommand('copy');
-                this.showToast(successMessage);
-            } catch (err) {
-                console.error('复制失败:', err);
-                this.showToast('复制失败，请手动复制');
-            } finally {
-                textArea.remove();
-            }
+    async copyToClipboard(text, successMessage) {
+        try {
+            await navigator.clipboard.writeText(text);
+            this.showToast(successMessage);
+        } catch {
+            this.showToast('复制失败，请手动复制');
         }
     },
 
@@ -711,25 +688,20 @@ const WelcomeManager = {
         this.welcomeText = document.querySelector('.welcome-text');
         if (!this.welcomeBox || !this.welcomeText) return;
 
-        this.showWelcomeMessage();
+        // 延迟显示欢迎框
+        setTimeout(() => {
+            this.showWelcomeMessage();
+        }, 1000);
     },
 
     async showWelcomeMessage() {
         try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 5000);
-            
             const response = await fetch('https://ipapi.co/json/', {
-                signal: controller.signal
+                signal: AbortSignal.timeout(5000)
             });
-            clearTimeout(timeoutId);
             
             const data = await response.json();
-            
-            // 获取问候语
             const greeting = this.getGreeting();
-            
-            // 获取地理位置
             const location = this.formatLocation(data);
             
             // 设置欢迎文本
@@ -740,37 +712,30 @@ const WelcomeManager = {
             this.welcomeText.textContent = welcomeMessage;
             
             // 显示欢迎框
-            setTimeout(() => {
-                this.welcomeBox.classList.remove('hide');
-                this.welcomeBox.classList.add('show');
-            }, 1000);
+            this.welcomeBox.classList.remove('hide');
+            this.welcomeBox.classList.add('show');
             
             // 7秒后隐藏
             setTimeout(() => {
                 this.welcomeBox.classList.remove('show');
                 this.welcomeBox.classList.add('hide');
-            }, 8000);
+            }, 7000);
         } catch (error) {
             console.error('Failed to fetch location:', error);
-            // 在获取位置失败时仍然显示基本欢迎信息
+            // 显示基本欢迎信息
             const greeting = this.getGreeting();
             const welcomeMessage = this.getCurrentLang() === 'zh' 
                 ? `${greeting}，欢迎访问`
                 : `${greeting}, welcome`;
             
             this.welcomeText.textContent = welcomeMessage;
+            this.welcomeBox.classList.remove('hide');
+            this.welcomeBox.classList.add('show');
             
-            // 显示欢迎框
-            setTimeout(() => {
-                this.welcomeBox.classList.remove('hide');
-                this.welcomeBox.classList.add('show');
-            }, 1000);
-            
-            // 7秒后隐藏
             setTimeout(() => {
                 this.welcomeBox.classList.remove('show');
                 this.welcomeBox.classList.add('hide');
-            }, 8000);
+            }, 7000);
         }
     },
 
@@ -875,4 +840,42 @@ document.addEventListener('DOMContentLoaded', () => {
     SocialManager.init();
     SkillManager.init();
     WelcomeManager.init();
+});
+
+// 在文件末尾添加项目板块的动画初始化
+document.addEventListener('DOMContentLoaded', function() {
+    // 项目板块入场动画
+    const projectsSection = document.querySelector('.projects-section');
+    if (projectsSection) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px'
+        });
+
+        observer.observe(projectsSection);
+    }
+
+    // 项目卡片链接效果
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+        const link = card.querySelector('.project-title-link');
+        if (link) {
+            const originalHref = link.getAttribute('href');
+            card.addEventListener('click', (e) => {
+                // 如果点击的是链接本身或其子元素，不做处理
+                if (e.target.closest('.project-link') || e.target.closest('.project-title-link')) {
+                    return;
+                }
+                // 否则整个卡片可点击
+                window.open(originalHref, '_blank');
+            });
+        }
+    });
 }); 

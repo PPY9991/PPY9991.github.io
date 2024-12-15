@@ -19,7 +19,7 @@ const translations = {
             description: "I'm a backend developer with a passion for creating elegant solutions to complex problems. With 3 years of experience in system architecture and development, I specialize in building high-performance, scalable backend services. I'm also enthusiastic about AI technology and its applications in software development."
         },
         skills: {
-            title: "Skills",
+            title: "Expertise",
             languages: "Programming Languages",
             devSkills: "Development Skills",
             categories: {
@@ -87,7 +87,7 @@ const translations = {
             description: "作为一名后端开发工程师，我热衷于用技术解决复杂问题。拥有3年系统研发经验，专注于构建高性能可扩展的应用服务。对AI技术充满热情，善于将其融入实际开发中。"
         },
         skills: {
-            title: "技能",
+            title: "技术栈",
             languages: "编程语言",
             devSkills: "开发技能",
             categories: {
