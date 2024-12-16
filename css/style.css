@@ -1255,7 +1255,7 @@ body.dark-theme .skill-category {
     backdrop-filter: blur(8px);
 }
 
-/* 具提������底部渐变效果 */
+/* 提示框底部渐变效果 */
 .email-tooltip::after,
 .github-tooltip::after,
 .gitee-tooltip::after,
@@ -2101,7 +2101,7 @@ body.dark-theme .feature-item:hover {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* 暗色主��项目链接样式 */
+/* 暗色主题项目链接样式 */
 body.dark-theme .project-link {
     background: rgba(255, 255, 255, 0.05);
     color: rgba(255, 255, 255, 0.8);
