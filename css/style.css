@@ -1255,7 +1255,7 @@ body.dark-theme .skill-category {
     backdrop-filter: blur(8px);
 }
 
-/* 具提示框底部渐变效果 */
+/* 具提������底部渐变效果 */
 .email-tooltip::after,
 .github-tooltip::after,
 .gitee-tooltip::after,
@@ -1612,45 +1612,28 @@ body.dark-theme .skills-section {
     font-weight: 600;
 }
 
+/* 移除项目标题链接样式 */
 .project-title-link {
     display: inline-flex;
     align-items: center;
     gap: 0.8rem;
     color: var(--text-primary);
-    text-decoration: none;
-    transition: all 0.3s ease;
     padding: 0.5rem;
     margin: -0.5rem;
     border-radius: 8px;
     position: relative;
     background: transparent;
+    cursor: default;
+    text-decoration: none;  /* 移除下划线 */
 }
 
 .project-title-link::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(79, 70, 229, 0.1),
-        rgba(129, 140, 248, 0.1)
-    );
-    border-radius: 8px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.project-title-link::after {
     display: none;
 }
 
 .project-title-link:hover {
-    color: var(--primary-color);
+    color: var(--text-primary);
     transform: none;
-}
-
-.project-title-link:hover::before {
-    opacity: 1;
 }
 
 .project-title-link i {
@@ -1677,13 +1660,16 @@ body.dark-theme .skills-section {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    color: var(--text-primary);
     background: var(--bg-secondary);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    text-decoration: none;
+    cursor: pointer;
     border: 1px solid transparent;
-    position: relative;
-    overflow: hidden;
+}
+
+.project-link:hover {
+    background: transparent;
+    transform: none;
+    box-shadow: none;
 }
 
 .project-link i {
@@ -1825,7 +1811,7 @@ body.dark-theme .skills-section {
     );
     border-color: rgba(var(--tag-color-start), 0.3);
     box-shadow: 
-        0 4px 12px rgba(var(--tag-color-start), 0.15),
+        0 4px 12px rgba(0, 0, 0, 0.15),
         0 0 0 2px rgba(var(--tag-color-start), 0.05);
 }
 
@@ -1869,8 +1855,8 @@ body.dark-theme .tech-tag:hover {
     );
     border-color: rgba(var(--tag-color-start), 0.4);
     box-shadow: 
-        0 4px 12px rgba(var(--tag-color-start), 0.2),
-        0 0 0 2px rgba(var(--tag-color-start), 0.1);
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        0 0 0 2px rgba(255, 255, 255, 0.1);
 }
 
 /* 项目卡片入场动画 */
@@ -1907,7 +1893,7 @@ body.dark-theme .tech-tag:hover {
 
 /* 欢迎框基础样式 */
 .welcome-box {
-    position: fixed;
+    position: fixed;  /* 只保留一个position声明 */
     top: calc(var(--nav-height) + 20px);
     right: 20px;
     left: auto;
@@ -1931,8 +1917,7 @@ body.dark-theme .tech-tag:hover {
     z-index: 1000;
     visibility: hidden;
     opacity: 0;
-    position: relative;
-    overflow: hidden;
+    overflow: hidden;  /* 添加overflow以确保进度条在圆角内 */
 }
 
 /* 欢迎框内容样式 */
@@ -1971,6 +1956,7 @@ body.dark-theme .tech-tag:hover {
     );
     transform-origin: left;
     transform: scaleX(1);
+    border-radius: 0 0 12px 12px;  /* 添加与欢迎框相同的圆角 */
 }
 
 /* 显示状态 */
@@ -2099,7 +2085,7 @@ body.dark-theme .project-card:hover {
         0 0 0 1px rgba(var(--primary-color-rgb), 0.2);
 }
 
-/* 暗色主题项目描述文字颜色 */
+/* 暗���主题项目描述文字颜色 */
 body.dark-theme .project-description {
     color: rgba(255, 255, 255, 0.7);
 }
@@ -2115,7 +2101,7 @@ body.dark-theme .feature-item:hover {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* 暗色主题项目链接样式 */
+/* 暗色主��项目链接样式 */
 body.dark-theme .project-link {
     background: rgba(255, 255, 255, 0.05);
     color: rgba(255, 255, 255, 0.8);
@@ -2214,4 +2200,133 @@ body.dark-theme .tech-tag[data-tech="Kafka"]:hover {
     box-shadow: 
         0 4px 12px rgba(0, 0, 0, 0.3),
         0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+/* 添加 WeChat 技术标签的样式 */
+.tech-tag[data-tech="WeChat"] {
+    --tag-color-start: 7, 193, 96;
+    --tag-color-end: 27, 213, 116;
+    --tag-color-text: 7, 193, 96;
+}
+
+.tech-tag[data-tech="Flask"] {
+    --tag-color-start: 0, 0, 0;
+    --tag-color-end: 20, 20, 20;
+    --tag-color-text: 0, 0, 0;
+}
+
+/* 暗色主题适配 */
+body.dark-theme .tech-tag[data-tech="Flask"] {
+    --tag-color-start: 200, 200, 200;
+    --tag-color-end: 180, 180, 180;
+    --tag-color-text: 220, 220, 220;
+}
+
+/* 优化微信图标样式 */
+.project-link .fa-weixin {
+    color: #07C160;  /* 微信标准绿色 */
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 2px rgba(7, 193, 96, 0.2));
+}
+
+.project-link:hover .fa-weixin {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 8px rgba(7, 193, 96, 0.4));
+}
+
+/* 暗色主题微信图标适��� */
+body.dark-theme .project-link .fa-weixin {
+    color: #2ecc71;
+    filter: drop-shadow(0 0 3px rgba(46, 204, 113, 0.3));
+}
+
+body.dark-theme .project-link:hover .fa-weixin {
+    filter: drop-shadow(0 0 8px rgba(46, 204, 113, 0.6));
+}
+
+/* 分离GitHub链接和微信图标的基础样式 */
+.project-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+/* GitHub链接样式 */
+.project-link.github-link {
+    background: var(--bg-secondary);
+    cursor: pointer;
+    text-decoration: none;  /* 移除下划线 */
+    border: 1px solid transparent;
+}
+
+.project-link.github-link .fa-github {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+/* GitHub链接悬停效果 */
+.project-link.github-link:hover {
+    background: var(--bg-card-hover);
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+    border-color: rgba(79, 70, 229, 0.2);
+}
+
+.project-link.github-link:hover .fa-github {
+    transform: scale(1.1);
+    color: var(--primary-color);
+}
+
+/* 微信图标样式 */
+.project-link.wechat-container {
+    background: transparent;
+    cursor: default;
+    border: none;
+}
+
+.project-link.wechat-container .fa-weixin {
+    color: #07C160;
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 2px rgba(7, 193, 96, 0.2));
+}
+
+/* 微信图标悬停效果 */
+.project-link.wechat-container:hover .fa-weixin {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 8px rgba(7, 193, 96, 0.4));
+}
+
+/* 暗色主题适配 */
+body.dark-theme .project-link.github-link {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .project-link.github-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .project-link.github-link .fa-github {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+body.dark-theme .project-link.github-link:hover .fa-github {
+    color: var(--primary-color);
+}
+
+body.dark-theme .project-link.wechat-container .fa-weixin {
+    color: #2ecc71;
+    filter: drop-shadow(0 0 3px rgba(46, 204, 113, 0.3));
+}
+
+body.dark-theme .project-link.wechat-container:hover .fa-weixin {
+    filter: drop-shadow(0 0 8px rgba(46, 204, 113, 0.6));
 }

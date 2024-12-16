@@ -64,6 +64,13 @@ const translations = {
                 feature1: "Distributed Architecture",
                 feature2: "Distributed Transaction",
                 feature3: "High Performance"
+            },
+            essayGrading: {
+                title: "InWrite Mini Program",
+                description: "An AI-powered WeChat Mini Program designed for automated English essay grading. Features include OCR text recognition, intelligent scoring, and personalized feedback generation. Built with a focus on efficiency and user experience.",
+                feature1: "AI-powered Scoring",
+                feature2: "OCR Text Recognition",
+                feature3: "Progress Tracking"
             }
         }
     },
@@ -132,6 +139,13 @@ const translations = {
                 feature1: "分布式架构设计",
                 feature2: "分布式事务处理",
                 feature3: "高性能优化"
+            },
+            essayGrading: {
+                title: "慧作文小程序",
+                description: "基于人工智能的英语作文批改小程序。整合OCR文字识别和NLP自然语言处理技术，提供智能评分、个性化批改建议等功能。致力于为用户提供便捷高效的作文提升体验。",
+                feature1: "AI智能评分",
+                feature2: "OCR识别分析",
+                feature3: "学习进度追踪"
             }
         }
     }
