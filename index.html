@@ -19,6 +19,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <!-- 在 head 中添加 iconfont 引用 -->
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_3267094_9xnh3hk04aa.css">
 </head>
 <body>
     <!-- 星空背景 -->
@@ -42,7 +44,7 @@
                 <div class="nav-links">
                     <a href="#home" data-i18n="nav.home">Home</a>
                     <a href="#skills" data-i18n="nav.skills">Skills</a>
-                    <a href="#projects" data-i18n="nav.projects">Projects</a>                    <a href="#blog" data-i18n="nav.blog">Blog</a>
+                    <a href="#projects" data-i18n="nav.projects">Projects</a>   
                 </div>
             </div>
 
@@ -92,8 +94,7 @@
                     <p data-i18n="hero.description2">3 years of development experience</p>
                 </div>
                 <div class="cta-buttons">
-                    <a href="#skills" class="btn primary" data-i18n="hero.viewSkills">View Skills</a>
-                    <a href="#contact" class="btn secondary" data-i18n="hero.contactMe">Contact Me</a>
+                    <a href="#contact" class="btn contact-btn" data-i18n="hero.contactMe">Contact Me</a>
                 </div>
                 <div class="social-links">
                     <div class="social-item">
@@ -122,7 +123,9 @@
                         <span class="social-label">Gitee</span>
                         <div class="gitee-container">
                             <a href="https://gitee.com/ppy9991" target="_blank" rel="noopener noreferrer" title="访问 Gitee">
-                                <i class="fab fa-git-alt"></i>
+                                <svg class="gitee-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M512 1024C229.2224 1024 0 794.7776 0 512 0 229.2224 229.2224 0 512 0c282.7776 0 512 229.2224 512 512 0 282.7776-229.2224 512-512 512z m259.8400000000001-568.8832H480.0512v-61.5936h291.7888v61.5936z m0-166.0928H419.84a30.72 30.72 0 0 0-30.72 30.72v337.92a30.72 30.72 0 0 0 30.72 30.72h352a30.72 30.72 0 0 0 30.72-30.72V319.7952a30.72 30.72 0 0 0-30.72-30.72z" fill="currentColor"/>
+                                </svg>
                                 <div class="gitee-tooltip">
                                     <span data-i18n="contact.gitee">View Gitee Profile</span>
                                 </div>
@@ -241,7 +244,7 @@
                 </div>
             </div>
             
-            <!-- 在 Database 技能后添加操作统技能 -->
+            <!-- 在 Database 能后添加���作统技能 -->
             <div class="skill-item">
                 <div class="skill-icon">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="OS">
@@ -308,7 +311,7 @@
                         </a>
                     </div>
                     <p class="project-description" data-i18n="projects.ecommerce.description">
-                        开发并优化高可用分布式订单管理系统，支持订单创建、支付、库存管理等完整流程。系统日订单处理量500万+，QPS峰值12K+。
+                        开发并化高可用分布式订单管理系统，支持订单创建、支付、库存管理等完整流程。系统日订单处理量500万+，QPS峰值12K+。
                     </p>
                     <div class="project-features">
                         <div class="feature-item" data-i18n="projects.ecommerce.feature1">
