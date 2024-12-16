@@ -1797,6 +1797,7 @@ body.dark-theme .project-link:hover {
     z-index: 1000;
     visibility: hidden;
     opacity: 0;
+    overflow: hidden; /* 确保进度条不会超出圆角 */
 }
 
 /* 欢迎框内容样式 */
@@ -1817,7 +1818,7 @@ body.dark-theme .project-link:hover {
     flex-shrink: 0;
 }
 
-/* 进度条 */
+/* 修改进度条样式 */
 .welcome-box::after {
     content: '';
     position: absolute;
@@ -1836,7 +1837,8 @@ body.dark-theme .project-link:hover {
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(90deg,
+    background: linear-gradient(
+        90deg,
         var(--primary-color),
         var(--accent-color)
     );
@@ -1856,20 +1858,16 @@ body.dark-theme .project-link:hover {
     animation: welcome-progress 7s linear forwards;
 }
 
+/* 修改进度条动画 */
 @keyframes welcome-progress {
     0% {
         transform: scaleX(1);
+        border-radius: 0 0 12px 12px;
     }
     100% {
         transform: scaleX(0);
+        border-radius: 0 0 12px 12px;
     }
-}
-
-/* 隐藏状态 */
-.welcome-box.hide {
-    transform: translateX(120%);
-    visibility: hidden;
-    opacity: 0;
 }
 
 /* 暗色模式适配 */

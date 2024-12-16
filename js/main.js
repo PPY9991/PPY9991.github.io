@@ -688,27 +688,64 @@ const WelcomeManager = {
         this.welcomeText = document.querySelector('.welcome-text');
         if (!this.welcomeBox || !this.welcomeText) return;
 
-        this.showWelcomeMessage();
+        this.getLocationAndShow();
     },
 
-    async showWelcomeMessage() {
+    async getLocationAndShow() {
         const greeting = this.getGreeting();
-        let welcomeMessage = '';
+        let location = null;
 
         try {
-            // 先尝试获取位置信息，再显示欢迎框
-            const location = await this.getLocation();
-            welcomeMessage = this.getCurrentLang() === 'zh' 
-                ? `${greeting}，欢迎来自${location}的朋友`
-                : `${greeting}, welcome friend from ${location}`;
+            // 尝试主要 API
+            const response = await fetch('https://geoip.sb/json/', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                signal: AbortSignal.timeout(2000)
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                if (this.isValidLocationData(data)) {
+                    location = this.formatLocation(data);
+                }
+            }
         } catch (error) {
-            console.warn('Failed to get location:', error);
-            welcomeMessage = this.getCurrentLang() === 'zh' 
-                ? `${greeting}，欢迎访问`
-                : `${greeting}, welcome`;
+            console.warn('Primary API failed:', error);
         }
 
-        // 设置文本并显示欢迎框
+        // 如果主要 API 失败，尝试备用 API
+        if (!location) {
+            try {
+                const backupResponse = await fetch('https://api.ip.sb/geoip', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    signal: AbortSignal.timeout(2000)
+                });
+
+                if (backupResponse.ok) {
+                    const data = await backupResponse.json();
+                    if (this.isValidLocationData(data)) {
+                        location = this.formatLocation(data);
+                    }
+                }
+            } catch (backupError) {
+                console.warn('Backup API failed:', backupError);
+            }
+        }
+
+        // 设置欢迎消息并显示
+        const welcomeMessage = this.getCurrentLang() === 'zh'
+            ? location 
+                ? `${greeting}，欢迎来自${location}的朋友`
+                : `${greeting}，欢迎访问`
+            : location
+                ? `${greeting}, welcome friend from ${location}`
+                : `${greeting}, welcome`;
+
         this.welcomeText.textContent = welcomeMessage;
         this.welcomeBox.classList.remove('hide');
         this.welcomeBox.classList.add('show');
@@ -718,48 +755,6 @@ const WelcomeManager = {
             this.welcomeBox.classList.remove('show');
             this.welcomeBox.classList.add('hide');
         }, 7000);
-    },
-
-    async getLocation() {
-        // 尝试主要 API
-        try {
-            const response = await fetch('https://geoip.sb/json/', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
-                },
-                signal: AbortSignal.timeout(3000)
-            });
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            if (this.isValidLocationData(data)) {
-                return this.formatLocation(data);
-            }
-            throw new Error('Invalid location data');
-        } catch (error) {
-            // 尝试备用 API
-            const backupResponse = await fetch('https://api.ip.sb/geoip', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
-                },
-                signal: AbortSignal.timeout(3000)
-            });
-
-            if (!backupResponse.ok) {
-                throw new Error('Backup API failed');
-            }
-
-            const data = await backupResponse.json();
-            if (this.isValidLocationData(data)) {
-                return this.formatLocation(data);
-            }
-            throw new Error('Invalid backup location data');
-        }
     },
 
     isValidLocationData(data) {
@@ -921,7 +916,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (link) {
             const originalHref = link.getAttribute('href');
             card.addEventListener('click', (e) => {
-                // 如果点击的是链接本身或其子元素，不做���理
+                // 如果点击的是链接本身或其子元素，不做理
                 if (e.target.closest('.project-link') || e.target.closest('.project-title-link')) {
                     return;
                 }
