@@ -67,13 +67,142 @@ body.dark-theme .lang-btn.active {
 }
 
 body.dark-theme .email-tooltip,
-body.dark-theme .github-tooltip {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    border: 1px solid var(--text-color);
+body.dark-theme .github-tooltip,
+body.dark-theme .gitee-tooltip,
+body.dark-theme .wechat-tooltip {
+    background: rgba(30, 30, 30, 0.85);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+}
+
+body.dark-theme .email-tooltip::after,
+body.dark-theme .github-tooltip::after,
+body.dark-theme .gitee-tooltip::after,
+body.dark-theme .wechat-tooltip::after {
+    background: linear-gradient(
+        90deg,
+        var(--primary-color),
+        var(--accent-color)
+    );
+    opacity: 0.6;
 }
 
 body.dark-theme .email-tooltip::before,
-body.dark-theme .github-tooltip::before {
-    border-color: transparent transparent var(--text-color) transparent;
-} 
+body.dark-theme .github-tooltip::before,
+body.dark-theme .gitee-tooltip::before,
+body.dark-theme .wechat-tooltip::before {
+    border-color: transparent transparent rgba(255, 255, 255, 0.1) transparent;
+}
+
+/* 深色模式下的社交图标样式 */
+body.dark-theme .email-container,
+body.dark-theme .github-container a,
+body.dark-theme .gitee-container a,
+body.dark-theme .wechat-container {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(255, 255, 255, 0.03) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.2),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .social-icon {
+    color: var(--text-primary);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .social-label {
+    color: var(--text-secondary);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 深色模式下的悬停效果 */
+body.dark-theme .email-container:hover,
+body.dark-theme .github-container a:hover,
+body.dark-theme .gitee-container a:hover,
+body.dark-theme .wechat-container:hover {
+    background: linear-gradient(
+        135deg,
+        var(--primary-color) 0%,
+        var(--accent-color) 100%
+    );
+    border-color: transparent;
+    box-shadow: 
+        0 8px 24px rgba(var(--primary-color-rgb), 0.3),
+        0 4px 8px rgba(var(--primary-color-rgb), 0.2);
+}
+
+/* 深色模式下的社交链接背景 */
+body.dark-theme .social-links::before {
+    background: linear-gradient(
+        135deg,
+        rgba(30, 30, 30, 0.5) 0%,
+        rgba(20, 20, 20, 0.5) 100%
+    );
+    opacity: 0.3;
+}
+
+/* 深色模式下的社交链接样式 */
+body.dark-theme .social-links::before {
+    background: var(--card-gradient);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-lg);
+}
+
+/* 深色模式下的图标容器 */
+body.dark-theme .email-container,
+body.dark-theme .github-container a,
+body.dark-theme .gitee-container a,
+body.dark-theme .wechat-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 深色模式下的工具提示框 */
+body.dark-theme .email-tooltip,
+body.dark-theme .github-tooltip,
+body.dark-theme .gitee-tooltip,
+body.dark-theme .wechat-tooltip {
+    background: var(--bg-card);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-lg);
+}
+
+/* 深色模式下的悬停效果 */
+body.dark-theme .email-container:hover,
+body.dark-theme .github-container a:hover,
+body.dark-theme .gitee-container a:hover,
+body.dark-theme .wechat-container:hover {
+    background: linear-gradient(
+        135deg,
+        var(--primary-color) 0%,
+        var(--accent-color) 100%
+    );
+    border-color: transparent;
+    transform: translateY(-2px) scale(1.1);
+}
+
+/* 深色模式下的图标颜色 */
+body.dark-theme .social-icon {
+    color: var(--text-primary);
+}
+
+body.dark-theme .social-label {
+    color: var(--text-secondary);
+}
+
+/* 深色模式下图标悬停效果 */
+body.dark-theme .email-container:hover .social-icon,
+body.dark-theme .github-container a:hover .social-icon,
+body.dark-theme .gitee-container a:hover .gitee-icon,
+body.dark-theme .wechat-container:hover .social-icon {
+    color: #fff;
+}
+  

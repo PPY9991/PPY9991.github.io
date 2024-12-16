@@ -688,73 +688,79 @@ const WelcomeManager = {
         this.welcomeText = document.querySelector('.welcome-text');
         if (!this.welcomeBox || !this.welcomeText) return;
 
+        // 设置初始欢迎消息
+        const greeting = this.getGreeting();
+        const initialMessage = this.getCurrentLang() === 'zh' 
+            ? `${greeting}，欢迎访问` 
+            : `${greeting}, welcome`;
+        this.welcomeText.textContent = initialMessage;
+
+        // 获取位置信息并更新欢迎消息
         this.getLocationAndShow();
     },
 
     async getLocationAndShow() {
-        const greeting = this.getGreeting();
-        let location = null;
-
         try {
-            // 尝试主要 API
-            const response = await fetch('https://geoip.sb/json/', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
-                },
-                signal: AbortSignal.timeout(2000)
-            });
-            
-            if (response.ok) {
-                const data = await response.json();
-                if (this.isValidLocationData(data)) {
-                    location = this.formatLocation(data);
-                }
+            // 创建一个 Promise 竞赛
+            const locationData = await Promise.race([
+                this.getPrimaryLocation(),
+                this.getBackupLocation(),
+                new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Timeout')), 10000)
+                )
+            ]);
+
+            if (locationData && this.isValidLocationData(locationData)) {
+                const location = this.formatLocation(locationData);
+                const greeting = this.getGreeting();
+                const welcomeMessage = this.getCurrentLang() === 'zh'
+                    ? `${greeting}，欢迎来自${location}的朋友`
+                    : `${greeting}, welcome friend from ${location}`;
+
+                // 显示欢迎框
+                this.welcomeText.textContent = welcomeMessage;
+                this.welcomeBox.classList.add('show');
+
+                // 8秒后隐藏
+                setTimeout(() => {
+                    this.welcomeBox.classList.remove('show');
+                }, 8000);
             }
         } catch (error) {
-            console.warn('Primary API failed:', error);
+            console.warn('Failed to get location:', error);
+            // 如果获取位置失败，不显示欢迎框
+            this.cleanup();
         }
+    },
 
-        // 如果主要 API 失败，尝试备用 API
-        if (!location) {
-            try {
-                const backupResponse = await fetch('https://api.ip.sb/geoip', {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json'
-                    },
-                    signal: AbortSignal.timeout(2000)
-                });
-
-                if (backupResponse.ok) {
-                    const data = await backupResponse.json();
-                    if (this.isValidLocationData(data)) {
-                        location = this.formatLocation(data);
-                    }
-                }
-            } catch (backupError) {
-                console.warn('Backup API failed:', backupError);
+    async getPrimaryLocation() {
+        const response = await fetch('https://geoip.sb/json/', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
             }
+        });
+        
+        if (!response.ok) {
+            throw new Error('Primary API failed');
         }
+        
+        return response.json();
+    },
 
-        // 设置欢迎消息并显示
-        const welcomeMessage = this.getCurrentLang() === 'zh'
-            ? location 
-                ? `${greeting}，欢迎来自${location}的朋友`
-                : `${greeting}，欢迎访问`
-            : location
-                ? `${greeting}, welcome friend from ${location}`
-                : `${greeting}, welcome`;
-
-        this.welcomeText.textContent = welcomeMessage;
-        this.welcomeBox.classList.remove('hide');
-        this.welcomeBox.classList.add('show');
-
-        // 7秒后隐藏
-        setTimeout(() => {
-            this.welcomeBox.classList.remove('show');
-            this.welcomeBox.classList.add('hide');
-        }, 7000);
+    async getBackupLocation() {
+        const response = await fetch('https://api.ip.sb/geoip', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error('Backup API failed');
+        }
+        
+        return response.json();
     },
 
     isValidLocationData(data) {
@@ -770,22 +776,18 @@ const WelcomeManager = {
         const isZh = this.getCurrentLang() === 'zh';
         
         try {
-            const country = data.country?.trim() || '未知国家';
-            const region = data.region?.trim() || '';
-            const city = data.city?.trim() || '';
-
             if (isZh) {
                 const parts = [];
-                if (country && country !== '未知国家') parts.push(country);
-                if (region && region !== country) parts.push(region);
-                if (city && city !== region) parts.push(city);
+                if (data.country) parts.push(data.country.trim());
+                if (data.region && data.region !== data.country) parts.push(data.region.trim());
+                if (data.city && data.city !== data.region) parts.push(data.city.trim());
                 
                 return parts.length > 0 ? parts.join('') : '未知地区';
             } else {
                 const parts = [];
-                if (city) parts.push(city);
-                if (region && region !== city) parts.push(region);
-                if (country) parts.push(country);
+                if (data.city) parts.push(data.city.trim());
+                if (data.region && data.region !== data.city) parts.push(data.region.trim());
+                if (data.country) parts.push(data.country.trim());
                 
                 return parts.length > 0 ? parts.join(', ') : 'Unknown Location';
             }
@@ -815,7 +817,6 @@ const WelcomeManager = {
     cleanup() {
         if (this.welcomeBox) {
             this.welcomeBox.classList.remove('show');
-            this.welcomeBox.classList.add('hide');
         }
     }
 };

@@ -502,6 +502,7 @@ body.dark-theme .lang-toggle:checked ~ .switch-label .switch-zh {
     margin-top: 2.5rem;
     width: 100%;
     max-width: 400px;
+    margin-bottom: -10px;
 }
 
 .contact-btn {
@@ -862,7 +863,7 @@ body.dark-theme .section-title::before {
     }
 }
 
-/* 响应式调整 */
+/* ���应式调整 */
 @media (max-width: 768px) {
     .section-title {
         font-size: 2rem;
@@ -1154,8 +1155,8 @@ body.dark-theme .skill-category {
 .social-links {
     display: flex;
     gap: 2.5rem;
-    margin-top: 3rem;
-    justify-content: space-between;
+    margin-top: 1.5rem;
+    justify-content: flex-start;
     width: 100%;
     max-width: 400px;
 }
@@ -1164,93 +1165,136 @@ body.dark-theme .skill-category {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    min-width: 60px;
+    gap: 6px;
+    position: relative;
 }
 
 .social-label {
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 14px;
     color: var(--text-secondary);
-    margin-bottom: 0.3rem;
-    text-align: center;
-    width: 100%;
+    margin-bottom: 2px;
+    transition: all 0.3s ease;
 }
 
-.email-container, .github-container, .wechat-container, .gitee-container {
-    position: relative;
-    cursor: pointer;
-    width: 55px;
-    height: 55px;
+/* 移除GitHub链接的下划线 */
+.github-container a {
+    text-decoration: none;
+}
+
+/* 图标容器样式 */
+.email-container,
+.github-container a,
+.gitee-container a,
+.wechat-container {
+    width: 53px;
+    height: 53px;
+    transform: translateY(-3px);
+    background: var(--card-gradient);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    transition: var(--transition-fast);
-    box-shadow: 
-        0 4px 6px -1px rgba(0, 0, 0, 0.1),
-        0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(255,255,255,0.2);
-    margin: 0 10px;
-    background: linear-gradient(135deg, 
-        var(--primary-color), 
-        var(--accent-color)
-    );
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid var(--border-color);
 }
 
-.email-container i, 
-.github-container i, 
-.wechat-container i, 
-.gitee-container i {
-    font-size: 1.8rem;
-    color: white;
+/* 图标本身的样式 */
+.social-icon {
+    font-size: 26.6px;
+    color: var(--text-primary);
     transition: all 0.3s ease;
 }
 
-.email-container:hover, 
-.github-container:hover, 
-.wechat-container:hover, 
-.gitee-container:hover {
-    transform: translateY(-3px);
-    box-shadow: 
-        0 10px 15px -3px rgba(var(--primary-color-rgb), 0.2),
-        0 4px 6px -2px rgba(var(--primary-color-rgb), 0.1);
-    background: linear-gradient(135deg,
-        var(--accent-color),
-        var(--primary-color)
+/* 悬停效果 */
+.email-container:hover,
+.github-container a:hover,
+.gitee-container a:hover,
+.wechat-container:hover {
+    transform: translateY(-5px) scale(1.1);
+    background: linear-gradient(
+        135deg,
+        var(--primary-color) 0%,
+        var(--accent-color) 100%
     );
+    border-color: transparent;
 }
 
-.email-container:hover i, 
-.github-container:hover i, 
-.wechat-container:hover i, 
-.gitee-container:hover i {
-    transform: scale(1.15);
+/* 图标悬停效果 */
+.email-container:hover .social-icon,
+.github-container a:hover .social-icon,
+.gitee-container a:hover .gitee-icon,
+.wechat-container:hover .social-icon {
+    color: #fff;
+    transform: scale(1.1);
 }
 
-.email-tooltip, .github-tooltip, .wechat-tooltip, .gitee-tooltip {
+/* 工具提示框样式 */
+.email-tooltip,
+.github-tooltip,
+.gitee-tooltip,
+.wechat-tooltip {
     position: absolute;
-    bottom: -40px;
+    bottom: -45px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: var(--bg-card);
-    color: var(--text-primary);
-    padding: 5px 10px;
-    border-radius: 4px;
+    background: var(--card-gradient);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 16px;
     font-size: 14px;
-    white-space: nowrap;
+    color: var(--text-primary);
+    box-shadow: var(--shadow-sm);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--border-color);
+    white-space: nowrap;
     z-index: 100;
+    pointer-events: none;
+    backdrop-filter: blur(8px);
 }
 
+/* 具提示框底部渐变效果 */
+.email-tooltip::after,
+.github-tooltip::after,
+.gitee-tooltip::after,
+.wechat-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        var(--primary-color),
+        var(--accent-color)
+    );
+    border-radius: 0 0 8px 8px;
+    opacity: 0.8;
+}
+
+/* 工具提示框箭头 */
+.email-tooltip::before,
+.github-tooltip::before,
+.gitee-tooltip::before,
+.wechat-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 6px 6px 6px;
+    border-style: solid;
+    border-color: transparent transparent var(--border-color) transparent;
+}
+
+/* 悬停效果 */
 .email-container:hover .email-tooltip,
 .github-container:hover .github-tooltip,
-.wechat-container:hover .wechat-tooltip,
-.gitee-container:hover .gitee-tooltip {
+.gitee-container:hover .gitee-tooltip,
+.wechat-container:hover .wechat-tooltip {
     opacity: 1;
     visibility: visible;
 }
@@ -1514,18 +1558,15 @@ body.dark-theme .skills-section {
 
 .project-card {
     width: 100%;
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.95),
-        rgba(255, 255, 255, 0.85)
-    );
+    background: var(--card-gradient);
     border-radius: 16px;
     padding: 2rem;
-    border: 1px solid rgba(79, 70, 229, 0.1);
-    box-shadow: 0 4px 20px -5px rgba(79, 70, 229, 0.15);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
 }
 
 .project-card::before {
@@ -1554,19 +1595,8 @@ body.dark-theme .skills-section {
 
 .project-card:hover {
     transform: translateY(-8px);
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.98),
-        rgba(255, 255, 255, 0.9)
-    );
-    border: 1px solid rgba(79, 70, 229, 0.2);
-    box-shadow: 
-        0 20px 40px -15px rgba(79, 70, 229, 0.2),
-        0 0 20px rgba(79, 70, 229, 0.1);
-}
-
-.project-card:hover::before {
-    opacity: 1;
+    border-color: var(--primary-color);
+    box-shadow: var(--card-hover-shadow);
 }
 
 .project-header {
@@ -1706,59 +1736,144 @@ body.dark-theme .skills-section {
 }
 
 .tech-tag {
-    background: var(--hover-gradient);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 1rem;
+    background: linear-gradient(
+        135deg,
+        rgba(var(--tag-color-start), 0.1),
+        rgba(var(--tag-color-end), 0.2)
+    );
+    border: 1px solid rgba(var(--tag-color-start), 0.2);
+    padding: 0.5rem 1.2rem;
     border-radius: 20px;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 500;
-    color: var(--text-primary);
-    transition: all 0.3s ease;
+    color: rgb(var(--tag-color-text));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: default;
 }
 
+/* 为不同技能设置不同的颜色 */
+.tech-tag[data-tech="Python"] {
+    --tag-color-start: 55, 118, 171;
+    --tag-color-end: 65, 128, 181;
+    --tag-color-text: 55, 118, 171;
+}
+
+.tech-tag[data-tech="Pandas"] {
+    --tag-color-start: 150, 75, 0;
+    --tag-color-end: 170, 85, 10;
+    --tag-color-text: 150, 75, 0;
+}
+
+.tech-tag[data-tech="NumPy"] {
+    --tag-color-start: 0, 128, 128;
+    --tag-color-end: 0, 148, 148;
+    --tag-color-text: 0, 128, 128;
+}
+
+.tech-tag[data-tech="Scikit-learn"] {
+    --tag-color-start: 243, 156, 18;
+    --tag-color-end: 253, 166, 28;
+    --tag-color-text: 243, 156, 18;
+}
+
+.tech-tag[data-tech="Spring Cloud"] {
+    --tag-color-start: 104, 160, 99;
+    --tag-color-end: 114, 170, 109;
+    --tag-color-text: 104, 160, 99;
+}
+
+.tech-tag[data-tech="MySQL"] {
+    --tag-color-start: 0, 116, 162;
+    --tag-color-end: 0, 126, 172;
+    --tag-color-text: 0, 116, 162;
+}
+
+.tech-tag[data-tech="Redis"] {
+    --tag-color-start: 220, 20, 60;
+    --tag-color-end: 230, 30, 70;
+    --tag-color-text: 220, 20, 60;
+}
+
+.tech-tag[data-tech="Kafka"] {
+    --tag-color-start: 51, 51, 51;
+    --tag-color-end: 71, 71, 71;
+    --tag-color-text: 51, 51, 51;
+    background: linear-gradient(
+        135deg,
+        rgba(51, 51, 51, 0.15),
+        rgba(71, 71, 71, 0.25)
+    );
+    border-color: rgba(51, 51, 51, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tech-tag[data-tech="Docker"] {
+    --tag-color-start: 0, 150, 220;
+    --tag-color-end: 0, 160, 230;
+    --tag-color-text: 0, 150, 220;
+}
+
+/* 悬停效果 */
 .tech-tag:hover {
     transform: translateY(-2px);
-    background: var(--bg-card-hover);
-    box-shadow: 0 4px 8px rgba(79, 70, 229, 0.15);
+    background: linear-gradient(
+        135deg,
+        rgba(var(--tag-color-start), 0.2),
+        rgba(var(--tag-color-end), 0.3)
+    );
+    border-color: rgba(var(--tag-color-start), 0.3);
+    box-shadow: 
+        0 4px 12px rgba(var(--tag-color-start), 0.15),
+        0 0 0 2px rgba(var(--tag-color-start), 0.05);
 }
 
-.feature-item {
-    transition: all 0.3s ease;
-    padding: 0.8rem;
-    border-radius: 8px;
-    border: 1px solid transparent;
+/* 添加光效果 */
+.tech-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
 }
 
-.feature-item:hover {
-    background: var(--bg-secondary);
-    border-color: var(--border-color);
-    transform: translateX(5px);
+.tech-tag:hover::before {
+    left: 100%;
 }
 
-.feature-item i {
-    transition: transform 0.3s ease;
+/* 暗色主题适配 */
+body.dark-theme .tech-tag {
+    background: linear-gradient(
+        135deg,
+        rgba(var(--tag-color-start), 0.15),
+        rgba(var(--tag-color-end), 0.25)
+    );
+    border-color: rgba(var(--tag-color-start), 0.3);
+    color: rgba(var(--tag-color-text), 0.9);
 }
 
-.feature-item:hover i {
-    transform: scale(1.2);
-    color: var(--primary-color);
+body.dark-theme .tech-tag:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(var(--tag-color-start), 0.25),
+        rgba(var(--tag-color-end), 0.35)
+    );
+    border-color: rgba(var(--tag-color-start), 0.4);
+    box-shadow: 
+        0 4px 12px rgba(var(--tag-color-start), 0.2),
+        0 0 0 2px rgba(var(--tag-color-start), 0.1);
 }
 
-/* Dark Theme Specific */
-body.dark-theme .project-card {
-    background: var(--bg-card);
-}
-
-body.dark-theme .project-link {
-    background: rgba(255, 255, 255, 0.05);
-}
-
-body.dark-theme .project-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-/* 项目卡���入场动画 */
+/* 项目卡片入场动画 */
 .projects-section {
     opacity: 0;
     transform: translateY(20px);
@@ -1795,9 +1910,10 @@ body.dark-theme .project-link:hover {
     position: fixed;
     top: calc(var(--nav-height) + 20px);
     right: 20px;
+    left: auto;
     min-width: 200px;
     width: max-content;
-    max-width: min(400px, calc(100vw - 40px));
+    max-width: 400px;
     background: linear-gradient(
         145deg,
         rgba(255, 255, 255, 0.95),
@@ -1810,12 +1926,13 @@ body.dark-theme .project-link:hover {
         0 2px 8px rgba(0, 0, 0, 0.02);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    transform: translateX(120%);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(-120%);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
     visibility: hidden;
     opacity: 0;
-    overflow: hidden; /* 确保进度条不会超出圆角 */
+    position: relative;
+    overflow: hidden;
 }
 
 /* 欢迎框内容样式 */
@@ -1826,6 +1943,9 @@ body.dark-theme .project-link:hover {
     font-size: 0.95rem;
     color: var(--text-primary);
     line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* 欢迎框图标 */
@@ -1836,19 +1956,8 @@ body.dark-theme .project-link:hover {
     flex-shrink: 0;
 }
 
-/* 修改进度条样式 */
+/* 进度条容器 */
 .welcome-box::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: rgba(var(--primary-color-rgb), 0.1);
-    border-radius: 0 0 12px 12px;
-}
-
-.welcome-box::before {
     content: '';
     position: absolute;
     bottom: 0;
@@ -1860,9 +1969,8 @@ body.dark-theme .project-link:hover {
         var(--primary-color),
         var(--accent-color)
     );
-    border-radius: 0 0 12px 12px;
     transform-origin: left;
-    transform: scaleX(0);
+    transform: scaleX(1);
 }
 
 /* 显示状态 */
@@ -1872,23 +1980,21 @@ body.dark-theme .project-link:hover {
     opacity: 1;
 }
 
-.welcome-box.show::before {
-    animation: welcome-progress 7s linear forwards;
+/* 进度条动画 */
+.welcome-box.show::after {
+    animation: welcome-progress 8s linear forwards;
 }
 
-/* 修改进度条动画 */
 @keyframes welcome-progress {
     0% {
         transform: scaleX(1);
-        border-radius: 0 0 12px 12px;
     }
     100% {
         transform: scaleX(0);
-        border-radius: 0 0 12px 12px;
     }
 }
 
-/* 暗色模式适配 */
+/* 暗模式适配 */
 body.dark-theme .welcome-box {
     background: linear-gradient(
         145deg,
@@ -1901,26 +2007,40 @@ body.dark-theme .welcome-box {
         0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* 响应式调整 */
+/* 移动端适配 */
 @media screen and (max-width: 768px) {
     .welcome-box {
-        left: 20px;
         right: 20px;
+        left: auto;
         width: auto;
-        max-width: none;
+        max-width: min(320px, calc(100vw - 40px));
+        transform: translateX(-120%);
+    }
+    
+    .welcome-box.show {
+        transform: translateX(0);
+    }
+}
+
+/* 超小屏幕适配 */
+@media screen and (max-width: 480px) {
+    .welcome-box {
+        max-width: calc(100vw - 40px);
+        right: 10px;
+        padding: 10px 15px;
     }
 }
 
 /* 修改 Gitee 图标样式 */
 .gitee-container i {
-    font-size: 1.8rem; /* 调整大小与其他图标一致 */
+    font-size: 1.8rem;
     color: white;
     transition: all 0.3s ease;
 }
 
-/* 如果使用 iconfont 的图标不够清晰，可以使用以下备选方案 */
+/* 如果使用 iconfont 的图标不清晰，可以使用以下备选方案 */
 .gitee-container i::before {
-    content: 'G'; /* 使用字母 G 代替图标 */
+    content: 'G';
     font-family: Arial, sans-serif;
     font-style: normal;
     font-weight: bold;
@@ -1932,4 +2052,166 @@ body.dark-theme .welcome-box {
     fill: currentColor;
     color: white;
     transition: all 0.3s ease;
+}
+
+/* 项目卡片基础样式 */
+.project-card {
+    width: 100%;
+    background: var(--card-gradient);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+/* 项目卡片悬停效果 */
+.project-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary-color);
+    box-shadow: var(--card-hover-shadow);
+}
+
+/* 暗色主题项目卡片样式 */
+body.dark-theme .project-card {
+    background: var(--project-card-bg, linear-gradient(
+        135deg,
+        rgba(36, 43, 61, 0.95),
+        rgba(26, 31, 46, 0.85)
+    ));
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: var(--project-shadow, 0 8px 32px rgba(0, 0, 0, 0.2));
+}
+
+/* 暗色主题项目卡片悬停效果 */
+body.dark-theme .project-card:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(36, 43, 61, 0.98),
+        rgba(26, 31, 46, 0.9)
+    );
+    border-color: rgba(var(--primary-color-rgb), 0.3);
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(var(--primary-color-rgb), 0.2);
+}
+
+/* 暗色主题项目描述文字颜色 */
+body.dark-theme .project-description {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* 暗色主题特性项样式 */
+body.dark-theme .feature-item {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* 暗色主题特性项悬停效果 */
+body.dark-theme .feature-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 暗色主题项目链接样式 */
+body.dark-theme .project-link {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 暗色主题项目链接悬停效果 */
+body.dark-theme .project-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary-color);
+}
+
+/* 暗色主题项目标题链接样式 */
+body.dark-theme .project-title-link {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* 暗色主题项目标题链接悬停效果 */
+body.dark-theme .project-title-link:hover {
+    color: var(--primary-color);
+}
+
+/* 暗色主题项目标题链接背景效果 */
+body.dark-theme .project-title-link::before {
+    background: linear-gradient(
+        135deg,
+        rgba(var(--primary-color-rgb), 0.15),
+        rgba(var(--accent-color-rgb), 0.15)
+    );
+}
+
+/* 暗色主题项目部分背景 */
+body.dark-theme .projects-section {
+    background: linear-gradient(
+        135deg,
+        var(--bg-primary) 0%,
+        var(--bg-secondary) 100%
+    );
+}
+
+/* 暗色主题项目容器背景 */
+body.dark-theme .section-container {
+    background: rgba(26, 31, 46, 0.7);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* 修改 Kafka 的颜色配置 */
+.tech-tag[data-tech="Kafka"] {
+    --tag-color-start: 51, 51, 51;
+    --tag-color-end: 71, 71, 71;
+    --tag-color-text: 51, 51, 51;
+    background: linear-gradient(
+        135deg,
+        rgba(51, 51, 51, 0.15),
+        rgba(71, 71, 71, 0.25)
+    );
+    border-color: rgba(51, 51, 51, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Kafka 标签的日间模式悬停效果 */
+.tech-tag[data-tech="Kafka"]:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(51, 51, 51, 0.2),
+        rgba(71, 71, 71, 0.3)
+    );
+    border-color: rgba(51, 51, 51, 0.4);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        0 0 0 2px rgba(51, 51, 51, 0.1);
+}
+
+/* Kafka 标签的暗色主题样式 */
+body.dark-theme .tech-tag[data-tech="Kafka"] {
+    --tag-color-start: 200, 200, 200;
+    --tag-color-end: 180, 180, 180;
+    --tag-color-text: 220, 220, 220;
+    background: linear-gradient(
+        135deg,
+        rgba(180, 180, 180, 0.15),
+        rgba(200, 200, 200, 0.25)
+    );
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Kafka 标签的暗色主题悬停效果 */
+body.dark-theme .tech-tag[data-tech="Kafka"]:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(180, 180, 180, 0.25),
+        rgba(200, 200, 200, 0.35)
+    );
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        0 0 0 2px rgba(255, 255, 255, 0.1);
 }
