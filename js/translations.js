@@ -52,7 +52,7 @@ const translations = {
         projects: {
             title: "Projects",
             stockAnalysis: {
-                title: "Stock Sector Data Analysis",
+                title: "Stock Sector Data Correlation Analysis",
                 description: "A Python-based stock market data analysis tool with features including data collection, correlation analysis, and clustering analysis.",
                 feature1: "Data Collection & Preprocessing",
                 feature2: "Correlation Analysis",
@@ -120,7 +120,7 @@ const translations = {
         projects: {
             title: "项目展示",
             stockAnalysis: {
-                title: "股票板块数据分析",
+                title: "股票板块数据相关性分析",
                 description: "基于Python的股票市场数据分析工具，实现了数据采集、相关性分析和聚类分析等功能。采用模块化设计，具有高扩展性和可维护性。",
                 feature1: "数据采集与预处理",
                 feature2: "相关性分析",

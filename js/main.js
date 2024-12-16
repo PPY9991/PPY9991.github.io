@@ -688,54 +688,115 @@ const WelcomeManager = {
         this.welcomeText = document.querySelector('.welcome-text');
         if (!this.welcomeBox || !this.welcomeText) return;
 
-        // 延迟显示欢迎框
-        setTimeout(() => {
-            this.showWelcomeMessage();
-        }, 1000);
+        this.showWelcomeMessage();
     },
 
     async showWelcomeMessage() {
+        const greeting = this.getGreeting();
+        let welcomeMessage = '';
+
         try {
-            const response = await fetch('https://ipapi.co/json/', {
-                signal: AbortSignal.timeout(5000)
-            });
-            
-            const data = await response.json();
-            const greeting = this.getGreeting();
-            const location = this.formatLocation(data);
-            
-            // 设置欢迎文本
-            const welcomeMessage = this.getCurrentLang() === 'zh' 
+            // 先尝试获取位置信息，再显示欢迎框
+            const location = await this.getLocation();
+            welcomeMessage = this.getCurrentLang() === 'zh' 
                 ? `${greeting}，欢迎来自${location}的朋友`
                 : `${greeting}, welcome friend from ${location}`;
-            
-            this.welcomeText.textContent = welcomeMessage;
-            
-            // 显示欢迎框
-            this.welcomeBox.classList.remove('hide');
-            this.welcomeBox.classList.add('show');
-            
-            // 7秒后隐藏
-            setTimeout(() => {
-                this.welcomeBox.classList.remove('show');
-                this.welcomeBox.classList.add('hide');
-            }, 7000);
         } catch (error) {
-            console.error('Failed to fetch location:', error);
-            // 显示基本欢迎信息
-            const greeting = this.getGreeting();
-            const welcomeMessage = this.getCurrentLang() === 'zh' 
+            console.warn('Failed to get location:', error);
+            welcomeMessage = this.getCurrentLang() === 'zh' 
                 ? `${greeting}，欢迎访问`
                 : `${greeting}, welcome`;
+        }
+
+        // 设置文本并显示欢迎框
+        this.welcomeText.textContent = welcomeMessage;
+        this.welcomeBox.classList.remove('hide');
+        this.welcomeBox.classList.add('show');
+
+        // 7秒后隐藏
+        setTimeout(() => {
+            this.welcomeBox.classList.remove('show');
+            this.welcomeBox.classList.add('hide');
+        }, 7000);
+    },
+
+    async getLocation() {
+        // 尝试主要 API
+        try {
+            const response = await fetch('https://geoip.sb/json/', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                signal: AbortSignal.timeout(3000)
+            });
             
-            this.welcomeText.textContent = welcomeMessage;
-            this.welcomeBox.classList.remove('hide');
-            this.welcomeBox.classList.add('show');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             
-            setTimeout(() => {
-                this.welcomeBox.classList.remove('show');
-                this.welcomeBox.classList.add('hide');
-            }, 7000);
+            const data = await response.json();
+            if (this.isValidLocationData(data)) {
+                return this.formatLocation(data);
+            }
+            throw new Error('Invalid location data');
+        } catch (error) {
+            // 尝试备用 API
+            const backupResponse = await fetch('https://api.ip.sb/geoip', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                signal: AbortSignal.timeout(3000)
+            });
+
+            if (!backupResponse.ok) {
+                throw new Error('Backup API failed');
+            }
+
+            const data = await backupResponse.json();
+            if (this.isValidLocationData(data)) {
+                return this.formatLocation(data);
+            }
+            throw new Error('Invalid backup location data');
+        }
+    },
+
+    isValidLocationData(data) {
+        return data 
+            && typeof data === 'object'
+            && typeof data.country === 'string'
+            && data.country.length > 0
+            && typeof data.region === 'string'
+            && typeof data.city === 'string';
+    },
+
+    formatLocation(data) {
+        const isZh = this.getCurrentLang() === 'zh';
+        
+        try {
+            const country = data.country?.trim() || '未知国家';
+            const region = data.region?.trim() || '';
+            const city = data.city?.trim() || '';
+
+            if (isZh) {
+                const parts = [];
+                if (country && country !== '未知国家') parts.push(country);
+                if (region && region !== country) parts.push(region);
+                if (city && city !== region) parts.push(city);
+                
+                return parts.length > 0 ? parts.join('') : '未知地区';
+            } else {
+                const parts = [];
+                if (city) parts.push(city);
+                if (region && region !== city) parts.push(region);
+                if (country) parts.push(country);
+                
+                return parts.length > 0 ? parts.join(', ') : 'Unknown Location';
+            }
+        } catch (error) {
+            console.warn('Error formatting location:', error);
+            return isZh ? '未知地区' : 'Unknown Location';
         }
     },
 
@@ -749,15 +810,6 @@ const WelcomeManager = {
             return isZh ? '下午好' : 'Good afternoon';
         } else {
             return isZh ? '晚上好' : 'Good evening';
-        }
-    },
-
-    formatLocation(data) {
-        const isZh = this.getCurrentLang() === 'zh';
-        if (isZh) {
-            return `${data.country_name}${data.region}${data.city}`;
-        } else {
-            return `${data.city}, ${data.region}, ${data.country_name}`;
         }
     },
 
@@ -869,7 +921,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (link) {
             const originalHref = link.getAttribute('href');
             card.addEventListener('click', (e) => {
-                // 如果点击的是链接本身或其子元素，不做处理
+                // 如果点击的是链接本身或其子元素，不做���理
                 if (e.target.closest('.project-link') || e.target.closest('.project-title-link')) {
                     return;
                 }
