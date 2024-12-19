@@ -2,42 +2,13 @@
     --nav-height: 70px;
     --primary-color: #4f46e5;
     --accent-color: #818cf8;
-    --text-primary: #1f2937;
-    --text-secondary: #4b5563;
-    --bg-primary: #fff6f8;
-    --bg-secondary: #ffeef3;
-    --bg-card: #ffffff;
-    --bg-card-hover: #f8fafc;
-    --border-color: rgba(0, 0, 0, 0.1);
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --bg-gradient-start: #fff6f8;
-    --bg-gradient-mid: #ffeef3;
-    --bg-gradient-end: #fff0f5;
-    --text-primary: #333;
+    --text-color: #333;
     --text-secondary: #666;
-    --accent-color: #ff8fab;
+    --bg-color: #fff;
+    --bg-secondary: #f8f9fa;
+    --bg-hover: rgba(79, 70, 229, 0.1);
     --border-color: rgba(0, 0, 0, 0.1);
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --card-bg: rgba(255, 255, 255, 0.8);
-    --nav-bg: rgba(255, 255, 255, 0.9);
-    --skill-item-bg: rgba(255, 255, 255, 0.8);
-    --skill-item-border: rgba(255, 192, 203, 0.2);
-    --skill-item-shadow: rgba(0, 0, 0, 0.05);
-    --skill-item-hover-shadow: rgba(255, 182, 193, 0.2);
-    --skill-item-hover-border: rgba(255, 192, 203, 0.3);
-    --gradient-start: #eef2ff;
-    --gradient-end: #e0e7ff;
-    --card-gradient: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4));
-    --hover-gradient: linear-gradient(135deg, rgba(79,70,229,0.1), rgba(129,140,248,0.1));
-    --card-border-radius: 20px;
-    --card-shadow: 0 10px 30px -5px rgba(79,70,229,0.1);
-    --card-hover-shadow: 0 20px 40px -5px rgba(79,70,229,0.2);
-    --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --container-width: 1200px;
-    --container-padding: 1rem;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 body.dark-theme {
@@ -2043,7 +2014,7 @@ body.dark-theme .project-card {
         135deg,
         rgba(36, 43, 61, 0.95),
         rgba(26, 31, 46, 0.85)
-    ));
+    );
     border-color: rgba(255, 255, 255, 0.1);
     box-shadow: var(--project-shadow, 0 8px 32px rgba(0, 0, 0, 0.2));
 }
@@ -2300,7 +2271,7 @@ body.dark-theme .tech-tag[data-tech="Kafka"]:hover {
     text-align: center;
 }
 
-/* 有序列表样式 */
+/* 有序���表样��� */
 .resources-page ol {
     padding-left: 1.5rem;
     margin: 1rem 0;
@@ -2576,78 +2547,60 @@ body.dark-theme .concept-image {
 
 /* 左侧导航栏 */
 .side-nav {
-    position: sticky;
-    top: calc(var(--nav-height) + 2rem);
-    height: fit-content;
-    min-width: 200px;
-    background: var(--card-gradient);
-    padding: 1.5rem 1rem;
-    border-radius: 12px;
-    box-shadow: var(--card-shadow);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border-color);
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    height: calc(100vh - var(--nav-height));
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
     z-index: 2;
+    transition: all 0.3s ease;
 }
 
 .side-nav ul {
     list-style: none;
-    padding: 0;
+    padding: 2rem 0;
     margin: 0;
+}
+
+.side-nav li {
+    margin: 0.5rem 0;
 }
 
 .side-nav a {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    padding: 1rem 1.2rem;
+    padding: 0.8rem 2rem;
     color: var(--text-color);
     text-decoration: none;
-    border-radius: 8px;
     transition: all 0.3s ease;
-    font-weight: 500;
+    border-left: 2px solid transparent;
 }
 
 .side-nav a:hover,
 .side-nav a.active {
-    background: var(--primary-color);
-    color: white;
-    transform: translateX(5px);
+    color: var(--primary-color);
+    background: var(--bg-hover);
+    border-left-color: var(--primary-color);
 }
 
 .side-nav i {
-    width: 1.5rem;
-    text-align: center;
     font-size: 1.2rem;
+    color: var(--text-secondary);
 }
 
 /* 主内容区域 */
 .main-content {
     flex: 1;
-    max-width: 900px;
+    margin-left: 280px;
+    padding: 2rem 3rem;
+    max-width: calc(100% - 280px);
+    min-height: calc(100vh - var(--nav-height));
     background: var(--bg-color);
-    border-radius: 12px;
-    padding: 2rem;
-}
-
-/* 内容区块样式 */
-.content-section {
-    background: var(--card-gradient);
-    border-radius: 12px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: var(--card-shadow);
-    border: 1px solid var(--border-color);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease-out;
-    overflow: hidden;
-}
-
-.content-section.collapsed {
-    max-height: 0;
-    padding: 0;
-    margin: 0;
-    opacity: 0;
-    border: none;
 }
 
 /* 章节标题 */
@@ -2680,6 +2633,19 @@ body.dark-theme .concept-image {
     transform: rotate(-90deg);
 }
 
+/* 内容区块 */
+.content-section {
+    margin-bottom: 2rem;
+    transition: all 0.3s ease-out;
+    overflow: hidden;
+}
+
+.content-section.collapsed {
+    max-height: 0;
+    margin: 0;
+    opacity: 0;
+}
+
 /* 列表样式 */
 .content-section ul,
 .content-section ol {
@@ -2695,167 +2661,49 @@ body.dark-theme .concept-image {
 
 /* 引用块样式 */
 blockquote {
-    background: var(--bg-secondary);
     border-left: 4px solid var(--primary-color);
     padding: 1.5rem;
     margin: 1.5rem 0;
+    background: var(--bg-secondary);
     border-radius: 0 8px 8px 0;
-    font-weight: 500;
 }
 
-/* 概念图片样式 */
+/* 概念图片 */
 .concept-image-container {
-    position: relative;
     width: 60%;
     margin: 2rem auto;
-    perspective: 2000px;
-    transform-style: preserve-3d;
 }
 
 .concept-image {
     width: 100%;
     height: auto;
-    border-radius: 12px;
-    box-shadow: var(--card-shadow);
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    transform-style: preserve-3d;
-    cursor: pointer;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
 }
 
-/* 响应式调整 */
-@media (max-width: 1024px) {
-    .resources-page {
-        padding: calc(var(--nav-height) + 1rem) 1rem 1rem;
-        gap: 2rem;
-    }
-
-    .side-nav {
-        min-width: 180px;
-    }
-
-    .main-content {
-        max-width: 700px;
-    }
+/* 收缩状态下的主内容区域 */
+.side-nav.collapsed ~ .main-content {
+    margin-left: 40px;
+    max-width: calc(100% - 40px);
 }
 
+/* 在resources页面隐藏语言切换按钮 */
+.resources-body .lang-switch {
+    display: none;
+}
+
+/* 响应式布局 */
 @media (max-width: 768px) {
     .resources-page {
         flex-direction: column;
-        padding-bottom: 100px;
-    }
-
-    .side-nav {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: auto;
-        min-width: auto;
-        height: auto;
-        padding: 0.8rem;
-        z-index: 100;
-    }
-
-    .side-nav ul {
-        display: flex;
-        gap: 1rem;
-    }
-
-    .side-nav a {
-        padding: 0.8rem;
-    }
-
-    .side-nav a span {
-        display: none;
-    }
-
-    .main-content {
-        margin-top: 1rem;
-        padding: 1rem;
-    }
-
-    .concept-image-container {
-        width: 90%;
-    }
-}
-
-/* 页面主布局 */
-.resources-page {
-    display: flex;
-    padding-top: var(--nav-height);
-    min-height: 100vh;
-    position: relative;
-    z-index: 1;
-    background-color: var(--bg-color);
-}
-
-/* 左侧导航栏 */
-.side-nav {
-    position: fixed;
-    top: var(--nav-height);
-    left: 0;
-    bottom: 0;
-    width: 250px;
-    background: var(--card-gradient);
-    backdrop-filter: blur(10px);
-    border-right: 1px solid var(--border-color);
-    z-index: 2;
-    padding: 2rem 0;
-    overflow-y: auto;
-}
-
-.side-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.side-nav a {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 2rem;
-    color: var(--text-color);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.side-nav a:hover,
-.side-nav a.active {
-    background: var(--primary-color);
-    color: white;
-}
-
-.side-nav i {
-    width: 1.5rem;
-    text-align: center;
-    font-size: 1.2rem;
-}
-
-/* 主内容区域 */
-.main-content {
-    flex: 1;
-    margin-left: 250px;
-    padding: 2rem 3rem;
-}
-
-/* 响应式调整 */
-@media (max-width: 768px) {
-    .resources-page {
-        padding-top: var(--nav-height);
-        padding-bottom: 80px;
     }
 
     .side-nav {
         position: fixed;
         top: auto;
         bottom: 0;
-        left: 0;
-        right: 0;
         width: 100%;
         height: auto;
-        padding: 0.8rem;
         border-right: none;
         border-top: 1px solid var(--border-color);
     }
@@ -2863,7 +2711,7 @@ blockquote {
     .side-nav ul {
         display: flex;
         justify-content: center;
-        gap: 2rem;
+        padding: 0.5rem;
     }
 
     .side-nav a {
@@ -2876,6 +2724,11 @@ blockquote {
 
     .main-content {
         margin-left: 0;
-        padding: 1.5rem;
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    .concept-image-container {
+        width: 90%;
     }
 }

@@ -737,7 +737,7 @@ const WelcomeManager = {
         if (hour >= 5 && hour < 12) {
             return isZh ? '早上好' : 'Good morning';
         } else if (hour >= 12 && hour < 18) {
-            return isZh ? '下午��' : 'Good afternoon';
+            return isZh ? '下午好' : 'Good afternoon';
         } else {
             return isZh ? '晚上好' : 'Good evening';
         }
@@ -1103,4 +1103,47 @@ const ConceptImageManager = {
 document.addEventListener('DOMContentLoaded', () => {
     // ... 其他初始化
     ConceptImageManager.init();
+});
+
+// 导航栏收缩功能
+function initNavToggle() {
+    const navToggle = document.querySelector('.nav-toggle');
+    const sideNav = document.querySelector('.side-nav');
+    
+    if (!navToggle || !sideNav) return;
+
+    // 从localStorage获取之前的状态
+    const isCollapsed = localStorage.getItem('navCollapsed') === 'true';
+    if (isCollapsed) {
+        sideNav.classList.add('collapsed');
+        navToggle.setAttribute('data-tooltip', '展开侧栏');
+    }
+
+    navToggle.addEventListener('click', () => {
+        sideNav.classList.toggle('collapsed');
+        const isNowCollapsed = sideNav.classList.contains('collapsed');
+        // 更新提示文本
+        navToggle.setAttribute('data-tooltip', isNowCollapsed ? '展开侧栏' : '收起侧栏');
+        // 保存状态到localStorage
+        localStorage.setItem('navCollapsed', isNowCollapsed);
+    });
+
+    // 添加hover效果
+    sideNav.addEventListener('mouseenter', () => {
+        if (sideNav.classList.contains('collapsed')) {
+            navToggle.style.opacity = '1';
+        }
+    });
+
+    sideNav.addEventListener('mouseleave', () => {
+        if (sideNav.classList.contains('collapsed')) {
+            navToggle.style.opacity = '0.6';
+        }
+    });
+}
+
+// 在初始化部分添加
+document.addEventListener('DOMContentLoaded', () => {
+    // ... 其他初始化
+    initNavToggle();
 }); 

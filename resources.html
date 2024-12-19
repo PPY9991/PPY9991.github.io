@@ -15,7 +15,7 @@
     <link rel="preload" href="js/main.js" as="script">
     <link rel="preload" href="js/translations.js" as="script">
 </head>
-<body>
+<body class="resources-body">
     <!-- 星空背景 -->
     <div class="galaxy-background">
         <div class="stars"></div>
@@ -66,6 +66,9 @@
     <main class="resources-page">
         <!-- 左侧导航栏 -->
         <nav class="side-nav">
+            <button class="nav-toggle" aria-label="Toggle navigation" data-tooltip="收起侧栏">
+                <img src="images/Collapse.png" alt="收起" />
+            </button>
             <ul>
                 <li>
                     <a href="#" class="active">
@@ -92,7 +95,7 @@
                 数据分析概述
             </h2>
             <div class="content-section">
-                <p>当今世界对信息技术的依赖程度在不断加深，每天都会有大量的数据产生，我们经常会感到数据越来越多，但是要从中发现有价值的信息却越来越难。这里所说的信息，可以理解为对数据集处理之后的结果，是从数据集中提炼出的可用于其他场合的结论性的东西，而<strong>从原始数据中抽取出有价值的信息</strong>的这个过程我们就称之为<strong>数据分析</strong>，它是数据科学工作的一部分。</p>
+                <p>当今世界对信息技术的依赖程度在不断加深，每天都会有大量的数据产生，我们经常会感到数据越来越多，但是要从中发现有价值的信息却越来越难。这里所说的信息，可以理解为对数据集处理之后的结果，是从数据集中提炼出的可用于其他场合的结论性的东西�����而<strong>从原始数据中抽取出有价值的信息</strong>的这个过程我们就称之为<strong>数据分析</strong>，它是数据科学工作的一部分。</p>
                 
                 <div class="concept-image-container">
                     <img src="images/data_science.png" alt="数据科学图示" class="concept-image">
@@ -116,7 +119,7 @@
                     <li>负责相关报表的输出</li>
                     <li>建立和优化指标体系</li>
                     <li>监控数据波动和异常，找出问题</li>
-                    <li>优化和驱动业务，推动数字化运营</li>
+                    <li>优化和驱动业��，推动数字化运营</li>
                     <li>找出潜在的市场和产品的上升空间</li>
                 </ol>
 
@@ -142,7 +145,7 @@
                 <ol>
                     <li>确定目标（输入）：理解业务，确定指标口径</li>
                     <li>获取数据：数据仓库（SQL提数）、电子表格、三方接口、网络爬虫、开放数据集等</li>
-                    <li>清洗数据：包括对缺失值、重复值、异常值的处理以及相关的预处理</li>
+                    <li>清洗数据：����括对缺失值、重复值、异常值的处理以及相关的预处理</li>
                     <li>数据透视：排序、统计、分组聚合、交叉表、透视表等</li>
                     <li>数据呈现（输出）：数据可视化，发布工作成果</li>
                     <li>分析洞察（后续）：解释数据的变化，提出对应的方案</li>
@@ -178,7 +181,7 @@
                     <li>
                         <a href="https://pandas.pydata.org/" target="_blank" rel="noopener">
                             <i class="fas fa-table"></i>
-                            <span>Pandas：处理表格和时间序列数据的核心工具</span>
+                            <span>Pandas：处理表格和时间��列数据的核心工具</span>
                         </a>
                     </li>
                     <li>
