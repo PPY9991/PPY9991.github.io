@@ -74,10 +74,18 @@ const LanguageManager = {
             const key = element.getAttribute('data-i18n');
             const translation = this.getNestedTranslation(translations[this.currentLang], key);
             if (translation) {
-                if (element.tagName.toLowerCase() === 'meta') {
-                    element.setAttribute('content', translation);
+                if (typeof translation === 'object' && translation[this.currentLang]) {
+                    if (element.tagName.toLowerCase() === 'meta') {
+                        element.setAttribute('content', translation[this.currentLang]);
+                    } else {
+                        element.textContent = translation[this.currentLang];
+                    }
                 } else {
-                    element.textContent = translation;
+                    if (element.tagName.toLowerCase() === 'meta') {
+                        element.setAttribute('content', translation);
+                    } else {
+                        element.textContent = translation;
+                    }
                 }
             }
         });
@@ -688,112 +696,37 @@ const WelcomeManager = {
         this.welcomeText = document.querySelector('.welcome-text');
         if (!this.welcomeBox || !this.welcomeText) return;
 
-        // 设置初始欢迎消息
-        const greeting = this.getGreeting();
-        const initialMessage = this.getCurrentLang() === 'zh' 
-            ? `${greeting}，欢迎访问` 
-            : `${greeting}, welcome`;
-        this.welcomeText.textContent = initialMessage;
-
-        // 获取位置信息并更新欢迎消息
         this.getLocationAndShow();
     },
 
     async getLocationAndShow() {
         try {
-            // 创建一个 Promise 竞赛
-            const locationData = await Promise.race([
-                this.getPrimaryLocation(),
-                this.getBackupLocation(),
-                new Promise((_, reject) => 
-                    setTimeout(() => reject(new Error('Timeout')), 10000)
-                )
-            ]);
-
-            if (locationData && this.isValidLocationData(locationData)) {
-                const location = this.formatLocation(locationData);
-                const greeting = this.getGreeting();
-                const welcomeMessage = this.getCurrentLang() === 'zh'
-                    ? `${greeting}，欢迎来自${location}的朋友`
-                    : `${greeting}, welcome friend from ${location}`;
-
-                // 显示欢迎框
-                this.welcomeText.textContent = welcomeMessage;
-                this.welcomeBox.classList.add('show');
-
-                // 8秒后隐藏
-                setTimeout(() => {
-                    this.welcomeBox.classList.remove('show');
-                }, 8000);
+            const response = await fetch('https://ip.useragentinfo.com/json');
+            if (!response.ok) throw new Error('Failed to get location');
+            
+            const data = await response.json();
+            if (!data || (!data.country && !data.region && !data.city)) {
+                throw new Error('No location data available');
             }
+
+            const location = this.formatLocation(data);
+            const greeting = this.getGreeting();
+            
+            const welcomeMessage = this.getCurrentLang() === 'zh'
+                ? `${greeting}，欢迎来自${location}的朋友`
+                : `${greeting}, welcome friend from ${location}`;
+            
+            this.welcomeText.textContent = welcomeMessage;
+            
+            // 显示欢迎框
+            this.welcomeBox.classList.add('show');
+
+            setTimeout(() => {
+                this.welcomeBox.classList.remove('show');
+            }, 8000);
+
         } catch (error) {
             console.warn('Failed to get location:', error);
-            // 如果获取位置失败，不显示欢迎框
-            this.cleanup();
-        }
-    },
-
-    async getPrimaryLocation() {
-        const response = await fetch('https://geoip.sb/json/', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-        
-        if (!response.ok) {
-            throw new Error('Primary API failed');
-        }
-        
-        return response.json();
-    },
-
-    async getBackupLocation() {
-        const response = await fetch('https://api.ip.sb/geoip', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-        
-        if (!response.ok) {
-            throw new Error('Backup API failed');
-        }
-        
-        return response.json();
-    },
-
-    isValidLocationData(data) {
-        return data 
-            && typeof data === 'object'
-            && typeof data.country === 'string'
-            && data.country.length > 0
-            && typeof data.region === 'string'
-            && typeof data.city === 'string';
-    },
-
-    formatLocation(data) {
-        const isZh = this.getCurrentLang() === 'zh';
-        
-        try {
-            if (isZh) {
-                const parts = [];
-                if (data.country) parts.push(data.country.trim());
-                if (data.region && data.region !== data.country) parts.push(data.region.trim());
-                if (data.city && data.city !== data.region) parts.push(data.city.trim());
-                
-                return parts.length > 0 ? parts.join('') : '未知地区';
-            } else {
-                const parts = [];
-                if (data.city) parts.push(data.city.trim());
-                if (data.region && data.region !== data.city) parts.push(data.region.trim());
-                if (data.country) parts.push(data.country.trim());
-                
-                return parts.length > 0 ? parts.join(', ') : 'Unknown Location';
-            }
-        } catch (error) {
-            console.warn('Error formatting location:', error);
-            return isZh ? '未知地区' : 'Unknown Location';
         }
     },
 
@@ -804,7 +737,7 @@ const WelcomeManager = {
         if (hour >= 5 && hour < 12) {
             return isZh ? '早上好' : 'Good morning';
         } else if (hour >= 12 && hour < 18) {
-            return isZh ? '下午好' : 'Good afternoon';
+            return isZh ? '下午��' : 'Good afternoon';
         } else {
             return isZh ? '晚上好' : 'Good evening';
         }
@@ -814,9 +747,106 @@ const WelcomeManager = {
         return document.documentElement.getAttribute('lang') || 'en';
     },
 
-    cleanup() {
-        if (this.welcomeBox) {
-            this.welcomeBox.classList.remove('show');
+    formatLocation(data) {
+        const isZh = this.getCurrentLang() === 'zh';
+        try {
+            // 扩展地点名称映射
+            const zhLocationMap = {
+                country: {
+                    'China': '中国',
+                    'United States': '美国',
+                    'Japan': '日本',
+                    'Korea': '韩国',
+                    'United Kingdom': '英国',
+                    'Germany': '德国',
+                    'France': '法国',
+                    'Russia': '俄罗斯',
+                    'Canada': '加拿大',
+                    'Australia': '澳大利亚'
+                },
+                region: {
+                    // 直辖市
+                    'Beijing': '北京市',
+                    'Shanghai': '上海市',
+                    'Tianjin': '天津市',
+                    'Chongqing': '重庆市',
+                    // 省份
+                    'Guangdong': '广东省',
+                    'Zhejiang': '浙江省',
+                    'Jiangsu': '江苏省',
+                    'Fujian': '福建省',
+                    'Shandong': '山东省',
+                    'Hubei': '湖北省',
+                    'Hunan': '湖南省',
+                    'Henan': '河南省',
+                    'Hebei': '河北省',
+                    'Sichuan': '四川省',
+                    'Shanxi': '山西省',
+                    'Shaanxi': '陕西省',
+                    'Yunnan': '云南省',
+                    'Guizhou': '贵州省',
+                    'Jiangxi': '江西省',
+                    'Anhui': '安徽省',
+                    'Liaoning': '辽宁省',
+                    'Jilin': '吉林省',
+                    'Heilongjiang': '黑龙江省',
+                    'Hainan': '海南省',
+                    'Gansu': '甘肃省',
+                    'Qinghai': '青海省',
+                    // 自治区
+                    'Guangxi': '广西壮族自治区',
+                    'Inner Mongolia': '内蒙古自治区',
+                    'Tibet': '西藏自治区',
+                    'Ningxia': '宁夏回族自治区',
+                    'Xinjiang': '新疆维吾尔自治区',
+                    // 特别行政区
+                    'Hong Kong': '香港特别行政区',
+                    'Macau': '澳门特别行政区',
+                    'Taiwan': '台湾省'
+                }
+            };
+
+            if (isZh) {
+                // 中文模式
+                let location = '';
+                if (data.country) {
+                    location += zhLocationMap.country[data.country] || data.country;
+                }
+                if (data.region) {
+                    location += zhLocationMap.region[data.region] || data.region;
+                }
+                if (data.city) {
+                    // 对直辖市做特殊处理
+                    if (['北京市', '上海市', '天津市', '重庆市'].includes(zhLocationMap.region[data.region])) {
+                        location = zhLocationMap.region[data.region];
+                    } else {
+                        location += data.city;
+                    }
+                }
+                return location || '互联网';
+            } else {
+                // 英文模式
+                const parts = [];
+                
+                // 处理城市名称
+                if (data.city_en || data.city) {
+                    parts.push(data.city_en || data.city);
+                }
+                
+                // 处理地区名称
+                if (data.region_en || data.region) {
+                    parts.push(data.region_en || data.region);
+                }
+                
+                // 处理国家名称
+                if (data.country_en || data.country) {
+                    parts.push(data.country_en || data.country);
+                }
+                
+                return parts.length > 0 ? parts.join(', ') : 'the Internet';
+            }
+        } catch (error) {
+            return isZh ? '互联网' : 'the Internet';
         }
     }
 };
@@ -917,13 +947,160 @@ document.addEventListener('DOMContentLoaded', function() {
         if (link) {
             const originalHref = link.getAttribute('href');
             card.addEventListener('click', (e) => {
-                // 如果点击的是链接本身或其子元素，不做理
+                // 如果点击的是链接本身其子元素，不做理
                 if (e.target.closest('.project-link') || e.target.closest('.project-title-link')) {
                     return;
                 }
-                // 否则整个卡片可点击
+                // 否则整个卡片可点
                 window.open(originalHref, '_blank');
             });
         }
     });
+});
+
+// 添加折叠功能
+document.addEventListener('DOMContentLoaded', function() {
+    // 为所有可折叠标题添加点击事件
+    document.querySelectorAll('.section-subtitle.collapsible').forEach(title => {
+        const btn = title.querySelector('.collapse-btn');
+        const content = title.nextElementSibling;
+        
+        title.addEventListener('click', function(e) {
+            // 如果点击的是按钮本身，阻止事件冒泡
+            if (e.target.closest('.collapse-btn')) {
+                return;
+            }
+            toggleSection(btn, content);
+        });
+
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleSection(btn, content);
+        });
+    });
+
+    function toggleSection(btn, content) {
+        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', !isExpanded);
+        content.classList.toggle('collapsed');
+    }
+});
+
+// 概念图片3D效果管理
+const ConceptImageManager = {
+    config: {
+        perspective: 1000,
+        maxTilt: 10,
+        scale: 1.05,
+        transitionDuration: 400,
+        easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
+        throttleInterval: 16
+    },
+
+    init() {
+        this.images = document.querySelectorAll('.concept-image');
+        if (!this.images.length) return;
+
+        this.images.forEach(image => {
+            // 创建容器并包裹图片
+            const container = document.createElement('div');
+            container.className = 'concept-image-container';
+            image.parentNode.insertBefore(container, image);
+            container.appendChild(image);
+
+            // 初始化事件监听
+            this.initializeEvents(container, image);
+        });
+    },
+
+    initializeEvents(container, image) {
+        let rect = container.getBoundingClientRect();
+        let isHovering = false;
+        let lastUpdate = 0;
+
+        const updateRect = () => {
+            rect = container.getBoundingClientRect();
+        };
+
+        const handleMouseEnter = (e) => {
+            isHovering = true;
+            updateRect();
+            const { tiltX, tiltY, distance } = this.calculateTilt(e, rect);
+            this.applyTransform(image, tiltX, tiltY, distance);
+        };
+
+        const handleMouseMove = (e) => {
+            if (!isHovering) return;
+            
+            const now = Date.now();
+            if (now - lastUpdate >= this.config.throttleInterval) {
+                lastUpdate = now;
+                updateRect();
+                const { tiltX, tiltY, distance } = this.calculateTilt(e, rect);
+                this.applyTransform(image, tiltX, tiltY, distance);
+            }
+        };
+
+        const handleMouseLeave = () => {
+            isHovering = false;
+            this.resetTransform(image);
+        };
+
+        container.addEventListener('mouseenter', handleMouseEnter);
+        container.addEventListener('mousemove', handleMouseMove);
+        container.addEventListener('mouseleave', handleMouseLeave);
+        window.addEventListener('resize', updateRect);
+    },
+
+    calculateTilt(e, rect) {
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        const relativeX = (mouseX - centerX) / (rect.width / 2);
+        const relativeY = (mouseY - centerY) / (rect.height / 2);
+        
+        const distance = Math.sqrt(relativeX * relativeX + relativeY * relativeY);
+        const tiltX = -relativeY * this.config.maxTilt;
+        const tiltY = relativeX * this.config.maxTilt;
+
+        return { tiltX, tiltY, distance };
+    },
+
+    applyTransform(image, tiltX, tiltY, distance) {
+        const scale = 1 + Math.min(distance * 0.05, 0.05);
+        const translateZ = 50 - distance * 20;
+        
+        image.style.transform = `
+            perspective(${this.config.perspective}px)
+            rotateX(${tiltX}deg)
+            rotateY(${tiltY}deg)
+            translateZ(${translateZ}px)
+            scale3d(${scale}, ${scale}, ${scale})
+        `;
+        
+        // 更新阴影效果
+        const shadowBlur = 20 + distance * 10;
+        const shadowOffset = 5 + distance * 5;
+        image.style.boxShadow = `
+            ${tiltY * 2}px 
+            ${tiltX * 2}px 
+            ${shadowBlur}px rgba(0, 0, 0, 0.2),
+            ${tiltY}px 
+            ${tiltX}px 
+            ${shadowOffset}px rgba(0, 0, 0, 0.1)
+        `;
+    },
+
+    resetTransform(image) {
+        image.style.transform = 'perspective(2000px) rotateX(0) rotateY(0) translateZ(0) scale3d(1, 1, 1)';
+        image.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+    }
+};
+
+// 在初始化部分添加
+document.addEventListener('DOMContentLoaded', () => {
+    // ... 其他初始化
+    ConceptImageManager.init();
 }); 

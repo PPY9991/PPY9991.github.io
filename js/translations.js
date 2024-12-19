@@ -4,7 +4,8 @@ const translations = {
             home: "Home",
             skills: "Skills",
             projects: "Projects",
-            contact: "Contact"
+            contact: "Contact",
+            resources: "Resources"
         },
         hero: {
             greeting: "Hi, I'm PPY",
@@ -52,18 +53,126 @@ const translations = {
         projects: {
             title: "Projects",
             stockAnalysis: {
-                title: "Stock Sector Data Correlation Analysis",
-                description: "A Python-based stock market data analysis tool with features including data collection, correlation analysis, and clustering analysis.",
-                feature1: "Data Collection & Preprocessing",
-                feature2: "Correlation Analysis",
-                feature3: "Clustering Analysis"
+                title: {
+                    en: "Stock Sector Data Correlation Analysis",
+                    zh: "股票板块数据相关性分析"
+                },
+                description: {
+                    en: "A Python-based stock market data analysis tool with features including data collection, correlation analysis, and clustering analysis.",
+                    zh: "基于Python的股票市场数据分析工具，实现了数据采集、相关性分析和聚类分析等功能。采用模块化设计，具有高扩展性和可维护性。"
+                },
+                feature1: {
+                    en: "Data Collection & Preprocessing",
+                    zh: "数据采集与预处理"
+                },
+                feature2: {
+                    en: "Correlation Analysis",
+                    zh: "相关性分析"
+                },
+                feature3: {
+                    en: "Clustering Analysis",
+                    zh: "聚类分析"
+                }
             },
             ecommerce: {
-                title: "Distributed E-commerce Order Management System",
-                description: "Developed and optimized a highly available distributed order management system supporting complete order lifecycle. Processing 50k+ daily orders .",
-                feature1: "Distributed Architecture",
-                feature2: "Distributed Transaction",
-                feature3: "High Performance"
+                title: {
+                    en: "Distributed E-commerce Order Management System",
+                    zh: "分布式电商订单管理系统"
+                },
+                description: {
+                    en: "Developed and optimized a highly available distributed order management system supporting complete order lifecycle. Processing 50k+ daily orders.",
+                    zh: "开发并优化高可用分布式订单管理系统，支持订单创建、支付、库存管理等完整流程。系统日订单处理量5万+。"
+                },
+                feature1: {
+                    en: "Distributed Architecture",
+                    zh: "分布式架构设计"
+                },
+                feature2: {
+                    en: "Distributed Transaction",
+                    zh: "分布式事务处理"
+                },
+                feature3: {
+                    en: "High Performance",
+                    zh: "高性能优化"
+                }
+            },
+            pythonTools: {
+                title: {
+                    en: "Python Utility Tools",
+                    zh: "Python 实用工具集"
+                },
+                description: {
+                    en: "Developed a series of Python utility tools, including batch file renaming, PDF processing tools, image compression tools, etc. Adopts modular design with good extensibility.",
+                    zh: "开发了一系列Python实用工具，包括文件批量重命名、PDF处理工具、图片压缩工具等。采用模块化设计，具有良好的可扩展性。"
+                },
+                feature1: {
+                    en: "File Processing Tools",
+                    zh: "文件处理工具"
+                },
+                feature2: {
+                    en: "PDF Tools",
+                    zh: "PDF工具"
+                },
+                feature3: {
+                    en: "Image Processing Tools",
+                    zh: "图片处理工具"
+                }
+            },
+            iwrite: {
+                title: {
+                    en: "Iwrite - GRE Essay Grading System",
+                    zh: "慧作文Iwrite - 考研英语判卷系统"
+                },
+                description: {
+                    en: "An AI-powered WeChat Mini Program for automatic GRE essay grading. Features include handwritten/digital essay recognition, intelligent scoring, and correction suggestions. Built with a microservice architecture, integrating multiple AI services for efficient and accurate essay evaluation.",
+                    zh: "基于AI技术的考研英语作文自动评分小程序。支持手写/电子版作文识别、智能评分、批改建议生成等功能。采用前后端分离架构，整合多个AI服务接口，实现高效准确的作文评估。"
+                },
+                feature1: {
+                    en: "AI Scoring",
+                    zh: "AI智能评分"
+                },
+                feature2: {
+                    en: "OCR Recognition",
+                    zh: "OCR字迹识别"
+                },
+                feature3: {
+                    en: "History Tracking",
+                    zh: "历史记录追踪"
+                }
+            }
+        },
+        resources: {
+            title: "Learning Resources",
+            dataAnalyst: {
+                title: "Data Analyst Career Guide",
+                responsibilities: "Responsibilities and Skill Stack"
+            },
+            analysisProcess: {
+                title: "Data Analysis Process",
+                basic: {
+                    title: "Basic Data Analysis"
+                },
+                advanced: {
+                    title: "Advanced Data Mining"
+                }
+            },
+            learningLinks: {
+                title: {
+                    en: "Learning Resources",
+                    zh: "优秀学习资源"
+                },
+                python: {
+                    en: "Python Learning",
+                    zh: "Python 学习"
+                },
+                dataAnalysis: {
+                    en: "Data Analysis Tools",
+                    zh: "数据分析工具"
+                },
+                visualization: {
+                    en: "Data Visualization",
+                    zh: "数据可视化"
+                }
             }
         }
     },
@@ -72,7 +181,8 @@ const translations = {
             home: "首页",
             skills: "技能",
             projects: "项目",
-            contact: "联系"
+            contact: "联系",
+            resources: "学习资源"
         },
         hero: {
             greeting: "你好，我是 PPY",
@@ -120,18 +230,126 @@ const translations = {
         projects: {
             title: "项目展示",
             stockAnalysis: {
-                title: "股票板块数据相关性分析",
-                description: "基于Python的股票市场数据分析工具，实现了数据采集、相关性分析和聚类分析等功能。采用模块化设计，具有高扩展性和可维护性。",
-                feature1: "数据采集与预处理",
-                feature2: "相关性分析",
-                feature3: "聚类分析"
+                title: {
+                    en: "Stock Sector Data Correlation Analysis",
+                    zh: "股票板块数据相关性分析"
+                },
+                description: {
+                    en: "A Python-based stock market data analysis tool with features including data collection, correlation analysis, and clustering analysis.",
+                    zh: "基于Python的股票市场数据分析工具，实现了数据采集、相关性分析和聚类分析等功能。采用模块化设计，具有高扩展性和可维护性。"
+                },
+                feature1: {
+                    en: "Data Collection & Preprocessing",
+                    zh: "数据采集与预处理"
+                },
+                feature2: {
+                    en: "Correlation Analysis",
+                    zh: "相关性分析"
+                },
+                feature3: {
+                    en: "Clustering Analysis",
+                    zh: "聚类分析"
+                }
             },
             ecommerce: {
-                title: "分布式电商订单管理系统",
-                description: "开发并优化高可用分布式订单管理系统，支持订单创建、支付、库存管理等完整流程。系统日订单处理量5万+。",
-                feature1: "分布式架构设计",
-                feature2: "分布式事务处理",
-                feature3: "高性能优化"
+                title: {
+                    en: "Distributed E-commerce Order Management System",
+                    zh: "分布式电商订单管理系统"
+                },
+                description: {
+                    en: "Developed and optimized a highly available distributed order management system supporting complete order lifecycle. Processing 50k+ daily orders.",
+                    zh: "开发并优化高可用分布式订单管理系统，支持订单创建、支付、库存管理等完整流程。系统日订单处理量5万+。"
+                },
+                feature1: {
+                    en: "Distributed Architecture",
+                    zh: "分布式架构设计"
+                },
+                feature2: {
+                    en: "Distributed Transaction",
+                    zh: "分布式事务处理"
+                },
+                feature3: {
+                    en: "High Performance",
+                    zh: "高性能优化"
+                }
+            },
+            pythonTools: {
+                title: {
+                    en: "Python Utility Tools",
+                    zh: "Python 实用工具集"
+                },
+                description: {
+                    en: "Developed a series of Python utility tools, including batch file renaming, PDF processing tools, image compression tools, etc. Adopts modular design with good extensibility.",
+                    zh: "开发了一系列Python实用工具，包括文件批量重命名、PDF处理工具、图片压缩工具等。采用模块化设计，具有良好的可扩展性。"
+                },
+                feature1: {
+                    en: "File Processing Tools",
+                    zh: "文件处理工具"
+                },
+                feature2: {
+                    en: "PDF Tools",
+                    zh: "PDF工具"
+                },
+                feature3: {
+                    en: "Image Processing Tools",
+                    zh: "图片处理工具"
+                }
+            },
+            iwrite: {
+                title: {
+                    en: "Iwrite - GRE Essay Grading System",
+                    zh: "慧作文Iwrite - 考研英语判卷系统"
+                },
+                description: {
+                    en: "An AI-powered WeChat Mini Program for automatic GRE essay grading. Features include handwritten/digital essay recognition, intelligent scoring, and correction suggestions. Built with a microservice architecture, integrating multiple AI services for efficient and accurate essay evaluation.",
+                    zh: "基于AI技术的考研英语作文自动评分小程序。支持手写/电子版作文识别、智能评分、批改建议生成等功能。采用前后端分离架构，整合多个AI服务接口，实现高效准确的作文评估。"
+                },
+                feature1: {
+                    en: "AI Scoring",
+                    zh: "AI智能评分"
+                },
+                feature2: {
+                    en: "OCR Recognition",
+                    zh: "OCR字迹识别"
+                },
+                feature3: {
+                    en: "History Tracking",
+                    zh: "历史记录追踪"
+                }
+            }
+        },
+        resources: {
+            title: "学习资源",
+            dataAnalyst: {
+                title: "数据分析师职业指南",
+                responsibilities: "职责和技能栈"
+            },
+            analysisProcess: {
+                title: "数据分析流程",
+                basic: {
+                    title: "基础数据分析"
+                },
+                advanced: {
+                    title: "深入数据挖掘"
+                }
+            },
+            learningLinks: {
+                title: {
+                    en: "Learning Resources",
+                    zh: "优秀学习资源"
+                },
+                python: {
+                    en: "Python Learning",
+                    zh: "Python 学习"
+                },
+                dataAnalysis: {
+                    en: "Data Analysis Tools",
+                    zh: "数据分析工具"
+                },
+                visualization: {
+                    en: "Data Visualization",
+                    zh: "数据可视化"
+                }
             }
         }
     }

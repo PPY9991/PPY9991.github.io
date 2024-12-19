@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习资源 - PPY's Blog</title>
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="images/favcion.png">
+    <!-- 外部资源引入 -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="js/main.js" as="script">
+    <link rel="preload" href="js/translations.js" as="script">
+</head>
+<body>
+    <!-- 星空背景 -->
+    <div class="galaxy-background">
+        <div class="stars"></div>
+        <div class="stars"></div>
+        <div class="stars"></div>
+        <div class="shooting-stars"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <!-- 左侧区域：Logo -->
+            <div class="nav-left">
+                <div class="nav-logo">PPY9991</div>
+            </div>
+
+            <!-- 中间区域：导航链接 -->
+            <div class="nav-center">
+                <div class="nav-links">
+                    <a href="index.html#home" data-i18n="nav.home">Home</a>
+                    <a href="index.html#skills" data-i18n="nav.skills">Skills</a>
+                    <a href="index.html#projects" data-i18n="nav.projects">Projects</a>
+                    <a href="resources.html" data-i18n="nav.resources" class="active">Resources</a>
+                </div>
+            </div>
+
+            <!-- 右侧区域：功能按钮 -->
+            <div class="nav-right">
+                <div class="lang-switch">
+                    <div class="switch-container">
+                        <input type="checkbox" id="lang-toggle" class="lang-toggle">
+                        <label for="lang-toggle" class="switch-label">
+                            <span class="switch-en">EN</span>
+                            <span class="switch-zh">中</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="theme-toggle-wrapper">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="resources-page">
+        <br><br>
+        <h1 class="section-title" data-i18n="resources.title">学习资源</h1>
+
+        <!-- 数据分析概述 -->
+        <h2 class="section-subtitle collapsible">
+            <button class="collapse-btn" aria-expanded="true">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            数据分析概述
+        </h2>
+        <div class="content-section">
+            <p>当今世界对信息技术的依赖程度在不断加深，每天都会有大量的数据产生，我们经常会感到数据越来越多，但是要从中发现有价值的信息却越来越难。这里所说的信息，可以理解为对数据集处理之后的结果，是从数据集中提炼出的可用于其他场合的结论性的东西，而<strong>从原始数据中抽取出有价值的信息</strong>的这个过程我们就称之为<strong>数据分析</strong>，它是数据科学工作的一部分。</p>
+            
+            <div class="concept-image-container">
+                <img src="images/data_science.png" alt="数据科学图示" class="concept-image">
+            </div>
+            
+            <blockquote>
+                <strong>数据分析是有针对性的收集、加工、整理数据并采用统计、挖掘等技术对数据进行探索、分析、呈现和解释的科学</strong>。
+            </blockquote>
+        </div>
+
+        <!-- 数据分析师职责和技能栈 -->
+        <h2 class="section-subtitle collapsible">
+            <button class="collapse-btn" aria-expanded="true">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            数据分析师的职责和技能栈
+        </h2>
+        <div class="content-section">
+            <h3>主要职责</h3>
+            <ol>
+                <li>负责相关报表的输出</li>
+                <li>建立和优化指标体系</li>
+                <li>监控数据波动和异常，找出问题</li>
+                <li>优化和驱动业务，推动数字化运营</li>
+                <li>找出潜在的市场和产品的上升空间</li>
+            </ol>
+
+            <h3>核心技能</h3>
+            <ul class="skill-list">
+                <li>计算机科学（数据分析工具、编程语言、数据库）</li>
+                <li>数学和统计学（数据思维、统计思维）</li>
+                <li>人工智能（机器学习中的数据挖掘算法）</li>
+                <li>业务理解能力（沟通、表达、经验）</li>
+                <li>总结和表述能力（商业PPT、文字总结）</li>
+            </ul>
+        </div>
+
+        <!-- 数据分析流程 -->
+        <h2 class="section-subtitle collapsible">
+            <button class="collapse-btn" aria-expanded="true">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            数据分析流程
+        </h2>
+        <div class="content-section">
+            <h3>基础数据分析</h3>
+            <ol>
+                <li>确定目标（输入）：理解业务，确定指标口径</li>
+                <li>获取数据：数据仓库（SQL提数）、电子表格、三方接口、网络爬虫、开放数据集等</li>
+                <li>清洗数据：包括对缺失值、重复值、异常值的处理以及相关的预处理</li>
+                <li>数据透视：排序、统计、分组聚合、交叉表、透视表等</li>
+                <li>数据呈现（输出）：数据可视化，发布工作成果</li>
+                <li>分析洞察（后续）：解释数据的变化，提出对应的方案</li>
+            </ol>
+
+            <h3>深入数据挖掘</h3>
+            <ol>
+                <li>确定目标（输入）：理解业务，明确挖掘目标</li>
+                <li>数据准备：数据采集、数据描述、数据探索、质量判断等</li>
+                <li>数据加工：提取数据、清洗数据、数据变换、特殊编码、降维、特征选择等</li>
+                <li>数据建模：模型比较、模型选择、算法应用</li>
+                <li>模型评估：交叉检验、参数调优、结果评价</li>
+                <li>模型部署（输出）：模型落地、业务改进、运营监控、报告撰写</li>
+            </ol>
+        </div>
+
+        <!-- 数据分析工具 -->
+        <h2 class="section-subtitle collapsible">
+            <button class="collapse-btn" aria-expanded="true">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            数据分析相关库
+        </h2>
+        <div class="content-section">
+            <h3>主要工具库</h3>
+            <ul class="link-list">
+                <li>
+                    <a href="https://numpy.org/" target="_blank" rel="noopener">
+                        <i class="fas fa-calculator"></i>
+                        <span>NumPy：支持常见的数组和矩阵操作，提供并行运算功能</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://pandas.pydata.org/" target="_blank" rel="noopener">
+                        <i class="fas fa-table"></i>
+                        <span>Pandas：处理表格和时间序列数据的核心工具</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://matplotlib.org/" target="_blank" rel="noopener">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Matplotlib：创建高质量数据可视化图表</span>
+                    </a>
+                </li>
+            </ul>
+
+            <h3>其他重要工具库</h3>
+            <ul class="link-list">
+                <li>
+                    <a href="https://scipy.org/" target="_blank" rel="noopener">
+                        <i class="fas fa-square-root-alt"></i>
+                        <span>SciPy：科学计算工具库</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://seaborn.pydata.org/" target="_blank" rel="noopener">
+                        <i class="fas fa-palette"></i>
+                        <span>Seaborn：统计数据可视化工具</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://scikit-learn.org/" target="_blank" rel="noopener">
+                        <i class="fas fa-brain"></i>
+                        <span>Scikit-learn：机器学习工具库</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.statsmodels.org/" target="_blank" rel="noopener">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Statsmodels：统计建模和计量经济学</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript文件 -->
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html> 
+</html> 
