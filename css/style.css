@@ -2475,8 +2475,37 @@ body.dark-theme .welcome-box {
     cursor: pointer;
 }
 
+<<<<<<< Updated upstream
 .collapse-btn {
     background: none;
+=======
+.project-link.github-link .fa-github {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 42px; /* 初始宽度仅显示图标 */
+}
+
+/* GitHub链接悬停效果 */
+.project-link.github-link:hover {
+    background: var(--bg-card-hover);
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+    border-color: rgba(79, 70, 229, 0.2);
+}
+
+.project-link.github-link:hover .fa-github {
+    transform: scale(1.1);
+    color: var(--primary-color);
+}
+
+/* 微信图标样式 */
+.project-link.wechat-container {
+    background: transparent;
+    cursor: default;
+>>>>>>> Stashed changes
     border: none;
     padding: 0.5rem;
     cursor: pointer;
